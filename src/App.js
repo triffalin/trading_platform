@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import BotManager from './components/BotManager';
-import TradeVisualizer from './components/TradeVisualizer';
 
 function App() {
   return (
