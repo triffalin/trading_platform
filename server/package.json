@@ -1,6 +1,6 @@
 {
   "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "nodemon /node server.js"
+    "start": "nodemon node server.js"
   }
 }
