@@ -1,17 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import BotManager from './components/BotManager';
+import Header from './components/Header.js';
+import HomePage from './components/HomePage.js';
+import Footer from './components/Footer.js';
+import './App.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/bots" element={<BotManager />} />
-        {/* Update other routes similarly */}
-      </Routes>
-    </Router>
+    <>
+      <Header />
+      <main>
+        <HomePage />
+      </main>
+      <Footer />
+    </>
   );
 }
 
