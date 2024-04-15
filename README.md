@@ -67,7 +67,7 @@ This will build the project for production to the `build` folder. Your app is re
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/triffalin/trading_platform/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/triffalin/trading_platform/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -81,7 +81,7 @@ See also the list of [contributors](https://github.com/triffalin/trading_platfor
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/triffalin/trading_platform/blob/main/LICENSE.md) file for details
 
 ## Acknowledgments
 
