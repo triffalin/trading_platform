@@ -1,17 +1,16 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
-const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const userAuthRoutes = require('./routes/userAuth');
+const userAuthRoutes = require('./routes/userAuth.js');
 
-// Database Connection
+const app = express();
+
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
-    // Use the MONGO_URI from .env
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -20,33 +19,26 @@ mongoose
     console.log('Connected to MongoDB');
   })
   .catch(err => {
-    console.error('MongoDB connection error:', err);
+    console.error('Could not connect to MongoDB:', err);
   });
 
-// Setup rate limiting
+// Set up rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false // Disable the `X-RateLimit-*` headers
+  max: 100 // limit each IP to 100 requests per windowMs
 });
 
-// Middleware for parsing JSON and handling CORS
+// Middleware
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-
-// Use Helmet
+app.use(cors());
 app.use(helmet());
+app.use(limiter);
 
-// Use routes with the limiter middleware applied
-app.use('/api/auth', limiter, userAuthRoutes);
+// Use the user authentication routes
+app.use('/api/auth', userAuthRoutes);
 
-// Root endpoint
-app.get('/', limiter, (req, res) => {
-  res.send('Backend server is running!');
-});
-
-const PORT = process.env.PORT; // Use the PORT from .env
+// Start the server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -1,36 +1,36 @@
-const UserModel = require('../models/userModel'); // Replace with your actual model import
+const UserModel = require('../models/userModel.js');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const registerUser = async userData => {
-  // Example logic to handle user registration
-  try {
-    const newUser = new UserModel(userData);
-    await newUser.save(); // Save the new user to the database
-    return newUser; // Return the newly created user object
-  } catch (error) {
-    // Handle errors, such as duplicate user entries, etc.
-    throw error;
-  }
+const register = async userData => {
+  // Hash password
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
+  // Create user document and save to database
+  const user = new UserModel({
+    ...userData,
+    password: hashedPassword
+  });
+  await user.save();
+  return user;
 };
 
-const updateUserDetails = async userData => {
-  // Example logic to update user details
-  try {
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      userData.id, // The ID of the user to update
-      userData, // The new details of the user
-      { new: true } // Option to return the updated user object
-    );
-    if (!updatedUser) {
-      throw new Error('User not found');
-    }
-    return updatedUser; // Return the updated user object
-  } catch (error) {
-    // Handle errors, perhaps the user doesn't exist, etc.
-    throw error;
+const login = async credentials => {
+  // Find user by email or username
+  const user = await UserModel.findOne({ email: credentials.email });
+  if (!user) {
+    throw new Error('User not found');
   }
+  // Check password
+  const isMatch = await bcrypt.compare(credentials.password, user.password);
+  if (!isMatch) {
+    throw new Error('Incorrect password');
+  }
+  // Generate token
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  return { user, token };
 };
 
 module.exports = {
-  registerUser,
-  updateUserDetails
+  register,
+  login
 };
