@@ -10,6 +10,10 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true })); // Adjust
 // Use routes
 app.use('/api/auth', userAuthRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Backend server is running!');
+});
+
 // Other middleware can be set up here, such as helmet for security
 
 const PORT = 5000;
