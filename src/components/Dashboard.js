@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import BotManager from './BotManager';
 import TradeVisualizer from './TradeVisualizer';
-import { Grid, Paper } from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 const Dashboard = () => {
   const [bots, setBots] = useState([]);
