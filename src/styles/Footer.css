@@ -1,6 +1,12 @@
+/* Styles for the footer */
+
 .footer {
-  background-color: #121d33;
-  color: #ffffff;
+  background-color: #0f1c2d; /* Dark blue background */
+  color: #ffffff; /* White text color */
   padding: 1rem;
   text-align: center;
+}
+
+.footer p {
+  margin: 0; /* Remove default margin for the paragraph */
 }

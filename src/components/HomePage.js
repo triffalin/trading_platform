@@ -13,12 +13,12 @@ function HomePage() {
         className="hero-section"
         style={{ backgroundImage: `url(${TradingBotImage})` }}
       >
-        <h1>Meet your new crypto trading bots</h1>
-        <p>
+        <h1 className="hero-heading">Meet your new crypto trading bots</h1>
+        <p className="hero-subheading">
           A platform offering a strategic, automated, and secure approach to
           amplify your trading performance.
         </p>
-        <button className="button-primary">Start Trading</button>
+        <button className="cta-button">Start Trading</button>
       </section>
 
       {/* Features Section */}
@@ -44,7 +44,6 @@ function HomePage() {
 
       {/* Testimonials Section */}
       <section className="testimonials-section">
-        <h2>What Our Traders Say</h2>
         <div className="testimonial">
           <p>
             “Qtrading transformed my approach to trading. Intuitive tools and
@@ -57,7 +56,6 @@ function HomePage() {
 
       {/* Market Tools Section */}
       <section className="market-tools-section">
-        <h2>The Right Tools for Every Kind of Market</h2>
         {/* Add cards for each market tool */}
       </section>
 
@@ -68,13 +66,13 @@ function HomePage() {
           Explore a realm of trading possibilities. Register now and
           revolutionize your trading experience.
         </p>
-        <button className="button-secondary">Sign Up Now</button>
+        <button className="cta-button">Sign Up Now</button>
       </section>
 
       {/* Footer */}
-      <footer className="site-footer">
+      <footer className="footer">
         <p>Start Trading on Qtrading Today</p>
-        <button className="button-footer">Start Now</button>
+        <button className="cta-button">Start Now</button>
       </footer>
     </div>
   );
