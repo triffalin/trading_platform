@@ -1,8 +1,13 @@
 /* Styles for the header */
+:root {
+  --header-bg-color: #0f1c2d;
+  --text-color: #ffffff;
+  --accent-color: #f7931a;
+}
 
 .header {
-  background-color: #0f1c2d; /* Dark blue background */
-  color: #ffffff; /* White text color */
+  background-color: var(--header-bg-color); /* Dark blue background */
+  color: var(--text-color); /* White text color */
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -12,7 +17,7 @@
 .logo {
   font-size: 2rem;
   font-weight: bold;
-  color: #f7931a; /* Yellow text color */
+  color: var(--accent-color); /* Yellow text color */
 }
 
 .nav {
@@ -22,12 +27,12 @@
 
 .nav a {
   font-size: 1.2rem;
-  color: #ffffff; /* White text color */
+  color: var(--text-color); /* White text color */
   margin-left: 2rem;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .nav a:hover {
-  color: #f7931a; /* Yellow text color on hover */
+  color: var(--accent-color); /* Yellow text color on hover */
 }

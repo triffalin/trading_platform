@@ -1,8 +1,7 @@
 /* Styles for the footer */
-
 .footer {
-  background-color: #0f1c2d; /* Dark blue background */
-  color: #ffffff; /* White text color */
+  background-color: var(--header-bg-color); /* Reuse variable from Header.css */
+  color: var(--text-color); /* Reuse variable from Header.css */
   padding: 1rem;
   text-align: center;
 }
