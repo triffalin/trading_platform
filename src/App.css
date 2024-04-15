@@ -1,38 +1,174 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+body,
+#root {
+  height: 100%;
+  font-family: 'Roboto', sans-serif; /* Modern, readable font */
+  background-color: #f0f2f5; /* Off-white background, similar to Binance's theme */
+  color: #333; /* Subtle text color for general readability */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Flexbox utility classes for layout */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.flex-column {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+}
+
+/* Header styling */
+.header {
+  background-color: #121d33; /* Binance's dark blue */
+  padding: 1rem 2rem;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Navigation link styles */
+.nav-links {
+  display: flex;
+  gap: 20px; /* Consistent gap between navigation items */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.nav-links a {
+  color: #61dafb; /* Binance's light blue for links */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: #fff; /* White color on hover/focus for better visibility */
+}
+
+/* Main content styling */
+.main-content {
+  padding: 2rem;
+  flex-grow: 1; /* Ensures main content takes up the available space */
+  width: 100vw; /* Ensures full viewport width */
+}
+
+/* Stylish footer with a modern touch */
+.footer {
+  background-color: #212529; /* Footer background color, slightly lighter than the header */
+  color: #f8f9fa; /* Soft white text color */
+  padding: 1rem 2rem;
+  width: 100%;
+}
+
+/* Styling for buttons - with a modern and Binance-inspired design */
+.button-primary {
+  background-color: #f0b90b; /* Binance's brand color for primary buttons */
+  color: #212529; /* Dark text for contrast */
+  padding: 10px 20px;
+  border-radius: 4px; /* Rounded corners for a modern look */
+  border: none; /* No border for buttons */
+  font-size: 1rem;
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.button-primary:hover {
+  background-color: #e0a608; /* Darker shade on hover for a subtle effect */
+}
+
+/* Styles for feature sections */
+.feature-section {
+  padding: 4rem 0;
+  text-align: left;
+}
+
+.feature {
+  margin-bottom: 2rem;
+}
+
+.feature h2 {
+  color: #f0b90b; /* Binance's brand color for headings */
+  margin-bottom: 0.5rem;
+}
+
+.feature p {
+  color: #f8f9fa;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Testimonial styles for a personal touch */
+.testimonial {
+  background-color: #fff;
+  border-left: 4px solid #f0b90b; /* Binance's brand color as an accent */
+  margin: 2rem 0;
+  padding: 2rem;
+  font-style: italic;
+  position: relative;
+}
+
+.testimonial::before {
+  content: '“';
+  font-size: 4rem;
+  color: #f0b90b; /* Binance's brand color */
+  position: absolute;
+  left: -1rem;
+  top: -1rem;
+}
+
+.testimonial::after {
+  content: '”';
+  font-size: 4rem;
+  color: #f0b90b; /* Binance's brand color */
+  position: absolute;
+  right: -1rem;
+  bottom: -1rem;
+}
+
+.testimonial cite {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Call-to-action section for conversions */
+.call-to-action-section {
+  background-color: #121d33; /* Binance's dark blue */
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.call-to-action-section h2 {
+  margin-bottom: 1rem;
+}
+
+.call-to-action-section p {
+  margin-bottom: 2rem;
+}
+
+/* Responsive media queries for different screen sizes */
+@media (max-width: 768px) {
+  .flex-row,
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .main-content,
+  .feature-section {
+    padding: 1rem;
+  }
+
+  .testimonial {
+    padding: 1rem;
   }
 }
