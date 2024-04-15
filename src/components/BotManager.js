@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material/Button';
 
 const BotManager = ({ bots, setBots }) => {
   // TODO: Implement bot management logic
