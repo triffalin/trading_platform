@@ -8,6 +8,9 @@ const userAuthRoutes = require('./routes/userAuth.js');
 
 const app = express();
 
+// Trust the first proxy in front of the server
+app.set('trust proxy', 1);
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
