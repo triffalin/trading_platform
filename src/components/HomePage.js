@@ -59,6 +59,41 @@ const HomePage = () => {
         </p>
         <button className="cta-button">Start Free Trial</button>
       </section>
+      <section className="features-part-two">
+        <h2 className="features-part-two-title">
+          Crypto is complex, but our platform simplifies success
+        </h2>
+        <div className="features-wrapper">
+          <article className="feature-item">
+            <h3>Intelligent Trading Systems</h3>
+            <p>
+              Automate your trading with our intelligent systems that learn
+              market patterns and execute trades at the best possible times.
+            </p>
+            <button className="features-cta-button">Sign Up</button>
+          </article>
+          <article className="feature-item">
+            <h3>Portfolio Management</h3>
+            <p>
+              Centralize your crypto assets and manage your investment portfolio
+              with precision and ease on our platform.
+            </p>
+            <button className="features-cta-button">
+              Create your portfolio
+            </button>
+          </article>
+          <article className="feature-item">
+            <h3>Trade with Bots</h3>
+            <p>
+              Copy trade settings from seasoned experts or create your own with
+              our customizable bot presets, simplifying your trading journey.
+            </p>
+            <button className="features-cta-button">
+              Select a trading bot
+            </button>
+          </article>
+        </div>
+      </section>
       <section className="testimonials-section">
         {/* ... Your testimonials section code ... */}
       </section>

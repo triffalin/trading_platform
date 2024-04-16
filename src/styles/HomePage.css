@@ -182,6 +182,87 @@
   }
 }
 
+/* Features Part Two Section styles */
+.features-part-two {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background-color: black; /* Dark theme continuity */
+  color: #fff; /* Text in white for contrast */
+}
+
+.features-part-two-title {
+  font-size: 2rem;
+  color: #f0b90b; /* Accent color consistent with navbar and hero section */
+  margin-bottom: 1rem;
+}
+
+.features-wrapper {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.feature-item {
+  background: #1c1f24; /* Slightly lighter background for contrast */
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.feature-item h3 {
+  font-size: 1.5rem;
+  color: #f0b90b; /* Title color consistent with accent color */
+}
+
+.feature-item p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.features-cta-button {
+  /* Styling similar to the primary CTA button */
+  padding: 0.7rem 1.4rem;
+  background-color: #f0b90b;
+  color: #12161c;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.features-cta-button:hover {
+  background-color: #c8a056; /* Hover effect */
+}
+
+@media (max-width: 992px) {
+  .features-wrapper {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-part-two-title {
+    font-size: 1.5rem;
+  }
+  .feature-item h3 {
+    font-size: 1.2rem;
+  }
+  .feature-item p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .features-part-two-title,
+  .feature-item h3 {
+    font-size: 1rem;
+  }
+  .feature-item p {
+    font-size: 0.8rem;
+  }
+}
+
 /* Testimonials Section styles */
 /* ... */
 
