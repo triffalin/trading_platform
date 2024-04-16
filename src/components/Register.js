@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SignIn = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -9,15 +9,15 @@ const SignIn = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', {
+      const res = await axios.post('http://localhost:5000/api/users/register', {
         email,
         password
       });
-      setMessage('Login successful');
+      setMessage('Registration successful');
       console.log(res.data);
     } catch (error) {
       console.error(error);
-      setMessage('Login failed: ' + error.message);
+      setMessage('Registration failed: ' + error.message);
     }
   };
 
@@ -28,21 +28,21 @@ const SignIn = () => {
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          placeholder="Email"
+          placeholder="Enter email"
           required
         />
         <input
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          placeholder="Password"
+          placeholder="Enter password"
           required
         />
-        <button type="submit">Sign In</button>
+        <button type="submit">Register</button>
       </form>
       {message && <p>{message}</p>}
     </div>
   );
 };
 
-export default SignIn;
+export default Register;
