@@ -94,6 +94,45 @@ const HomePage = () => {
           </article>
         </div>
       </section>
+      <section className="features-part-three">
+        <h2 className="features-part-three-title">
+          The right tools for every kind of market.
+        </h2>
+        <div className="features-cards">
+          <div className="feature-card">
+            <h3>Security</h3>
+            <p>
+              Experience secure trading with our platform's advanced encryption
+              and two-factor authentication to protect your assets.
+            </p>
+          </div>
+          <div className="feature-card">
+            <h3>Trade Automation</h3>
+            <p>
+              Our trade automation tools keep your portfolio growing 24/7 with
+              algorithms that adapt in real-time to market changes.
+            </p>
+          </div>
+          <div className="feature-card">
+            <h3>Analytics</h3>
+            <p>
+              Gain insights into your trades with comprehensive analytics that
+              help you make informed decisions quickly.
+            </p>
+          </div>
+        </div>
+        <div className="features-part-three-outro">
+          <h3>
+            Level up your trading game with advanced AI crypto trading tools.
+          </h3>
+          <p>
+            Our suite of tools is designed to give you an edge in 14 of the
+            biggest exchanges, providing you with strategies that were once only
+            available to professionals.
+          </p>
+          <button className="cta-button">Start trial</button>
+        </div>
+      </section>
       <section className="testimonials-section">
         {/* ... Your testimonials section code ... */}
       </section>
