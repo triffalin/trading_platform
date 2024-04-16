@@ -15,6 +15,7 @@
 }
 
 .hero-content {
+  flex: 1;
   max-width: 50%;
 }
 
@@ -63,6 +64,52 @@
 }
 
 /* Adjust the rest of your CSS as necessary, keeping the styles and colors consistent */
+
+/* Media queries for responsiveness */
+@media (max-width: 992px) {
+  /* For tablets */
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-content {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+  .hero-image img {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* For small tablets and large phones */
+  .hero-heading {
+    font-size: 2rem;
+  }
+  .hero-subheading {
+    font-size: 1rem;
+  }
+  .cta-button {
+    padding: 0.8rem 1.6rem;
+  }
+}
+
+@media (max-width: 576px) {
+  /* For phones */
+  .hero-heading {
+    font-size: 1.5rem;
+  }
+  .hero-subheading {
+    font-size: 0.9rem;
+  }
+  .cta-button {
+    padding: 0.7rem 1.4rem;
+  }
+  .hero-image img {
+    max-width: 100%;
+    margin-top: 2rem; /* Add some space above the image */
+  }
+}
 
 /* Features Section styles */
 /* ... */
