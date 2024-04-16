@@ -1,15 +1,17 @@
 import React from 'react';
+import '../../styles/HeroSection.css';
+import heroBackground from '../../assets/trading-bot.png';
 
 function HeroSection() {
   return (
-    <section className="hero-section">
-      <h1 className="hero-heading">Your Ultimate Crypto Trading Bot</h1>
-      <p className="hero-subheading">
-        Discover the power of automated trading with our cutting-edge
-        algorithms.
-      </p>
-      <button className="cta-button">Explore Now</button>
-    </section>
+    <div
+      className="hero-section"
+      style={{ backgroundImage: `url(${heroBackground})` }}
+    >
+      <h1>Your Ultimate Crypto Trading Bot</h1>
+      <p>Experience automated trading like never before</p>
+      {/* Add any call to action button if needed */}
+    </div>
   );
 }
 

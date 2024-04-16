@@ -1,0 +1,29 @@
+/* src/styles/NavBar.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a; /* A color from the Binance palette */
+  padding: 1rem 2rem;
+  color: #f0f0f0;
+}
+
+.navbar-logo {
+  width: 100px;
+  height: auto;
+  fill: #f0b90b; /* Binance's yellow color for the logo */
+}
+
+.navbar-links a,
+.navbar-user-actions a {
+  color: #f0f0f0;
+  text-decoration: none;
+  margin-left: 2rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover,
+.navbar-user-actions a:hover {
+  color: #f0b90b; /* Interaction color */
+}

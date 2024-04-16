@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from './NavBar';
 import HeroSection from './sections/HeroSection.js';
 import FeaturesSection from './sections/FeaturesSection.js';
 import TestimonialsSection from './sections/TestimonialsSection.js';
@@ -7,12 +8,13 @@ import '../styles/HomePage.css';
 
 function HomePage() {
   return (
-    <div className="home-page">
+    <>
+      <NavBar />
       <HeroSection />
       <FeaturesSection />
       <TestimonialsSection />
       <CallToActionSection />
-    </div>
+    </>
   );
 }
 
