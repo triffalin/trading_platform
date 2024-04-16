@@ -1,8 +1,15 @@
+html {
+  background-color: black;
+  margin: 0;
+}
+
 /* General styles for the HomePage */
 .home-page {
   font-family: Arial, sans-serif;
   line-height: 1.4;
   background-color: black;
+  max-width: 1920px;
+  margin: auto;
 }
 
 /* Hero Section styles */
@@ -10,14 +17,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4rem 4rem;
+  padding: 4rem;
   background: black;
-  margin-bottom: -2rem;
 }
 
 .hero-content {
   flex: 1;
-  max-width: 45%;
+  padding-right: 4rem;
 }
 
 .hero-heading {
@@ -57,7 +63,7 @@
 }
 
 .hero-image img {
-  max-width: 500px;
+  max-width: 100%;
   height: auto;
   margin-left: 0;
   /*Edgeblureffecttransition*/
@@ -467,6 +473,8 @@
 
 /* Footer Section styles */
 .footer-section {
+  width: 100%;
+  min-width: 1920px;
   background-color: #12161c; /* Footer background */
   color: #fff; /* Text color */
   padding: 2rem 0;
@@ -542,7 +550,9 @@
 .hero-image {
   position: relative;
   z-index: 1;
-  overflow: hidden; /* Hide anything outside the bounds */
+  overflow: hidden;
+  flex-basis: 40%;
+  text-align: right;
 }
 
 /* Ensure the image itself is above the pseudo-element */
@@ -551,3 +561,41 @@
   z-index: 2;
   margin-left: 0;
 }
+
+/* Adjustments for the features and other sections as necessary */
+.features-section,
+.features-part-two,
+.features-part-three,
+.testimonials-section,
+.call-to-action-section-last,
+.footer-section {
+  max-width: 1400px;
+  margin: auto;
+  /* Include the rest of your section styles here */
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 992px) {
+  .hero-content,
+  .hero-image,
+  .features-section,
+  .features-part-two,
+  .features-part-three,
+  .testimonials-section,
+  .call-to-action-section-last,
+  .footer-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+  }
+  .hero-image {
+    margin-top: 2rem;
+  }
+}
+
+/* Include other media queries and rest of the styles here */
