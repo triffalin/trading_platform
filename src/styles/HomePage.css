@@ -12,6 +12,10 @@ html {
   margin: auto;
 }
 
+.home-page a {
+  text-decoration: none;
+}
+
 /* Hero Section styles */
 .hero-section {
   display: flex;
