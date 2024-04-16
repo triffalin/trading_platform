@@ -23,7 +23,41 @@ const HomePage = () => {
         </div>
       </header>
       <section className="features-section">
-        {/* ... Your features section code ... */}
+        <h2 className="features-title">
+          Maximize Your Trades Across Market Conditions
+        </h2>
+        <p className="features-intro">
+          Tailored strategies for bear, bull, and sideways markets empower you
+          to optimize every trade with our platform.
+        </p>
+        <div className="market-strategies">
+          <div className="strategy">
+            <h3>— Bear Markets</h3>
+            <p>
+              Deploy counter-trend strategies with our robust tools to
+              capitalize on market downturns.
+            </p>
+          </div>
+          <div className="strategy">
+            <h3>— Bull Markets</h3>
+            <p>
+              Amplify your gains with strategies designed to ride the upward
+              momentum to its peak.
+            </p>
+          </div>
+          <div className="strategy">
+            <h3>— Sideways Markets</h3>
+            <p>
+              Master the art of range trading with tools that help you profit
+              from market stability.
+            </p>
+          </div>
+        </div>
+        <p className="features-outro">
+          Discover the paths to consistent profits with the advanced technology
+          of our trading platform.
+        </p>
+        <button className="cta-button">Start Free Trial</button>
       </section>
       <section className="testimonials-section">
         {/* ... Your testimonials section code ... */}
