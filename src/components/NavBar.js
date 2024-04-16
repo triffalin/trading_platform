@@ -1,15 +1,28 @@
 import React from 'react';
-import { ReactComponent as Logo } from '../assets/logo.svg';
 import '../styles/NavBar.css';
 
-function NavBar() {
+const Navbar = () => {
   return (
     <nav className="navbar">
-      <Logo className="navbar-logo" />
-      <div className="navbar-links">{/* Add links here */}</div>
-      <div className="navbar-user-actions">{/* Sign in, Sign up, etc */}</div>
+      <div className="navbar-logo">
+        <a href="/">YourLogo</a>
+      </div>
+      <ul className="navbar-links">
+        <li>
+          <a href="/features">Features</a>
+        </li>
+        <li>
+          <a href="/pricing">Pricing</a>
+        </li>
+        <li>
+          <a href="/about">About Us</a>
+        </li>
+        <li>
+          <a href="/support">Support</a>
+        </li>
+      </ul>
     </nav>
   );
-}
+};
 
-export default NavBar;
+export default Navbar;
