@@ -3,25 +3,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #121212;
-  padding: 0 0.3rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: black;
+  padding: 0 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-logo img {
-  height: 3rem;
-  padding: 0 0.3rem;
+  height: 5rem;
 }
 
 .navbar-links {
   display: flex;
-  gap: 0.3rem;
+  gap: 0.1rem;
 }
 
 .navbar-links a {
   color: #f0b90b;
   text-decoration: none;
-  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
   transition: color 0.3s;
 }
 
@@ -31,56 +37,72 @@
 
 .navbar-auth {
   display: flex;
-  gap: 0.2rem;
+  gap: 0.3rem;
 }
 
 .navbar-auth a {
   text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
 /* Specific styles for sign-up button */
 .navbar-signup {
   background-color: #f0b90b;
-  color: #121212;
+  color: #1d2026;
+  font-weight: 700;
   border: none;
 }
 
 .navbar-signup:hover {
-  background-color: #dab100;
+  background-color: #daa520;
 }
 
 /* Specific styles for sign-in and forgot-password links */
 .navbar-auth a:not(.navbar-signup) {
-  color: #f0b90b;
+  color: #ffffff;
+  background-color: transparent;
 }
 
 .navbar-auth a:not(.navbar-signup):hover {
-  background-color: #1f1f1f;
-  color: #ffffff;
+  background-color: #262a34;
+  border-color: #f0b90b;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    padding: 0.8rem;
   }
 
   .navbar-links,
   .navbar-auth {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
+    margin-top: 0.5rem;
   }
 
   .navbar-links a,
   .navbar-auth a {
     width: 100%;
-    text-align: left;
+    text-align: center;
   }
+
+  .navbar-auth {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* Enhance logo clarity */
+.navbar-logo img {
+  filter: drop-shadow(0px 0px 0px white);
 }
