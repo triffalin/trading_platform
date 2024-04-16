@@ -453,3 +453,62 @@
     font-size: 0.9rem;
   }
 }
+
+/* Footer Section styles */
+.footer-section {
+  background-color: #12161c; /* Footer background */
+  color: #fff; /* Text color */
+  padding: 2rem 0;
+  font-size: 0.9rem; /* Adjust as necessary */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 1.5rem;
+  align-items: start;
+  flex-wrap: wrap; /* Responsive behavior */
+}
+
+.footer-heading {
+  color: #f0b90b; /* Heading color */
+  margin-bottom: 1rem;
+}
+
+.footer-column {
+  min-width: 150px; /* Adjust as necessary */
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #333; /* Separator, adjust color as necessary */
+}
+
+/* Footer bottom content */
+.footer-bottom p,
+.footer-bottom a {
+  color: #999; /* Adjust as necessary */
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+/* Add styles for social media icons and payment icons here */
+
+/* Ensure consistency in responsiveness */
+@media (max-width: 768px) {
+  .footer-content {
+    justify-content: center;
+  }
+
+  .footer-column {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-heading {
+    font-size: 1.2rem;
+  }
+}

@@ -169,6 +169,21 @@ const HomePage = () => {
           <button className="cta-button">Join Us Now</button>
         </div>
       </section>
+      <footer className="footer-section">
+        <div className="footer-content">
+          <div className="footer-column">
+            <h4 className="footer-heading">Trading Software</h4>
+            {/* List of links */}
+          </div>
+          {/* ... More footer columns */}
+
+          <div className="footer-bottom">
+            <p>&copy; 2024 Qtrading. All rights reserved.</p>
+            {/* Social media icons */}
+            {/* Payment icons */}
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
