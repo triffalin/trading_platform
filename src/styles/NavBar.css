@@ -1,34 +1,86 @@
+/* NavBar.css */
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: #101522;
-  color: white;
-  padding: 0.5rem 2rem;
+  justify-content: space-between;
+  background-color: #121212;
+  padding: 0 0.3rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.navbar-logo a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: bold;
+.navbar-logo img {
+  height: 3rem;
+  padding: 0 0.3rem;
 }
 
 .navbar-links {
-  list-style: none;
   display: flex;
-}
-
-.navbar-links li {
-  padding: 0 10px;
+  gap: 0.3rem;
 }
 
 .navbar-links a {
-  color: white;
+  color: #f0b90b;
   text-decoration: none;
-  transition: color 0.3s ease;
+  padding: 0.5rem 0.8rem;
+  transition: color 0.3s;
 }
 
 .navbar-links a:hover {
-  color: #4b59f7;
+  color: #ffffff;
+}
+
+.navbar-auth {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.navbar-auth a {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+/* Specific styles for sign-up button */
+.navbar-signup {
+  background-color: #f0b90b;
+  color: #121212;
+  border: none;
+}
+
+.navbar-signup:hover {
+  background-color: #dab100;
+}
+
+/* Specific styles for sign-in and forgot-password links */
+.navbar-auth a:not(.navbar-signup) {
+  color: #f0b90b;
+}
+
+.navbar-auth a:not(.navbar-signup):hover {
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links,
+  .navbar-auth {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .navbar-links a,
+  .navbar-auth a {
+    width: 100%;
+    text-align: left;
+  }
 }

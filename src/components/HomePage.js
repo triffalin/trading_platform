@@ -1,10 +1,8 @@
 import React from 'react';
-import Navbar from './NavBar';
 
 const HomePage = () => {
   return (
     <div>
-      <Navbar />
       <header
         style={{
           padding: '100px 0',

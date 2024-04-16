@@ -1,28 +1,31 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
 
-const Navbar = () => {
+const NavBar = () => {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-        <a href="/">YourLogo</a>
+      <Link to="/" className="navbar-logo">
+        <img src={require('../assets/logo.svg').default} alt="Logo" />
+      </Link>
+      <div className="navbar-links">
+        <Link to="/trading-bots">Trading Bots</Link>
+        <Link to="/features">Features</Link>
+        <Link to="/plans">Plans</Link>
+        <Link to="/price-charts">Price Charts</Link>
+        <Link to="/developers">Developers</Link>
+        <Link to="/company">Company</Link>
+        <Link to="/academy">Academy</Link>
       </div>
-      <ul className="navbar-links">
-        <li>
-          <a href="/features">Features</a>
-        </li>
-        <li>
-          <a href="/pricing">Pricing</a>
-        </li>
-        <li>
-          <a href="/about">About Us</a>
-        </li>
-        <li>
-          <a href="/support">Support</a>
-        </li>
-      </ul>
+      <div className="navbar-auth">
+        <Link to="/sign-in">Sign In</Link>
+        <Link to="/sign-up" className="navbar-signup">
+          Try It Free
+        </Link>
+        <Link to="/forgot-password">Forgot Password</Link>
+      </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default NavBar;
