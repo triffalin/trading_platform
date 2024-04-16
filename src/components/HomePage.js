@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
@@ -12,7 +13,9 @@ const HomePage = () => {
             speed, leveraging the power of advanced algorithms to stay ahead in
             the dynamic crypto market.
           </p>
-          <button className="cta-button">Start Free Trial</button>
+          <Link to="/sign-up" className="cta-button">
+            Start Free Trial
+          </Link>
         </div>
         <div className="hero-image">
           {/* Ensure the path to your image is correct */}
@@ -57,7 +60,9 @@ const HomePage = () => {
           Discover the paths to consistent profits with the advanced technology
           of our trading platform.
         </p>
-        <button className="cta-button">Start Free Trial</button>
+        <Link to="/sign-up" className="cta-button">
+          Start Free Trial
+        </Link>
       </section>
       <section className="features-part-two">
         <h2 className="features-part-two-title">
@@ -70,7 +75,9 @@ const HomePage = () => {
               Automate your trading with our intelligent systems that learn
               market patterns and execute trades at the best possible times.
             </p>
-            <button className="features-cta-button">Sign Up</button>
+            <Link to="/sign-up" className="features-cta-button">
+              Sign Up
+            </Link>
           </article>
           <article className="feature-item">
             <h3>Portfolio Management</h3>
@@ -78,9 +85,9 @@ const HomePage = () => {
               Centralize your crypto assets and manage your investment portfolio
               with precision and ease on our platform.
             </p>
-            <button className="features-cta-button">
+            <Link to="/sign-up" className="features-cta-button">
               Create your portfolio
-            </button>
+            </Link>
           </article>
           <article className="feature-item">
             <h3>Trade with Bots</h3>
@@ -88,9 +95,9 @@ const HomePage = () => {
               Copy trade settings from seasoned experts or create your own with
               our customizable bot presets, simplifying your trading journey.
             </p>
-            <button className="features-cta-button">
+            <Link to="/sign-up" className="features-cta-button">
               Select a trading bot
-            </button>
+            </Link>
           </article>
         </div>
       </section>
@@ -130,7 +137,9 @@ const HomePage = () => {
             biggest exchanges, providing you with strategies that were once only
             available to professionals.
           </p>
-          <button className="cta-button">Start trial</button>
+          <Link to="/sign-up" className="cta-button">
+            Start trial
+          </Link>
         </div>
       </section>
       <section className="testimonials-section">
@@ -166,7 +175,9 @@ const HomePage = () => {
             Unlock your trading potential with the advanced features and
             intuitive interface of our platform.
           </p>
-          <button className="cta-button">Join Us Now</button>
+          <Link to="/sign-up" className="cta-button">
+            Join Us Now
+          </Link>
         </div>
       </section>
       <footer className="footer-section">
