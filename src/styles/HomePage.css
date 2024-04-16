@@ -1,108 +1,74 @@
 /* General styles for the HomePage */
 .home-page {
   font-family: Arial, sans-serif;
-  color: #333;
-  line-height: 1.6;
+  line-height: 1.4;
+  background-color: #12161c; /* Dark background to match Binance's navbar */
 }
 
 /* Hero Section styles */
 .hero-section {
-  background: url('../assets/trading-bot.png') no-repeat center center / cover;
-  text-align: center;
-  padding: 50px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 1.2rem;
+  background: black; /* Uniform background with the navbar */
+}
+
+.hero-content {
+  max-width: 50%;
 }
 
 .hero-heading {
   font-size: 2.5rem;
-  color: #ffffff;
+  color: #f0b90b; /* Title color same as navbar button */
+  margin-bottom: 20px;
 }
 
 .hero-subheading {
-  font-size: 1.5rem;
-  color: #dddddd;
-  margin-bottom: 20px;
+  color: #fff; /* Subheading in white */
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
 }
 
 .cta-button {
-  padding: 10px 30px;
-  background-color: #0056b3;
-  color: #ffffff;
+  padding: 0.9rem 1.8rem;
+  background-color: #f0b90b;
+  /*Buttoncolorsameasnavbar*/
+  color: #12161c;
+  /*Textcolorsameasnavbarbackgroundforcontrast*/
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
   transition: background-color 0.3s ease;
+  font-weight: 700;
+  /*Matchthefontweightwithnavbarbutton*/
+  text-transform: uppercase;
+  /*Ifthenavbarbuttonsareuppercase*/
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
 .cta-button:hover {
-  background-color: #003580;
+  background-color: #c8a056; /* Hover color slightly lighter */
 }
+
+.hero-image img {
+  max-width: 500px;
+  height: auto;
+  /*Edgeblureffecttransition*/
+  filter: drop-shadow(0px 0px 0px yellow);
+  -webkit-filter: drop-shadow(0px 0px 0px yellow);
+}
+
+/* Adjust the rest of your CSS as necessary, keeping the styles and colors consistent */
 
 /* Features Section styles */
-.features-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: stretch;
-}
-
-.feature-card {
-  background: #ffffff;
-  padding: 20px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: calc(33.333% - 20px);
-  margin: 10px;
-}
-
-.feature-card h2 {
-  font-size: 1.4rem;
-}
-
-.feature-card p {
-  margin: 15px 0;
-}
-
-.feature-card img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
+/* ... */
 
 /* Testimonials Section styles */
-.testimonials-section {
-  background: #eeeeee;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.testimonial {
-  margin-bottom: 20px;
-}
-
-.testimonial p {
-  font-style: italic;
-}
-
-.testimonial cite {
-  display: block;
-  margin-top: 10px;
-}
+/* ... */
 
 /* Call to Action Section styles */
-.call-to-action-section {
-  background: #222;
-  color: #fff;
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.call-to-action-section h2 {
-  font-size: 2rem;
-}
-
-.call-to-action-section p {
-  font-size: 1.2rem;
-  margin: 20px 0;
-}
+/* ... */

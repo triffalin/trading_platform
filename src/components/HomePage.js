@@ -1,36 +1,35 @@
 import React from 'react';
+import '../styles/HomePage.css';
 
 const HomePage = () => {
   return (
-    <div>
-      <header
-        style={{
-          padding: '100px 0',
-          textAlign: 'center',
-          backgroundColor: '#f8f9fa',
-          color: 'black',
-          fontSize: '2rem'
-        }}
-      >
-        Welcome to Our Trading Platform
+    <div className="home-page">
+      <header className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-heading">Empower Your Trading Experience</h1>
+          <p className="hero-subheading">
+            Seize the potential of automated crypto trading with precision and
+            speed, leveraging the power of advanced algorithms to stay ahead in
+            the dynamic crypto market.
+          </p>
+          <button className="cta-button">Start Free Trial</button>
+        </div>
+        <div className="hero-image">
+          {/* Ensure the path to your image is correct */}
+          <img
+            src={require('../assets/hero.svg').default}
+            alt="Crypto Trading"
+          />
+        </div>
       </header>
-      <section style={{ margin: '40px 0', textAlign: 'center' }}>
-        <p>
-          Explore features and tools built for individual traders and
-          sophisticated investors.
-        </p>
-        <button
-          style={{
-            padding: '10px 20px',
-            fontSize: '1rem',
-            backgroundColor: '#4b59f7',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px'
-          }}
-        >
-          Get Started
-        </button>
+      <section className="features-section">
+        {/* ... Your features section code ... */}
+      </section>
+      <section className="testimonials-section">
+        {/* ... Your testimonials section code ... */}
+      </section>
+      <section className="call-to-action-section">
+        {/* ... Your call to action section code ... */}
       </section>
     </div>
   );
