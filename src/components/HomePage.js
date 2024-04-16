@@ -159,8 +159,15 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="call-to-action-section">
-        {/* ... Your call to action section code ... */}
+      <section className="call-to-action-section-last">
+        <div className="cta-content">
+          <h2 className="cta-title">Ready to Take the Lead?</h2>
+          <p className="cta-text">
+            Unlock your trading potential with the advanced features and
+            intuitive interface of our platform.
+          </p>
+          <button className="cta-button">Join Us Now</button>
+        </div>
       </section>
     </div>
   );

@@ -410,4 +410,46 @@
 }
 
 /* Call to Action Section styles */
-/* ... */
+.call-to-action-section-last {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #fff;
+  background-color: black; /* Dark background for consistency */
+}
+
+.cta-content {
+  max-width: 600px;
+  margin: auto;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  color: #f0b90b; /* Consistent with the accent color */
+  margin-bottom: 1rem;
+}
+
+.cta-text {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Reuse the .cta-button styles defined previously */
+
+/* Ensure consistency in responsiveness */
+@media (max-width: 768px) {
+  .cta-title {
+    font-size: 2rem;
+  }
+  .cta-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .cta-title {
+    font-size: 1.5rem;
+  }
+  .cta-text {
+    font-size: 0.9rem;
+  }
+}
