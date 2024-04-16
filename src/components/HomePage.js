@@ -134,7 +134,30 @@ const HomePage = () => {
         </div>
       </section>
       <section className="testimonials-section">
-        {/* ... Your testimonials section code ... */}
+        <h2 className="testimonials-title">Why Traders Trust Our Platform</h2>
+        <div className="testimonials-wrapper">
+          <div className="testimonial-item">
+            <p className="testimonial-quote">
+              "The intuitive design and the automated trading bots have
+              transformed my trading strategy. Absolutely recommend!"
+            </p>
+            <p className="testimonial-author">— Morgan, Verified User</p>
+          </div>
+          <div className="testimonial-item">
+            <p className="testimonial-quote">
+              "Their customer support and analytics tools are top-notch. Made
+              learning crypto trading so much easier!"
+            </p>
+            <p className="testimonial-author">— Casey, Active Trader</p>
+          </div>
+          <div className="testimonial-item">
+            <p className="testimonial-quote">
+              "Seeing substantial returns on my investments, thanks to the
+              sophisticated trade algorithms. Solid platform."
+            </p>
+            <p className="testimonial-author">— Alex, Crypto Enthusiast</p>
+          </div>
+        </div>
       </section>
       <section className="call-to-action-section">
         {/* ... Your call to action section code ... */}

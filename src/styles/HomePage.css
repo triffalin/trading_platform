@@ -2,7 +2,7 @@
 .home-page {
   font-family: Arial, sans-serif;
   line-height: 1.4;
-  background-color: #12161c; /* Dark background to match Binance's navbar */
+  background-color: black; /* Dark background to match Binance's navbar */
 }
 
 /* Hero Section styles */
@@ -349,7 +349,65 @@
 }
 
 /* Testimonials Section styles */
-/* ... */
+.testimonials-section {
+  background-color: black; /* Continuity of the dark theme */
+  color: #fff;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  margin-top: 2rem; /* Space between this and the previous section */
+}
+
+.testimonials-title {
+  font-size: 2rem;
+  color: #f0b90b; /* Keeping the accent color consistent */
+  margin-bottom: 1rem;
+}
+
+.testimonials-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap; /* Wrap for responsiveness */
+}
+
+.testimonial-item {
+  background: #1c1f24; /* Slightly lighter background for the card */
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 300px; /* Width of each testimonial */
+}
+
+.testimonial-quote {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .testimonials-wrapper {
+    flex-direction: column;
+  }
+  .testimonial-item {
+    max-width: 100%;
+    margin-bottom: 1rem; /* Space between testimonials on small screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonials-title {
+    font-size: 1.5rem;
+  }
+  .testimonial-quote {
+    font-size: 0.9rem;
+  }
+  .testimonial-author {
+    font-size: 0.85rem;
+  }
+}
 
 /* Call to Action Section styles */
 /* ... */
