@@ -13,7 +13,7 @@ const UserModel = require('./models/userModel.js');
 
 const app = express();
 
-// Configure Passport to use Google OAuth
+// Passport Google OAuth strategy
 passport.use(
   new GoogleStrategy(
     {
@@ -21,24 +21,34 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: 'http://localhost:5000/auth/google/callback'
     },
-    (accessToken, refreshToken, profile, done) => {
-      // Find or create a user in your database
-      // Replace `findOrCreateUser` with your own logic
-      UserModel.findOrCreateUser({ googleId: profile.id }, (err, user) => {
-        return done(err, user);
+    function (accessToken, refreshToken, profile, done) {
+      UserModel.findOne({ googleId: profile.id }, function (err, user) {
+        if (err) return done(err);
+        if (!user) {
+          user = new UserModel({
+            googleId: profile.id /* ...other profile information... */
+          });
+          user.save(function (err) {
+            if (err) console.log(err);
+            return done(err, user);
+          });
+        } else {
+          // found user. Return
+          return done(err, user);
+        }
       });
     }
   )
 );
 
-// Serialize user
-passport.serializeUser((user, done) => {
-  done(null, user._id);
+// Serialize user into the sessions
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
 
-// Deserialize user
-passport.deserializeUser((id, done) => {
-  UserModel.findById(id, (err, user) => {
+// Deserialize user from the sessions
+passport.deserializeUser(function (id, done) {
+  UserModel.findById(id, function (err, user) {
     done(err, user);
   });
 });
@@ -54,17 +64,17 @@ mongoose
 
 // Rate limiter
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
 });
 
 // Session middleware
 app.use(
   session({
-    secret: 'your_secret_key',
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    saveUninitialized: false,
+    cookie: { secure: !process.env.DEVELOPMENT } // Enable secure cookies on production
   })
 );
 
