@@ -1,0 +1,116 @@
+/* Register Page Global Styles */
+.register-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: black;
+}
+
+/* Register Container Styles */
+.register-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: #262a34;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.register-title {
+  color: #f0b90b;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.register-form .input-group {
+  margin-bottom: 1.5rem;
+}
+
+.register-form label {
+  display: block;
+  color: #ffffff; /* Label color */
+  margin-bottom: 0.5rem;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #12161c; /* Dark input fields */
+  border: 1px solid #3a3f44;
+  color: #ffffff; /* Input text color */
+  border-radius: 5px;
+}
+
+.register-form input:focus {
+  border-color: #f0b90b; /* Accent color for input focus */
+  outline: none;
+}
+
+/* Button Styles */
+.register-btn {
+  width: 100%;
+  background-color: #f0b90b; /* Accent color for buttons */
+  color: #000000; /* Button text color */
+  padding: 0.6rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background-color: #c8a056; /* Hover state color change */
+}
+
+/* Social SignIn Styles */
+.social-register .google-register {
+  width: 100%;
+  background-color: #ffffff; /* Google button background */
+  color: #000000; /* Google button text color */
+  padding: 0.6rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.social-register .google-register:hover {
+  background-color: #e8e8e8; /* Google button hover state color change */
+}
+
+/* Link Styles */
+.login-link {
+  color: #f0b90b;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Sigin Link Container */
+.login-link-container {
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .register-container {
+    width: 90%;
+  }
+}

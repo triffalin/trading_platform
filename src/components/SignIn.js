@@ -67,11 +67,13 @@ const SignIn = () => {
             }
             className="google-signin"
           >
-            Sign in with Google
+            Continue in with Google
           </button>
         </div>
         <div className="signup-link-container">
-          <Link to="/sign-up">Don't have an account? Sign Up</Link>
+          <Link to="/sign-up" className="signup-link">
+            Don't have an account? Sign Up
+          </Link>
         </div>
       </div>
     </div>
