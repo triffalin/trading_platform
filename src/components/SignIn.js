@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import '../styles/SignIn.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -23,34 +24,56 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Sign In</button>
-      </form>
-      <button
-        onClick={() =>
-          (window.location.href = 'http://localhost:5000/auth/google')
-        }
-      >
-        Sign in with Google
-      </button>
-      <Link to="/forgot-password">Forgot Password?</Link>
-      {message && <p>{message}</p>}
+    <div className="signin-page">
+      <div className="signin-container">
+        <h1 className="signin-title">Sign In</h1>
+        <form onSubmit={handleSubmit} className="signin-form">
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Enter Your Email"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Enter Your Password"
+              required
+            />
+          </div>
+          <div className="signin-actions">
+            <Link to="/forgot-password" className="forgot-password-link">
+              Forgot Password?
+            </Link>
+            {message && <p>{message}</p>}
+            <button type="submit" className="signin-btn">
+              Sign In
+            </button>
+          </div>
+        </form>
+        <div className="social-signin">
+          <button
+            onClick={() =>
+              (window.location.href = 'http://localhost:5000/auth/google')
+            }
+            className="google-signin"
+          >
+            Sign in with Google
+          </button>
+        </div>
+        <div className="signup-link-container">
+          <Link to="/sign-up">Don't have an account? Sign Up</Link>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,125 @@
+/* SignIn Page Global Styles */
+.signin-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: black; /* Dark background color */
+}
+
+/* SignIn Container Styles */
+.signin-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: #262a34; /* Slightly lighter background for contrast */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.signin-title {
+  color: #f0b90b; /* Accent color for titles */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.signin-form .input-group {
+  margin-bottom: 1.5rem;
+}
+
+.signin-form label {
+  display: block;
+  color: #ffffff; /* Label color */
+  margin-bottom: 0.5rem;
+}
+
+.signin-form input {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #12161c; /* Dark input fields */
+  border: 1px solid #3a3f44;
+  color: #ffffff; /* Input text color */
+  border-radius: 5px;
+}
+
+.signin-form input:focus {
+  border-color: #f0b90b; /* Accent color for input focus */
+  outline: none;
+}
+
+/* Button Styles */
+.signin-btn {
+  width: 100%;
+  background-color: #f0b90b; /* Accent color for buttons */
+  color: #000000; /* Button text color */
+  padding: 0.6rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.signin-btn:hover {
+  background-color: #c8a056; /* Hover state color change */
+}
+
+/* Social SignIn Styles */
+.social-signin .google-signin {
+  width: 100%;
+  background-color: #ffffff; /* Google button background */
+  color: #000000; /* Google button text color */
+  padding: 0.6rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.social-signin .google-signin:hover {
+  background-color: #e8e8e8; /* Google button hover state color change */
+}
+
+/* Link Styles */
+.forgot-password-link,
+.signup-link {
+  color: #f0b90b; /* Links color */
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.forgot-password-link:hover,
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Signup Link Container */
+.signup-link-container {
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .signin-container {
+    padding: 1rem;
+  }
+
+  .signin-form input,
+  .signin-btn,
+  .google-signin {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .signin-container {
+    width: 90%;
+  }
+}
