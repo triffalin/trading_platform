@@ -3,6 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
+const passport = require('passport');
+const speakeasy = require('speakeasy');
+const QRCode = require('qrcode');
 
 // Register User
 const register = async userData => {
@@ -27,6 +30,16 @@ const login = async credentials => {
   }
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   return { user, token };
+};
+
+// OAuth Google Login
+const googleAuth = passport.authenticate('google', {
+  scope: ['profile', 'email']
+});
+// OAuth Google Callback
+const googleAuthCallback = (req, res) => {
+  // Successful authentication, redirect home.
+  res.redirect('/');
 };
 
 // Send password reset email
@@ -86,9 +99,45 @@ const resetPassword = async (req, res) => {
   res.status(200).send('Password reset successful');
 };
 
+// 2FA Setup
+const setup2FA = async (req, res) => {
+  const user = await UserModel.findById(req.user.id);
+  const secret = speakeasy.generateSecret({ length: 20 });
+  user.twoFactorSecret = secret.base32;
+  await user.save();
+
+  QRCode.toDataURL(secret.otpauth_url, (err, image_data) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ success: false, message: 'Unable to generate QR Code' });
+    }
+    res.json({ success: true, secret: secret.base32, qrCode: image_data });
+  });
+};
+
+// 2FA Verify
+const verify2FA = async (req, res) => {
+  const user = await UserModel.findById(req.user.id);
+  const verified = speakeasy.totp.verify({
+    secret: user.twoFactorSecret,
+    encoding: 'base32',
+    token: req.body.token
+  });
+  if (verified) {
+    res.json({ success: true });
+  } else {
+    res.status(400).json({ success: false });
+  }
+};
+
 module.exports = {
   register,
   login,
+  googleAuth,
+  googleAuthCallback,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  setup2FA,
+  verify2FA
 };

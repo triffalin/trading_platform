@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const userAuthRoutes = require('./routes/userAuth.js');
+const authRoutes = require('./routes/authRoutes.js');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(limiter);
 
 // Use the user authentication routes
 app.use('/api/auth', userAuthRoutes);
+app.use('/api/users', authRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

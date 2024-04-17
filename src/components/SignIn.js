@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -23,6 +24,7 @@ const SignIn = () => {
 
   return (
     <div>
+      <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -40,6 +42,14 @@ const SignIn = () => {
         />
         <button type="submit">Sign In</button>
       </form>
+      <button
+        onClick={() =>
+          (window.location.href = 'http://localhost:5000/auth/google')
+        }
+      >
+        Sign in with Google
+      </button>
+      <Link to="/forgot-password">Forgot Password?</Link>
       {message && <p>{message}</p>}
     </div>
   );
