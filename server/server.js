@@ -74,7 +74,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: !process.env.DEVELOPMENT } // Enable secure cookies on production
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true
+    }
   })
 );
 
