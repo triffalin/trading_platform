@@ -478,7 +478,7 @@ html {
 /* Footer Section styles */
 .footer-section {
   width: 100%;
-  min-width: 1920px;
+  max-width: 1920px;
   background-color: #12161c; /* Footer background */
   color: #fff; /* Text color */
   padding: 2rem 0;
@@ -522,8 +522,13 @@ html {
 
 /* Ensure consistency in responsiveness */
 @media (max-width: 768px) {
+  .footer-section {
+    padding: 1rem;
+    text-align: center;
+  }
   .footer-content {
     justify-content: center;
+    display: block;
   }
 
   .footer-column {
@@ -532,8 +537,17 @@ html {
 }
 
 @media (max-width: 576px) {
+  .footer-section {
+    padding: 0.5rem;
+  }
+  .footer-content {
+    display: block;
+  }
   .footer-heading {
     font-size: 1.2rem;
+  }
+  .footer-section .footer-link {
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -573,7 +587,7 @@ html {
 .testimonials-section,
 .call-to-action-section-last,
 .footer-section {
-  max-width: 1400px;
+  max-width: 1920px;
   margin: auto;
   /* Include the rest of your section styles here */
 }
