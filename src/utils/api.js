@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://yourbackend.api/endpoint';
+const API_URL = 'http://localhost:5000';
 
 export const fetchData = async () => {
   try {
