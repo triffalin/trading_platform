@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import apiService from '../services/apiService';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/SignIn.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', {
-        email,
-        password
-      });
+      const res = await apiService.login({ email, password });
       setMessage('Login successful');
-      console.log(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data)); // Save the logged-in user to local storage
+      navigate('/dashboard'); // Redirect to the user dashboard or home page after login
     } catch (error) {
-      console.error(error);
-      setMessage('Login failed: ' + error.message);
+      setMessage(
+        error.response?.data?.message || 'Login failed. Please try again later.'
+      );
     }
   };
 

@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import apiService from '../services/apiService.js';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Register.css';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/register', {
-        email,
-        password
-      });
+      const res = await apiService.register({ email, password });
       setMessage('Registration successful');
-      console.log(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      navigate('/signin');
     } catch (error) {
-      console.error(error);
-      setMessage('Registration failed: ' + error.message);
+      setMessage(
+        error.response?.data?.message ||
+          'Registration failed. Please try again later.'
+      );
     }
   };
 

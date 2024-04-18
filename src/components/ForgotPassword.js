@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import apiService from '../services/apiService.js';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/ForgotPassword.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/users/forgot-password',
-        { email }
-      );
+      const res = await apiService.forgotPassword({ email });
       setMessage('Password reset email sent');
-      console.log(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      navigate('/signin');
     } catch (error) {
-      console.error(error);
-      setMessage('Password reset failed: ' + error.message);
+      setMessage(
+        error.response?.data?.message ||
+          'Password reset failed. Please try again later.'
+      );
     }
   };
 

@@ -1,31 +1,25 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import apiService from '../services/apiService.js';
 
 const TwoFactorVerify = () => {
   const [token, setToken] = useState('');
-  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      // Replace with your API endpoint for verifying 2FA
-      const res = await axios.post(
-        'http://localhost:5000/api/users/verify-2fa',
-        { token }
-      );
-      setMessage('2FA verification successful.');
-      console.log(res.data);
-      // Redirect or perform further actions after successful verification
-    } catch (error) {
-      console.error(error.response.data);
-      setMessage('2FA verification failed. ' + error.response.data.message);
+      await apiService.verify2FA(token);
+      alert('2FA Verified successfully!');
+      // Redirect or update state as necessary
+    } catch (err) {
+      setError('Failed to verify 2FA. Please try again.');
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h1>Two-Factor Authentication</h1>
+        {error && <p>{error}</p>}
         <input
           type="text"
           value={token}
@@ -34,7 +28,6 @@ const TwoFactorVerify = () => {
           required
         />
         <button type="submit">Verify</button>
-        {message && <p>{message}</p>}
       </form>
     </div>
   );

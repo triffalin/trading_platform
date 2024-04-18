@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiService from '../services/apiService.js';
 
 const TwoFactorSetup = () => {
   const [qrCode, setQrCode] = useState('');
-  const [secret, setSecret] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const get2FA = async () => {
+    const setup2FA = async () => {
       try {
-        const res = await axios.get('/api/users/setup-2fa');
-        setQrCode(res.data.qrCode);
-        setSecret(res.data.secret);
-      } catch (error) {
-        console.error(error);
+        const response = await apiService.setup2FA();
+        setQrCode(response.data.qrCode);
+      } catch (err) {
+        setError('Failed to setup 2FA. Please try again.');
       }
     };
 
-    get2FA();
+    setup2FA();
   }, []);
 
   return (
     <div>
-      <h1>Set up Two-Factor Authentication</h1>
+      {error && <p>{error}</p>}
       {qrCode && <img src={qrCode} alt="QR Code" />}
-      <p>Secret for manual entry: {secret}</p>
+      {!qrCode && !error && <p>Loading...</p>}
     </div>
   );
 };
