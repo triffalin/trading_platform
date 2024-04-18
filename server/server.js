@@ -3,97 +3,69 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const session = require('express-session');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const userAuthRoutes = require('./routes/userAuth.js');
+const MongoStore = require('connect-mongo');
+const passport = require('./passport-config.js');
 const authRoutes = require('./routes/authRoutes.js');
-const UserModel = require('./models/userModel.js');
+const rateLimit = require('express-rate-limit');
+const { errorHandler } = require('./middleware/errorMiddleware.js');
 
 const app = express();
 
-// Passport Google OAuth strategy
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:5000/auth/google/callback'
-    },
-    function (accessToken, refreshToken, profile, done) {
-      UserModel.findOne({ googleId: profile.id }, function (err, user) {
-        if (err) return done(err);
-        if (!user) {
-          user = new UserModel({
-            googleId: profile.id /* ...other profile information... */
-          });
-          user.save(function (err) {
-            if (err) console.log(err);
-            return done(err, user);
-          });
-        } else {
-          // found user. Return
-          return done(err, user);
-        }
-      });
-    }
-  )
+// Apply security measures
+app.use(helmet());
+app.use(
+  cors({
+    origin: 'http://localhost:3000', // Adapt this to your front-end URL in production
+    credentials: true
+  })
 );
 
-// Serialize user into the sessions
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-// Deserialize user from the sessions
-passport.deserializeUser(function (id, done) {
-  UserModel.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
-
-// Trust the first proxy in front of the server
-app.set('trust proxy', 1);
-
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB:', err));
-
-// Rate limiter
+// Rate limiting to prevent brute force attacks
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100 // Limit each IP to 100 requests per 15 minutes
 });
+app.use(limiter);
 
-// Session middleware
+// Body parsing middleware
+app.use(express.json());
+
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log('MongoDB connected successfully.'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Session configuration for authentication
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: process.env.NODE_ENV === 'production',
-      httpOnly: true
-    }
+    saveUninitialized: true,
+    store: new MongoStore({ mongoUrl: process.env.MONGO_URI }),
+    cookie: { secure: process.env.NODE_ENV === 'production' } // Use secure cookies in production
   })
 );
 
-// Initialize Passport and restore authentication state, if any, from the session
+// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Middleware
-app.use(express.json());
-app.use(cors());
-app.use(helmet());
-app.use(limiter);
-
-// Use the user authentication routes
-app.use('/api/auth', userAuthRoutes);
+// Define routes
 app.use('/api/users', authRoutes);
+app.use('/api/auth', authRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+app.use(errorHandler);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

@@ -1,143 +1,148 @@
-const UserModel = require('../models/userModel.js');
+const UserModel = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const sendEmail = require('../utils/sendEmail');
+const sendEmail = require('../utils/emailService.js');
 const passport = require('passport');
 const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
 
+// Helper function to handle errors
+const handleError = (res, error) => {
+  console.error(error);
+  res.status(500).json({ message: error.message });
+};
+
 // Register User
-const register = async userData => {
-  const hashedPassword = await bcrypt.hash(userData.password, 10);
-  const user = new UserModel({
-    ...userData,
-    password: hashedPassword
-  });
-  await user.save();
-  return user;
+exports.register = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (await UserModel.findOne({ email })) {
+      return res.status(409).json({ message: 'Email already in use' });
+    }
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const user = new UserModel({ email, password: hashedPassword });
+    await user.save();
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    handleError(res, error);
+  }
 };
 
 // User Login
-const login = async credentials => {
-  const user = await UserModel.findOne({ email: credentials.email });
-  if (!user) {
-    throw new Error('User not found');
+exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h'
+    });
+    res.json({
+      message: 'Logged in successfully',
+      token,
+      user: { id: user._id, email: user.email }
+    });
+  } catch (error) {
+    handleError(res, error);
   }
-  const isMatch = await bcrypt.compare(credentials.password, user.password);
-  if (!isMatch) {
-    throw new Error('Incorrect password');
-  }
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-  return { user, token };
 };
 
-// OAuth Google Login
-const googleAuth = passport.authenticate('google', {
+// Google OAuth logic consolidated into the controller for clarity
+exports.googleAuth = passport.authenticate('google', {
   scope: ['profile', 'email']
 });
-// OAuth Google Callback
-const googleAuthCallback = (req, res) => {
-  // Successful authentication, redirect home.
-  res.redirect('/');
-};
+exports.googleAuthCallback = passport.authenticate('google', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+});
 
 // Send password reset email
-const forgotPassword = async (req, res) => {
-  const user = await UserModel.findOne({ email: req.body.email });
-  if (!user) {
-    return res.status(404).send('User not found');
-  }
-
-  const resetToken = crypto.randomBytes(20).toString('hex');
-  user.resetPasswordToken = crypto
-    .createHash('sha256')
-    .update(resetToken)
-    .digest('hex');
-  user.resetPasswordExpire = Date.now() + 3600000; // 1 hour
-  await user.save();
-
-  const resetUrl = `https://your-frontend-domain.com/reset-password/${resetToken}`;
-  const message = `Reset your password by clicking here: ${resetUrl}`;
-
+exports.forgotPassword = async (req, res) => {
   try {
+    const user = await UserModel.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+    user.resetPasswordExpire = Date.now() + 3600000; // 1 hour
+    await user.save();
+    const resetUrl = `https://your-frontend-domain.com/reset-password/${resetToken}`;
     await sendEmail({
       to: user.email,
       subject: 'Password Reset Request',
-      text: message
+      text: `Reset your password by clicking here: ${resetUrl}`
     });
-
-    res.status(200).send('Email sent');
-  } catch (err) {
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
-    await user.save();
-    return res.status(500).send('Email could not be sent');
+    res.status(200).json({ message: 'Email sent' });
+  } catch (error) {
+    handleError(res, error);
   }
 };
 
 // Reset Password
-const resetPassword = async (req, res) => {
-  const resetPasswordToken = crypto
-    .createHash('sha256')
-    .update(req.params.token)
-    .digest('hex');
-  const user = await UserModel.findOne({
-    resetPasswordToken,
-    resetPasswordExpire: { $gt: Date.now() }
-  });
-
-  if (!user) {
-    return res.status(400).send('Invalid token');
+exports.resetPassword = async (req, res) => {
+  try {
+    const hashedToken = crypto
+      .createHash('sha256')
+      .update(req.params.token)
+      .digest('hex');
+    const user = await UserModel.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpire: { $gt: Date.now() }
+    });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid token' });
+    }
+    user.password = await bcrypt.hash(req.body.password, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (error) {
+    handleError(res, error);
   }
-
-  user.password = await bcrypt.hash(req.body.password, 10);
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpire = undefined;
-  await user.save();
-
-  res.status(200).send('Password reset successful');
 };
 
 // 2FA Setup
-const setup2FA = async (req, res) => {
-  const user = await UserModel.findById(req.user.id);
-  const secret = speakeasy.generateSecret({ length: 20 });
-  user.twoFactorSecret = secret.base32;
-  await user.save();
-
-  QRCode.toDataURL(secret.otpauth_url, (err, image_data) => {
-    if (err) {
-      return res
-        .status(500)
-        .json({ success: false, message: 'Unable to generate QR Code' });
-    }
-    res.json({ success: true, secret: secret.base32, qrCode: image_data });
-  });
-};
-
-// 2FA Verify
-const verify2FA = async (req, res) => {
-  const user = await UserModel.findById(req.user.id);
-  const verified = speakeasy.totp.verify({
-    secret: user.twoFactorSecret,
-    encoding: 'base32',
-    token: req.body.token
-  });
-  if (verified) {
-    res.json({ success: true });
-  } else {
-    res.status(400).json({ success: false });
+exports.setup2FA = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user.id);
+    const secret = speakeasy.generateSecret();
+    user.twoFactorSecret = secret.base32;
+    await user.save();
+    QRCode.toDataURL(secret.otpauth_url, (err, image_data) => {
+      if (err) {
+        return res.status(500).json({ message: 'Unable to generate QR Code' });
+      }
+      res.json({ secret: secret.base32, qrCode: image_data });
+    });
+  } catch (error) {
+    handleError(res, error);
   }
 };
 
-module.exports = {
-  register,
-  login,
-  googleAuth,
-  googleAuthCallback,
-  forgotPassword,
-  resetPassword,
-  setup2FA,
-  verify2FA
+// 2FA Verify
+exports.verify2FA = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user.id);
+    const verified = speakeasy.totp.verify({
+      secret: user.twoFactorSecret,
+      encoding: 'base32',
+      token: req.body.token
+    });
+    if (!verified) {
+      return res.status(400).json({ message: 'Invalid token' });
+    }
+    res.json({ message: '2FA verified successfully' });
+  } catch (error) {
+    handleError(res, error);
+  }
 };
+
+module.exports = exports;

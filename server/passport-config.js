@@ -7,26 +7,40 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:5000/auth/google/callback'
+      callbackURL: '/auth/google/callback'
     },
-    function (accessToken, refreshToken, profile, cb) {
-      UserModel.findOne({ googleId: profile.id }, function (err, user) {
-        if (err) return cb(err);
+    async (accessToken, refreshToken, profile, cb) => {
+      try {
+        let user = await UserModel.findOne({ googleId: profile.id });
+
         if (!user) {
-          // Create a new user if one doesn't exist
+          // If the user does not exist, create a new user
           user = new UserModel({
-            googleId: profile.id
-            // ... other profile information from Google
+            googleId: profile.id,
+            email: profile.emails[0].value
+            // Populate additional profile fields as necessary
           });
-          user.save(function (err) {
-            if (err) console.log(err);
-            return cb(null, user);
-          });
-        } else {
-          // Existing user, just return it
-          return cb(null, user);
+          await user.save();
         }
-      });
+
+        return cb(null, user);
+      } catch (err) {
+        return cb(err, null);
+      }
     }
   )
 );
+
+// Serialize user into the sessions
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialize user from the sessions
+passport.deserializeUser((id, done) => {
+  UserModel.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+module.exports = passport;

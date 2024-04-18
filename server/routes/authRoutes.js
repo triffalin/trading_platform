@@ -2,25 +2,39 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController.js');
 const passport = require('passport');
+const rateLimit = require('express-rate-limit');
 
-// Authentication Routes
-router.post('/sign-up', userController.register);
-router.post('/login', userController.login);
-router.post('/forgot-password', userController.forgotPassword);
-router.post('/reset-password/:token', userController.resetPassword);
+// Apply rate limiting to all authentication routes to prevent brute force attacks
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again after 15 minutes'
+});
 
-// Google OAuth Routes
-router.get('/auth/google', userController.googleAuth);
-router.get(
-  '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/sign-in' }),
-  (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  }
+// Authentication routes
+router.post('/sign-up', authLimiter, userController.register);
+router.post('/login', authLimiter, userController.login);
+router.post('/forgot-password', authLimiter, userController.forgotPassword);
+router.post(
+  '/reset-password/:token',
+  authLimiter,
+  userController.resetPassword
 );
 
-// 2FA Routes
+// Google OAuth routes
+router.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  })
+);
+
+// Setup 2FA Routes
 router.post('/setup-2fa', userController.setup2FA);
 router.post('/verify-2fa', userController.verify2FA);
 
