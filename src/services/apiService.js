@@ -12,13 +12,13 @@ const apiClient = axios.create({
 
 // Register user
 const register = async userData => {
-  const response = await apiClient.post('/register', userData);
+  const response = await apiClient.post('/sign-up', userData);
   return response.data;
 };
 
 // Login user
 const login = async credentials => {
-  const response = await apiClient.post('/login', credentials);
+  const response = await apiClient.post('/sign-in', credentials);
   // Set token to localStorage or manage session here if needed
   localStorage.setItem('user', JSON.stringify(response.data));
   return response.data;

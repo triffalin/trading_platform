@@ -15,7 +15,7 @@ const Register = () => {
       const res = await apiService.register({ email, password });
       setMessage('Registration successful');
       localStorage.setItem('user', JSON.stringify(res.data));
-      navigate('/signin');
+      navigate('/sign-in');
     } catch (error) {
       setMessage(
         error.response?.data?.message ||

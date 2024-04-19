@@ -14,7 +14,7 @@ const ForgotPassword = () => {
       const res = await apiService.forgotPassword({ email });
       setMessage('Password reset email sent');
       localStorage.setItem('user', JSON.stringify(res.data));
-      navigate('/signin');
+      navigate('/sign-in');
     } catch (error) {
       setMessage(
         error.response?.data?.message ||
