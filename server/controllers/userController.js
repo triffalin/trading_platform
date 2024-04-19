@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
       return handleErrorResponse(res, new Error('Email already in use'), 409);
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new UserModel({ email, password: hashedPassword });
     await user.save();
 
