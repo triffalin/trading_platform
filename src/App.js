@@ -19,7 +19,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/dashboard" element={Dashboard} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/two-factor-setup" element={<TwoFactorSetup />} />
         <Route path="/two-factor-verify" element={<TwoFactorVerify />} />
         {/* Define other routes here */}
