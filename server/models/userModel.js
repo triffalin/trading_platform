@@ -7,9 +7,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
-    lowercase: true,
-    trim: true
+    unique: true
   },
   password: { type: String, required: true },
   passwordResetToken: String,
@@ -31,7 +29,7 @@ userSchema.pre('save', async function (next) {
 
 // Method to compare provided password with the hashed one
 userSchema.methods.comparePassword = async function (candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
 // Method to generate a password reset token
