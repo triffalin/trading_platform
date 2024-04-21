@@ -16,7 +16,7 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: 'http://localhost:3000', // Adapt this to your front-end URL in production
+    origin: process.env.CORS_ORIGIN, // Use environment variable for production
     credentials: true
   })
 );
@@ -44,7 +44,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({ mongoUrl: process.env.MONGO_URI }),
-    cookie: { secure: process.env.NODE_ENV === 'production' } // Use secure cookies in production
+    cookie: { secure: process.env.NODE_ENV }
   })
 );
 
