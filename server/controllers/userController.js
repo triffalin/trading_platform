@@ -1,9 +1,9 @@
-const UserModel = require('../models/userModel');
-const bcrypt = require('bcryptjs');
+const UserModel = require('../models/userModel.js');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require('../utils/emailService.js');
-const passport = require('passport');
+const passport = require('../passport-config.js');
 const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
 
@@ -17,8 +17,11 @@ const handleErrorResponse = (res, error, status = 500) => {
 exports.register = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      throw new Error('Email and password are required');
+    }
     if (await UserModel.findOne({ email })) {
-      return handleErrorResponse(res, new Error('Email already in use'), 409);
+      throw new Error('Email already in use');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -35,9 +38,13 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      throw new Error('Email and password are required');
+    }
+
     const user = await UserModel.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return handleErrorResponse(res, new Error('Invalid credentials'), 401);
+      throw new Error('Invalid credentials');
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -67,9 +74,14 @@ exports.googleAuthCallback = passport.authenticate('google', {
 // Send password reset email
 exports.forgotPassword = async (req, res) => {
   try {
-    const user = await UserModel.findOne({ email: req.body.email });
+    const { email } = req.body;
+    if (!email) {
+      throw new Error('Email is required');
+    }
+
+    const user = await UserModel.findOne({ email });
     if (!user) {
-      return handleErrorResponse(res, new Error('User not found'), 404);
+      throw new Error('User not found');
     }
 
     const resetToken = crypto.randomBytes(20).toString('hex');
@@ -96,17 +108,16 @@ exports.forgotPassword = async (req, res) => {
 // Reset Password
 exports.resetPassword = async (req, res) => {
   try {
-    const hashedToken = crypto
-      .createHash('sha256')
-      .update(req.params.token)
-      .digest('hex');
+    const { token } = req.params;
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
     const user = await UserModel.findOne({
       passwordResetToken: hashedToken,
       passwordResetExpires: { $gt: Date.now() }
     });
 
     if (!user) {
-      return handleErrorResponse(res, new Error('Invalid token'), 400);
+      throw new Error('Invalid token');
     }
 
     user.password = await bcrypt.hash(req.body.password, 10);
@@ -123,18 +134,18 @@ exports.resetPassword = async (req, res) => {
 // 2FA Setup
 exports.setup2FA = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.user.id);
+    const user = await UserModel.findById(req.user.id).lean();
+    if (!user) {
+      throw new Error('User not found');
+    }
+
     const secret = speakeasy.generateSecret({ length: 20 });
     user.twoFactorSecret = secret.base32;
-    await user.save();
+    await UserModel.findByIdAndUpdate(user._id, user);
 
     QRCode.toDataURL(secret.otpauth_url, (err, image_data) => {
       if (err) {
-        return handleErrorResponse(
-          res,
-          new Error('Unable to generate QR Code'),
-          500
-        );
+        throw new Error('Unable to generate QR Code');
       }
       res.json({ secret: secret.base32, qrCode: image_data });
     });
@@ -146,7 +157,11 @@ exports.setup2FA = async (req, res) => {
 // 2FA Verify
 exports.verify2FA = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.user.id);
+    const user = await UserModel.findById(req.user.id).lean();
+    if (!user) {
+      throw new Error('User not found');
+    }
+
     const verified = speakeasy.totp.verify({
       secret: user.twoFactorSecret,
       encoding: 'base32',
@@ -154,7 +169,7 @@ exports.verify2FA = async (req, res) => {
     });
 
     if (!verified) {
-      return handleErrorResponse(res, new Error('Invalid token'), 400);
+      throw new Error('Invalid token');
     }
 
     res.json({ message: '2FA verified successfully' });

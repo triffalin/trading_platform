@@ -35,7 +35,10 @@ app.use(express.json());
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected successfully.'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
 
 // Session configuration for authentication
 app.use(
@@ -58,8 +61,11 @@ app.use('/api/auth', authRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+  if (err) {
+    console.error(err.stack);
+    return res.status(500).send('Something broke!');
+  }
+  next();
 });
 
 app.use(errorHandler);
