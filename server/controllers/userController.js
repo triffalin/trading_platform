@@ -57,6 +57,7 @@ exports.login = async (req, res) => {
 exports.googleAuth = passport.authenticate('google', {
   scope: ['profile', 'email']
 });
+
 // OAuth Google Callback
 exports.googleAuthCallback = passport.authenticate('google', {
   successRedirect: '/',
