@@ -13,9 +13,14 @@ const SignIn = () => {
     event.preventDefault();
     try {
       const res = await apiService.login({ email, password });
-      setMessage('Login successful');
-      localStorage.setItem('user', JSON.stringify(res.data)); // Save the logged-in user to local storage
-      navigate('/dashboard'); // Redirect to the user dashboard or home page after login
+      if (res.data.token) {
+        setMessage('Login successful');
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        navigate('/dashboard');
+      } else {
+        setMessage('Invalid credentials. No token received.');
+      }
     } catch (error) {
       setMessage(
         error.response?.data?.message || 'Login failed. Please try again later.'

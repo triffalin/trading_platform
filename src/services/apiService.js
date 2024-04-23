@@ -19,8 +19,12 @@ const register = async userData => {
 // Login user
 const login = async credentials => {
   const response = await apiClient.post('/sign-in', credentials);
-  // Set token to localStorage or manage session here if needed
-  localStorage.setItem('user', JSON.stringify(response.data));
+  if (response.data.token && response.data.user) {
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+  } else {
+    throw new Error('Invalid server response. Token or user data is missing.');
+  }
   return response.data;
 };
 

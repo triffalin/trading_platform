@@ -1,36 +1,39 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+import * as mongoose from 'mongoose';
+import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 
 // User Schema
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false
+    },
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+    googleId: String
+    // Additional fields as needed
   },
-  password: { type: String, required: true },
-  passwordResetToken: String,
-  passwordResetExpires: Date,
-  googleId: String
-  // Additional fields as needed
-});
+  { timestamps: true }
+);
 
 // Pre-save hook to hash password before saving a new user
-userSchema.pre('save', async function (next) {
-  // If the password is not being modified, do not continue
+userSchema.pre('save', function (next) {
   if (!this.isModified('password')) return next();
-
-  // If the password is null or undefined, throw an error
-  if (!this.password) {
-    next(new Error('A password is required'));
-    return;
-  }
-
-  // Generate a salt and hash the password
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) return next(err);
+      this.password = hash;
+      next();
+    });
+  });
 });
 
 // Method to compare provided password with the hashed one
@@ -48,24 +51,21 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 
 // Method to generate a password reset token
 userSchema.methods.createPasswordResetToken = function () {
-  if (!this.email) {
-    throw new Error('Email is required to generate a password reset token');
+  if (this.passwordResetToken != null) {
+    throw new Error('Password reset token already exists');
   }
-
+  if (!this.email) {
+    throw new Error('Email is not set');
+  }
   const resetToken = crypto.randomBytes(32).toString('hex');
-
-  // Hash the token and set to the passwordResetToken field
   this.passwordResetToken = crypto
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
-
-  // Set the token expiration time
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // Token expires in 10 minutes
-
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
   return resetToken;
 };
 
 const UserModel = mongoose.model('User', userSchema);
 
-module.exports = UserModel;
+export default UserModel;

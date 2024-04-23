@@ -1,87 +1,66 @@
-const UserModel = require('../models/userModel.js');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const sendEmail = require('../utils/emailService.js');
-const passport = require('../passport-config.js');
-const speakeasy = require('speakeasy');
-const QRCode = require('qrcode');
+import UserModel from '../models/userModel.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import sendEmail from '../utils/emailService.js';
+import passport from '../passport-config.js';
+import { generateSecret } from 'speakeasy';
+import QRCode from 'qrcode';
 
-// Helper function to handle errors
-const handleErrorResponse = (res, error, status = 500) => {
-  console.error(error);
-  res.status(status).json({ message: error.message });
-};
-
-// Register User
-exports.register = async (req, res) => {
+export const register = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      throw new Error('Email and password are required');
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ message: 'Email already in use' });
     }
-    if (await UserModel.findOne({ email })) {
-      throw new Error('Email already in use');
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hashSync(
+      password,
+      await bcrypt.genSaltSync(10)
+    );
     const user = new UserModel({ email, password: hashedPassword });
     await user.save();
-
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    handleErrorResponse(res, error);
+    next(error);
   }
 };
 
-// User Login
-exports.login = async (req, res) => {
+export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      throw new Error('Email and password are required');
-    }
-
     const user = await UserModel.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new Error('Invalid credentials');
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
-
+    const doesPasswordMatch = await bcrypt.compareSync(password, user.password);
+    if (!doesPasswordMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h'
     });
-    res.json({
-      message: 'Logged in successfully',
-      token,
-      user: { id: user._id, email: user.email }
-    });
+    res.status(200).json({ token });
   } catch (error) {
-    handleErrorResponse(res, error);
+    next(error);
   }
 };
 
-// OAuth Google Login
-exports.googleAuth = passport.authenticate('google', {
+export const googleAuth = passport.authenticate('google', {
   scope: ['profile', 'email']
 });
 
-// OAuth Google Callback
-exports.googleAuthCallback = passport.authenticate('google', {
-  successRedirect: '/',
-  failureRedirect: '/login'
+export const googleAuthCallback = passport.authenticate('google', {
+  failureRedirect: '/login',
+  successRedirect: '/'
 });
 
-// Send password reset email
-exports.forgotPassword = async (req, res) => {
+export const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
-    if (!email) {
-      throw new Error('Email is required');
-    }
-
     const user = await UserModel.findOne({ email });
     if (!user) {
-      throw new Error('User not found');
+      return res.status(404).json({ message: 'User not found' });
     }
 
     const resetToken = crypto.randomBytes(20).toString('hex');
@@ -101,14 +80,13 @@ exports.forgotPassword = async (req, res) => {
 
     res.status(200).json({ message: 'Email sent' });
   } catch (error) {
-    handleErrorResponse(res, error);
+    next(error);
   }
 };
 
-// Reset Password
-exports.resetPassword = async (req, res) => {
+export const resetPassword = async (req, res, next) => {
   try {
-    const { token } = req.params;
+    const { token, newPassword } = req.body;
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
     const user = await UserModel.findOne({
@@ -117,52 +95,53 @@ exports.resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      throw new Error('Invalid token');
+      return res.status(400).json({ message: 'Invalid token' });
     }
 
-    user.password = await bcrypt.hash(req.body.password, 10);
+    user.password = await bcrypt.hashSync(
+      newPassword,
+      await bcrypt.genSaltSync(10)
+    );
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save();
 
     res.status(200).json({ message: 'Password reset successful' });
   } catch (error) {
-    handleErrorResponse(res, error);
+    next(error);
   }
 };
 
-// 2FA Setup
-exports.setup2FA = async (req, res) => {
+export const setup2FA = async (req, res, next) => {
   try {
     const user = await UserModel.findById(req.user.id).lean();
     if (!user) {
-      throw new Error('User not found');
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    const secret = speakeasy.generateSecret({ length: 20 });
-    user.twoFactorSecret = secret.base32;
-    await UserModel.findByIdAndUpdate(user._id, user);
+    const secret = generateSecret({ length: 20 }).base32;
+    user.twoFactorSecret = secret;
+    await UserModel.findByIdAndUpdate(user._id, { twoFactorSecret: secret });
 
     QRCode.toDataURL(secret.otpauth_url, (err, image_data) => {
       if (err) {
         throw new Error('Unable to generate QR Code');
       }
-      res.json({ secret: secret.base32, qrCode: image_data });
+      res.json({ secret, qrCode: image_data });
     });
   } catch (error) {
-    handleErrorResponse(res, error);
+    next(error);
   }
 };
 
-// 2FA Verify
-exports.verify2FA = async (req, res) => {
+export const verify2FA = async (req, res, next) => {
   try {
     const user = await UserModel.findById(req.user.id).lean();
     if (!user) {
       throw new Error('User not found');
     }
 
-    const verified = speakeasy.totp.verify({
+    const verified = generateSecret.totp.verify({
       secret: user.twoFactorSecret,
       encoding: 'base32',
       token: req.body.token
@@ -174,8 +153,8 @@ exports.verify2FA = async (req, res) => {
 
     res.json({ message: '2FA verified successfully' });
   } catch (error) {
-    handleErrorResponse(res, error);
+    next(error);
   }
 };
 
-module.exports = exports;
+export default exports;

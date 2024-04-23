@@ -1,18 +1,21 @@
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 
-// Security configuration for express
 const applySecurityMiddleware = app => {
-  if (!app) {
-    throw new ReferenceError('app is not defined');
-  }
+  app.use(
+    helmet({
+      noSniff: false
+    })
+  );
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // Limit each IP to 100 requests per windowMs
+      legacyHeaders: false
+    })
+  );
 
-  app.use(helmet());
-  const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100
-  });
-  app.use(limiter);
+  return app;
 };
 
-module.exports = { applySecurityMiddleware };
+export default applySecurityMiddleware;

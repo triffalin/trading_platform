@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 const sendEmail = async options => {
   if (!options) {
@@ -18,27 +18,27 @@ const sendEmail = async options => {
     throw new Error('Email text or html content is required');
   }
 
-  // Create reusable transporter object using SMTP transport
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD
-    }
-  });
-
   const message = {
-    from: '"Your Company Name" <info@qtrading.com>', // sender address
+    from: '"Your Company Name" <info@qtrading.com>',
     to,
     subject,
     text,
     html
   };
 
-  const info = await transporter.sendMail(message);
-  console.log('Message sent: %s', info.messageId);
+  const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: false,
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
+    },
+    pool: true,
+    maxMessages: 10
+  });
+
+  await transporter.sendMail(message);
 };
 
-module.exports = sendEmail;
+export default sendEmail;
