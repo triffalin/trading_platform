@@ -14,10 +14,7 @@ export const register = async (req, res, next) => {
     if (existingUser) {
       return res.status(409).json({ message: 'Email already in use' });
     }
-    const hashedPassword = await bcrypt.hashSync(
-      password,
-      await bcrypt.genSaltSync(10)
-    );
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new UserModel({ email, password: hashedPassword });
     await user.save();
     res.status(201).json({ message: 'User registered successfully' });
@@ -33,7 +30,7 @@ export const login = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-    const doesPasswordMatch = await bcrypt.compareSync(password, user.password);
+    const doesPasswordMatch = await bcrypt.compare(password, user.password);
     if (!doesPasswordMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -98,7 +95,7 @@ export const resetPassword = async (req, res, next) => {
       return res.status(400).json({ message: 'Invalid token' });
     }
 
-    user.password = await bcrypt.hashSync(
+    user.password = await bcrypt.hash(
       newPassword,
       await bcrypt.genSaltSync(10)
     );
@@ -156,5 +153,3 @@ export const verify2FA = async (req, res, next) => {
     next(error);
   }
 };
-
-export default exports;

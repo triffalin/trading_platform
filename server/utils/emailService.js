@@ -38,7 +38,11 @@ const sendEmail = async options => {
     maxMessages: 10
   });
 
-  await transporter.sendMail(message);
+  try {
+    await transporter.sendMail(message);
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
 };
 
 export default sendEmail;

@@ -37,7 +37,7 @@ userSchema.pre('save', function (next) {
 });
 
 // Method to compare provided password with the hashed one
-userSchema.methods.comparePassword = async function (candidatePassword) {
+userSchema.methods.comparePassword = function (candidatePassword) {
   if (!candidatePassword) {
     throw new Error('A candidate password is required');
   }
@@ -46,7 +46,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
     throw new Error('No password hash found');
   }
 
-  return await bcrypt.compare(candidatePassword, this.password);
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
 // Method to generate a password reset token
