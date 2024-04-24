@@ -1,22 +1,27 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import React, { ReactNode } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import '../../styles/globals.css';
+import Head from 'next/head';
 
-const inter = Inter({ subsets: ['latin'] });
+interface LayoutProps {
+  children: ReactNode;
+}
 
-export const metadata: Metadata = {
-  title: 'Trading Platform',
-  description: 'Auto-trading platform'
+const Layout = ({ children }: LayoutProps) => {
+  return (
+    <>
+      <Head>
+        <title>Trading Platform</title>
+        <meta name="description" content="Auto-trading platform" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </>
+  );
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
-}
+export default Layout;
