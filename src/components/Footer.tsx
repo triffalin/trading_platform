@@ -1,9 +1,9 @@
-/* @client */
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '../../public/logo.svg';
+import logo from '../../public/images/logo.svg';
 
 const Footer = () => {
   return (
@@ -13,8 +13,8 @@ const Footer = () => {
         <div>
           <h2 className="font-bold mb-2">Trading software</h2>
           {/* Add other links here */}
-          <Link href="/features">
-            <a className="block hover:text-gray-300">Features</a>
+          <Link href="/features" className="block hover:text-gray-300">
+            Features
           </Link>
           {/* ... */}
         </div>

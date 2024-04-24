@@ -1,26 +1,28 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import '../../styles/globals.css';
 import Head from 'next/head';
+import '../styles/globals.css';
 
 interface LayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
+    <html lang="en">
       <Head>
         <title>Trading Platform</title>
         <meta name="description" content="Auto-trading platform" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Navbar />
-      <main>{children}</main>
-      <Footer />
-    </>
+      <body>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+      </body>
+    </html>
   );
 };
 
