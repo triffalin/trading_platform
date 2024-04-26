@@ -5,7 +5,14 @@ module.exports = {
     // Add more paths here if you have other directories with Tailwind classes
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        binance: {
+          yellow: '#F3BA2F',
+          black: '#12161C'
+        }
+      }
+    }
   },
   plugins: []
 };
