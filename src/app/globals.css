@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-primary: #f3ba2f;
+  --color-secondary: #12161c;
+}
+
+body {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+/* Add more global styles as needed */
