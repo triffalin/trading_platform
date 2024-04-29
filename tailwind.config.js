@@ -1,7 +1,9 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}'
+    './src/**/*.{html,js,ts,jsx,tsx}',
+    './pages/**/*.{html,js,ts,jsx,tsx}',
+    './components/**/*.{html,js,ts,jsx,tsx}'
     // Add more paths here if you have other directories with Tailwind classes
   ],
   theme: {
@@ -14,5 +16,5 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [require('tailwindcss'), require('autoprefixer')]
 };
