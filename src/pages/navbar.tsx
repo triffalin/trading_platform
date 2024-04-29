@@ -10,28 +10,14 @@ const Navbar = () => {
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
-          <span className="flex items-center">
-            <Image src="/logo.svg" alt="Logo" width={120} height={30} />
-          </span>
+          <Image src="/logo.svg" alt="Logo" width={50} height={50} />
         </Link>
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-1">
-          <Link href="/features">
-            <span className="py-2 px-4 text-gray-700 hover:text-gray-900">
-              Features
-            </span>
-          </Link>
-          <Link href="/plans">
-            <span className="py-2 px-4 text-gray-700 hover:text-gray-900">
-              Plans
-            </span>
-          </Link>
-          <Link href="/pricing">
-            <span className="py-2 px-4 text-gray-700 hover:text-gray-900">
-              Pricing
-            </span>
-          </Link>
+          <Link href="/features">Features</Link>
+          <Link href="/plans">Plans</Link>
+          <Link href="/pricing">Pricing</Link>
           {/* ... other links ... */}
         </div>
 
