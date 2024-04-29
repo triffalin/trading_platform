@@ -12,6 +12,7 @@ module.exports = {
         binance: {
           yellow: '#F3BA2F',
           black: '#12161C'
+          // Add other colors as needed
         }
       }
     }
