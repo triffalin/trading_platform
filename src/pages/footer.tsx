@@ -1,7 +1,4 @@
-import React from 'react';
-import Link from 'next/link';
-
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <footer className="bg-black text-white p-4">
       <div className="flex justify-between">
@@ -9,6 +6,7 @@ const Footer: React.FC = () => {
         <div>Contacts</div>
         <div>Follow Us</div>
       </div>
+      <p>© Your Company</p>
     </footer>
   );
 };

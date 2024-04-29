@@ -1,11 +1,14 @@
-import React from 'react';
-import Navbar from '../components/navbar';
-import Footer from '../components/footer';
+import { useSession } from 'next-auth/react';
+import Navbar from '../pages/navbar';
+import Footer from '../pages/footer';
 
-const HomePage: React.FC = () => {
+export default function HomePage() {
+  const { data: session } = useSession();
+
   return (
     <div>
-      <Navbar />
+      <Navbar session={session} />
+      {/* Main content */}
       <main className="main-content">
         <section className="hero">{/* Hero section content */}</section>
         <section className="benefits">{/* Benefits section content */}</section>
@@ -14,6 +17,4 @@ const HomePage: React.FC = () => {
       <Footer />
     </div>
   );
-};
-
-export default HomePage;
+}
