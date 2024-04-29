@@ -15,10 +15,13 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-1">
-          <Link href="/features">Features</Link>
-          <Link href="/plans">Plans</Link>
-          <Link href="/pricing">Pricing</Link>
-          {/* ... other links ... */}
+          <Link href="#">Trading Bots</Link>
+          <Link href="#">Features</Link>
+          <Link href="#">Plans</Link>
+          <Link href="#">Price Charts</Link>
+          <Link href="#">Developers</Link>
+          <Link href="#">Company</Link>
+          <Link href="#">Academy</Link>
         </div>
 
         {/* Authentication Links */}
@@ -40,7 +43,7 @@ const Navbar = () => {
               </button>
               <Link href="/register">
                 <span className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 transition duration-300">
-                  Sign Up
+                  Try It Free
                 </span>
               </Link>
             </>
