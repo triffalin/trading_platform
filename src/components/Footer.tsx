@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="bg-[#181a20] text-[#EAECEF] text-sm p-10">
-      <div className="container mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
+      <div className="container max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8 ">
         {/* Column 1 */}
         <div>
           <h5 className="font-bold mb-3">Trading software</h5>
