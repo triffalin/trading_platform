@@ -1,13 +1,13 @@
 import { useSession } from 'next-auth/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { useRouter } from 'next/router';
 
 export default function HomePage() {
+  const router = useRouter();
   const { data: session } = useSession();
 
-  const handleRegistration = () => {
-    window.location.href = '/auth/registration';
-  };
+  const handleRegister = () => router.push('/auth/registration');
 
   return (
     <div className="bg-[#181a20] text-[#EAECEF] min-h-screen">
@@ -26,7 +26,7 @@ export default function HomePage() {
               for all market conditions.
             </p>
             <button
-              onClick={handleRegistration}
+              onClick={handleRegister}
               className="bg-[#FCD535] hover:bg-[#F0B90B] text-black font-bold py-2 px-4 rounded"
             >
               Start Trading
@@ -68,7 +68,7 @@ export default function HomePage() {
         <section className="call-to-action bg-[#FCD535] text-center p-6 rounded-lg">
           <h2 className="text-2xl font-bold mb-3">Ready to Start Trading?</h2>
           <button
-            onClick={handleRegistration}
+            onClick={handleRegister}
             className="bg-[#1E2329] hover:bg-[#F0B90B] text-white font-bold py-2 px-4 rounded"
           >
             Join Now
