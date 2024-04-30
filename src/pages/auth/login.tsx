@@ -6,7 +6,7 @@ type Inputs = {
   password: string;
 };
 
-const RegisterPage: React.FC = () => {
+const LoginPage: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -15,7 +15,7 @@ const RegisterPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -23,6 +23,7 @@ const RegisterPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
+      // Handle response data here, like redirecting the user or showing a success message
       console.log(responseData);
     } catch (error) {
       console.error(error);
@@ -45,4 +46,4 @@ const RegisterPage: React.FC = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

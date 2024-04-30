@@ -3,9 +3,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 type Inputs = {
   email: string;
+  password: string;
 };
 
-const ForgotPasswordPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -14,7 +15,7 @@ const ForgotPasswordPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
-      const response = await fetch('/api/forgot-password', {
+      const response = await fetch('/auth/registration', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -22,7 +23,6 @@ const ForgotPasswordPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      // Handle response data here, like showing a notification to the user
       console.log(responseData);
     } catch (error) {
       console.error(error);
@@ -34,9 +34,15 @@ const ForgotPasswordPage: React.FC = () => {
       <input {...register('email', { required: 'Email is required' })} />
       {errors.email && <span>{errors.email.message}</span>}
 
-      <input type="submit" value="Reset Password" />
+      <input
+        type="password"
+        {...register('password', { required: 'Password is required' })}
+      />
+      {errors.password && <span>{errors.password.message}</span>}
+
+      <input type="submit" />
     </form>
   );
 };
 
-export default ForgotPasswordPage;
+export default RegisterPage;

@@ -5,6 +5,15 @@ import Image from 'next/image';
 const Navbar = () => {
   const { data: session } = useSession();
 
+  const handleSignIn = () => {
+    window.location.href = '/auth/login';
+  };
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    window.location.href = '/';
+  };
+
   return (
     <nav className="bg-[#181a20] shadow-lg">
       <div className="container max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
@@ -48,7 +57,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-2">
           {session ? (
             <button
-              onClick={() => signOut()}
+              onClick={handleSignOut}
               className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
             >
               Sign Out
@@ -56,12 +65,12 @@ const Navbar = () => {
           ) : (
             <>
               <button
-                onClick={() => signIn()}
+                onClick={handleSignIn}
                 className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
               >
                 Sign In
               </button>
-              <Link href="/register">
+              <Link href="/auth/registration">
                 <span className="text-[#181a20] bg-[#FCD535] hover:bg-[#F0B90B] py-2 px-4 rounded border border-[#FCD535]">
                   Try It Free
                 </span>
