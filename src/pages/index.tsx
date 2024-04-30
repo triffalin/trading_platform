@@ -5,6 +5,10 @@ import Footer from '../components/Footer';
 export default function HomePage() {
   const { data: session } = useSession();
 
+  const handleRegistration = () => {
+    window.location.href = '/auth/registration';
+  };
+
   return (
     <div className="bg-[#181a20] text-[#EAECEF] min-h-screen">
       <Navbar />
@@ -21,7 +25,10 @@ export default function HomePage() {
               Streamline your trading with advanced, automated tools designed
               for all market conditions.
             </p>
-            <button className="bg-[#FCD535] hover:bg-[#F0B90B] text-black font-bold py-2 px-4 rounded">
+            <button
+              onClick={handleRegistration}
+              className="bg-[#FCD535] hover:bg-[#F0B90B] text-black font-bold py-2 px-4 rounded"
+            >
               Start Trading
             </button>
           </div>
@@ -60,7 +67,10 @@ export default function HomePage() {
         </section>
         <section className="call-to-action bg-[#FCD535] text-center p-6 rounded-lg">
           <h2 className="text-2xl font-bold mb-3">Ready to Start Trading?</h2>
-          <button className="bg-[#1E2329] hover:bg-[#F0B90B] text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={handleRegistration}
+            className="bg-[#1E2329] hover:bg-[#F0B90B] text-white font-bold py-2 px-4 rounded"
+          >
             Join Now
           </button>
         </section>
