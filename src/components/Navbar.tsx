@@ -6,7 +6,7 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   return (
-    <nav className="bg-binance-black shadow-lg">
+    <nav className="bg-[#181a20] shadow-lg">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
@@ -21,25 +21,25 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link href="#" className="text-white hover:text-binance-yellow">
+          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
             Trading Bots
           </Link>
-          <Link href="#" className="text-white hover:text-binance-yellow">
+          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
             Features
           </Link>
-          <Link href="#" className="text-white hover:text-binance-yellow">
+          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
             Plans
           </Link>
-          <Link href="#" className="text-white hover:text-binance-yellow">
+          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
             Price Charts
           </Link>
-          <Link href="#" className="text-white hover:text-binance-yellow">
+          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
             Developers
           </Link>
-          <Link href="#" className="text-white hover:text-binance-yellow">
+          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
             Company
           </Link>
-          <Link href="#" className="text-white hover:text-binance-yellow">
+          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
             Academy
           </Link>
         </div>
@@ -47,16 +47,24 @@ const Navbar = () => {
         {/* Authentication Links */}
         <div className="flex items-center space-x-2">
           {session ? (
-            <button onClick={() => signOut()} className="btn-sign-out">
+            <button
+              onClick={() => signOut()}
+              className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
+            >
               Sign Out
             </button>
           ) : (
             <>
-              <button onClick={() => signIn()} className="btn-sign-in">
+              <button
+                onClick={() => signIn()}
+                className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
+              >
                 Sign In
               </button>
               <Link href="/register">
-                <span className="btn-try-free">Try It Free</span>
+                <span className="text-[#181a20] bg-[#FCD535] hover:bg-[#F0B90B] py-2 px-4 rounded border border-[#FCD535]">
+                  Try It Free
+                </span>
               </Link>
             </>
           )}
