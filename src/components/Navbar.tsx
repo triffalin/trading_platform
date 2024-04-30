@@ -1,18 +1,20 @@
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
+  const router = useRouter();
   const { data: session } = useSession();
 
-  const handleSignIn = () => {
-    window.location.href = '/auth/login';
-  };
+  const handleSignIn = () => router.push('/auth/login');
 
   const handleSignOut = async () => {
     await signOut({ redirect: false });
-    window.location.href = '/';
+    router.push('/');
   };
+
+  const handleRegister = () => router.push('/auth/registration');
 
   return (
     <nav className="bg-[#181a20] shadow-lg">
@@ -70,11 +72,12 @@ const Navbar = () => {
               >
                 Sign In
               </button>
-              <Link href="/auth/registration">
-                <span className="text-[#181a20] bg-[#FCD535] hover:bg-[#F0B90B] py-2 px-4 rounded border border-[#FCD535]">
-                  Try It Free
-                </span>
-              </Link>
+              <button
+                onClick={handleRegister}
+                className="text-[#181a20] bg-[#FCD535] hover:bg-[#F0B90B] py-2 px-4 rounded border border-[#FCD535]"
+              >
+                Try It Free
+              </button>
             </>
           )}
         </div>
