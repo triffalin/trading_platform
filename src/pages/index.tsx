@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
-import Navbar from '../pages/navbar';
-import Footer from '../pages/footer';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function HomePage() {
   const { data: session } = useSession();
