@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,10 +13,13 @@ const ForgotPasswordPage: React.FC = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>();
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
+    setLoading(true);
     try {
-      const response = await fetch('/auth/forgot-password', {
+      const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -24,9 +27,16 @@ const ForgotPasswordPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      console.log(responseData);
+      if (response.ok) {
+        setMessage('Check your email for the reset link.');
+      } else {
+        setMessage('Failed to send reset email. Please try again.');
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Error:', error);
+      setMessage('An error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,9 +49,9 @@ const ForgotPasswordPage: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg space-y-6"
       >
-        <h1 className="text-2xl font-bold text-center mb-4">Forgot password</h1>
+        <h1 className="text-2xl font-bold text-center mb-4">Forgot Password</h1>
         <p className="text-center text-sm mb-4">
-          Please enter the e-mail address associated with your User account
+          Please enter the e-mail address associated with your User account.
         </p>
         <input
           {...register('email', { required: 'Email is required' })}
@@ -55,10 +65,14 @@ const ForgotPasswordPage: React.FC = () => {
         )}
         <button
           type="submit"
+          disabled={loading}
           className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
         >
-          Reset
+          {loading ? 'Sending...' : 'Reset'}
         </button>
+        {message && (
+          <p className="mt-4 text-center text-sm text-[#FCD535]">{message}</p>
+        )}
         <div className="pt-4 text-center text-xs">
           <Link href="/auth/login" className="hover:text-[#FCD535]">
             Sign In
