@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 type Inputs = {
   email: string;
@@ -10,6 +11,7 @@ type Inputs = {
 };
 
 const RegisterPage: React.FC = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -18,7 +20,7 @@ const RegisterPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
-      const response = await fetch('/auth/registration', {
+      const response = await fetch('/api/auth/registration', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -26,9 +28,13 @@ const RegisterPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      console.log(responseData);
+      if (responseData.status === 'success') {
+        router.push('/auth/login');
+      } else {
+        console.error('Registration failed:', responseData.errorMessage);
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Failed to register:', error);
     }
   };
 
