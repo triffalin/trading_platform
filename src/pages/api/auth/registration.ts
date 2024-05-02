@@ -10,7 +10,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   await nextCors(req, res, {
-    // Options
     methods: ['POST'],
     origin: '*',
     optionsSuccessStatus: 200
@@ -22,7 +21,6 @@ export default async function handler(
     try {
       const hashedPassword = await argon2.hash(password);
 
-      // Define userData with a type that allows dynamic keys
       const userData = {
         email,
         password: hashedPassword,
@@ -34,12 +32,10 @@ export default async function handler(
         .json({ status: 'success', message: 'User registered', user });
     } catch (error: any) {
       console.error('Request error', error);
-      res
-        .status(500)
-        .json({
-          error: 'Error creating user',
-          errorMessage: error.message || 'Unknown error'
-        });
+      res.status(500).json({
+        error: 'Error creating user',
+        errorMessage: error.message || 'Unknown error'
+      });
     }
   } else {
     res.setHeader('Allow', ['POST']);

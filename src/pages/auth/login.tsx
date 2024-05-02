@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 type Inputs = {
   email: string;
@@ -9,6 +10,7 @@ type Inputs = {
 };
 
 const LoginPage: React.FC = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -17,7 +19,7 @@ const LoginPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
-      const response = await fetch('/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -25,9 +27,14 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      console.log(responseData);
+      if (response.ok) {
+        localStorage.setItem('token', responseData.token); // Store token
+        router.push('/dashboard');
+      } else {
+        throw new Error(responseData.error);
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Login failed:', error);
     }
   };
 
