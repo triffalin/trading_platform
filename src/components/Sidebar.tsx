@@ -56,7 +56,7 @@ const Sidebar = () => {
   );
 
   return (
-    <aside className="sidebar bg-[#121212] text-gray-300 w-64 space-y-4 py-7 pl-5 fixed inset-y-0 left-0 transform md:relative transition duration-200 ease-in-out">
+    <aside className="sidebar bg-binance-black text-gray-300 w-64 space-y-4 py-7 pl-5 fixed inset-y-0 left-0 transform md:relative transition duration-200 ease-in-out">
       <ul className="text-sm">
         <li className="text-gray-400 uppercase tracking-wide mb-2">Trading</li>
         {menuLink('/dashboard', 'Dashboard')}

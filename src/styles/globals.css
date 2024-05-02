@@ -34,14 +34,14 @@
 /* Sidebar, Navbar, and Footer consistent styling */
 .sidebar {
   width: 256px; /* Set a fixed width for the sidebar */
-  background-color: #121212; /* Dark background */
+  background-color: var(--binance-black); /* Dark background */
   color: #ccc; /* Light text */
   height: calc(100vh - 4rem); /* Adjust based on navbar and footer height */
 }
 
 .navbar,
 .footer {
-  background-color: #121212; /* Ensure consistent styling */
+  background-color: var(--binance-black); /* Ensure consistent styling */
   color: #ccc;
   height: 2rem; /* Example height, adjust as necessary */
 }
