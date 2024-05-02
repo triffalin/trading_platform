@@ -6,11 +6,11 @@ import DashboardContent from '../components/DashboardContent';
 
 const DashboardPage = () => {
   return (
-    <div className="dashboard">
+    <div className="flex flex-col min-h-screen bg-binance-black">
       <Navbar />
-      <div className="dashboard-layout">
+      <div className="flex flex-grow">
         <Sidebar />
-        <div className="content-area">
+        <div className="flex-grow">
           <DashboardContent />
         </div>
       </div>

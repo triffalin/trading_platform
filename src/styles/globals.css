@@ -30,3 +30,39 @@
 .btn-try-free:hover {
   background-color: var(--hover-yellow);
 }
+
+/* Sidebar, Navbar, and Footer consistent styling */
+.sidebar {
+  width: 256px; /* Set a fixed width for the sidebar */
+  background-color: #121212; /* Dark background */
+  color: #ccc; /* Light text */
+  height: calc(100vh - 4rem); /* Adjust based on navbar and footer height */
+}
+
+.navbar,
+.footer {
+  background-color: #121212; /* Ensure consistent styling */
+  color: #ccc;
+  height: 2rem; /* Example height, adjust as necessary */
+}
+
+/* Flex container adjustments for the main dashboard layout */
+.dashboard-layout {
+  display: flex;
+  flex-grow: 1;
+}
+
+.content-area {
+  flex-grow: 1;
+  padding: 1rem; /* Adjust padding for layout */
+}
+
+/* Additional responsive adjustments as necessary */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%; /* Full width on smaller screens */
+  }
+  .content-area {
+    padding: 0.5rem;
+  }
+}
