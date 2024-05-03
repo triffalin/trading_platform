@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { useRouter } from 'next/router';
 
 export default function HomePage() {

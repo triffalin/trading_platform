@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { sendResetPasswordEmail } from '../../../lib/mailer.js';
+import { sendResetPasswordEmail } from '@/lib/mailer.js';
 
 const prisma = new PrismaClient();
 
