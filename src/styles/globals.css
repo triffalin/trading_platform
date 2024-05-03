@@ -33,7 +33,7 @@
 
 /* Sidebar, Navbar, and Footer consistent styling */
 .sidebar {
-  width: 256px; /* Set a fixed width for the sidebar */
+  width: 232px; /* Set a fixed width for the sidebar */
   background-color: var(--binance-black); /* Dark background */
   color: #ccc; /* Light text */
   height: calc(100vh - 4rem); /* Adjust based on navbar and footer height */
@@ -65,4 +65,30 @@
   .content-area {
     padding: 0.5rem;
   }
+}
+
+.dashboard-content {
+  max-width: 1440px; /* Standard max-width for large dashboards */
+  margin: 0 auto; /* Centers the dashboard content */
+  padding: 0.5rem; /* Padding for aesthetic spacing */
+  background-color: var(--binance-black); /* Background color */
+  color: var(--text-color); /* Text color */
+  border-radius: 8px; /* Optional: Adds rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds subtle shadow for depth */
+}
+
+.widgets {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Responsive grid layout */
+  gap: 1rem;
+}
+
+.widget {
+  background: #242731; /* Slightly lighter than the main background for contrast */
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
