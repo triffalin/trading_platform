@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import classNames from 'classnames';
 
 type MenuLink = {
   path: string;
@@ -13,13 +14,18 @@ const Sidebar = () => {
   const [isSmartTradeOpen, setSmartTradeOpen] = useState(false);
 
   const menuClasses = (path: string) =>
-    router.pathname === path
-      ? 'bg-gray-800 text-white'
-      : 'text-gray-300 hover:bg-gray-700 hover:text-white';
+    classNames(
+      'block px-3 py-2 rounded-md transition duration-300 ease-in-out',
+      {
+        'bg-gray-800 text-white': router.pathname === path,
+        'text-gray-300 hover:bg-gray-700 hover:text-white':
+          router.pathname !== path
+      }
+    );
 
   const menuLink = (path: string, label: string) => (
-    <li className={menuClasses(path)}>
-      <Link href={path} className="block px-3 py-2 rounded-md">
+    <li>
+      <Link href={path} className={menuClasses(path)}>
         {label}
       </Link>
     </li>
@@ -31,25 +37,17 @@ const Sidebar = () => {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     links: MenuLink[]
   ) => (
-    <li>
+    <li className="group">
       <button
-        className={`${menuClasses('')} w-full text-left`}
+        className={menuClasses('') + ' flex justify-between w-full text-left'}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {label} {isOpen ? '▲' : '▼'}
+        {label}
+        <span>{isOpen ? '▲' : '▼'}</span>
       </button>
       {isOpen && (
-        <ul className="pl-4">
-          {links.map(link => (
-            <li key={link.path}>
-              <Link
-                href={link.path}
-                className="block px-3 py-1 rounded-md hover:bg-gray-700 hover:text-white"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+        <ul className="pl-8">
+          {links.map(link => menuLink(link.path, link.label))}
         </ul>
       )}
     </li>
