@@ -1,8 +1,8 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
-import Footer from '../components/Footer';
-import DashboardContent from '../components/DashboardContent';
+import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar';
+import Footer from '@/components/Footer';
+import DashboardContent from '@/components/DashboardContent';
 
 const DashboardPage = () => {
   return (
