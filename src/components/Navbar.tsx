@@ -8,19 +8,17 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   const handleSignIn = () => router.push('/auth/login');
-
   const handleSignOut = async () => {
     await signOut({ redirect: false });
     router.push('/');
   };
-
   const handleRegister = () => router.push('/auth/registration');
 
   return (
     <nav className="bg-[#181a20] shadow-lg">
       <div className="container max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/">
+        <Link href="/" aria-label="Home">
           <Image
             src="/logo.svg"
             alt="Logo"
@@ -31,26 +29,39 @@ const Navbar = () => {
         </Link>
 
         {/* Navigation Links */}
+        {/* TODO: Update these links to actual paths once page sections are ready */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
+          <Link
+            href="/trading-bots"
+            className="text-[#EAECEF] hover:text-[#FCD535]"
+          >
             Trading Bots
           </Link>
-          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
+          <Link
+            href="/features"
+            className="text-[#EAECEF] hover:text-[#FCD535]"
+          >
             Features
           </Link>
-          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
+          <Link href="/plans" className="text-[#EAECEF] hover:text-[#FCD535]">
             Plans
           </Link>
-          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
+          <Link
+            href="/price-charts"
+            className="text-[#EAECEF] hover:text-[#FCD535]"
+          >
             Price Charts
           </Link>
-          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
+          <Link
+            href="/developers"
+            className="text-[#EAECEF] hover:text-[#FCD535]"
+          >
             Developers
           </Link>
-          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
+          <Link href="/company" className="text-[#EAECEF] hover:text-[#FCD535]">
             Company
           </Link>
-          <Link href="#" className="text-[#EAECEF] hover:text-[#FCD535]">
+          <Link href="/academy" className="text-[#EAECEF] hover:text-[#FCD535]">
             Academy
           </Link>
         </div>
@@ -82,6 +93,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      {/* TODO: Implement a hamburger menu for mobile responsiveness */}
     </nav>
   );
 };
