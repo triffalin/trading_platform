@@ -1,20 +1,24 @@
-import React from 'react';
-import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
-import Footer from '@/components/Footer';
-import DashboardContent from '@/components/DashboardContent';
+import React, { Suspense, lazy } from 'react';
+const Navbar = lazy(() => import('@/components/Navbar'));
+const Sidebar = lazy(() => import('@/components/Sidebar'));
+const Footer = lazy(() => import('@/components/Footer'));
+const DashboardContent = lazy(() => import('@/components/DashboardContent'));
 
 const DashboardPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-binance-black">
-      <Navbar />
-      <div className="flex flex-grow">
-        <Sidebar />
-        <div className="flex-grow">
-          <DashboardContent />
-        </div>
-      </div>
-      <Footer />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Navbar />
+        <main className="flex flex-grow">
+          <aside>
+            <Sidebar />
+          </aside>
+          <section className="flex-grow">
+            <DashboardContent />
+          </section>
+        </main>
+        <Footer />
+      </Suspense>
     </div>
   );
 };
