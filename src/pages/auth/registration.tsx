@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 type Inputs = {
   email: string;
   password: string;
-  referralCode: string;
+  referralCode?: string;
 };
 
 const RegisterPage: React.FC = () => {
@@ -29,7 +29,7 @@ const RegisterPage: React.FC = () => {
       });
       const responseData = await response.json();
       if (responseData.status === 'success') {
-        router.push('/auth/login');
+        router.push('/dashboard');
       } else {
         console.error('Registration failed:', responseData.errorMessage);
       }
@@ -38,85 +38,102 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  const handleSocialLogin = async (provider: string) => {
+    router.push(`/api/auth/${provider}`);
+  };
+
   return (
     <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center px-4">
       <Link href="/">
-        <Image src="/logo.svg" alt="Logo" width={80} height={80} />
+        <>
+          <Image src="/logo.svg" alt="Platform Logo" width={80} height={80} />
+        </>
       </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg space-y-6"
       >
         <h1 className="text-2xl font-bold text-center mb-4">Sign Up</h1>
-        <input
-          {...register('email', { required: 'Email is required' })}
-          id="email"
-          type="email"
-          placeholder="Email you want to confirm"
-          className="w-full p-3 rounded bg-black text-white"
-        />
-        {errors.email && (
-          <p className="text-red-500 text-xs">{errors.email.message}</p>
-        )}
-
-        <input
-          {...register('password', {
-            required: 'Password is required',
-            minLength: 8
-          })}
-          id="password"
-          type="password"
-          placeholder="Password"
-          className="w-full p-3 rounded bg-black text-white"
-        />
-        {errors.password && (
-          <p className="text-red-500 text-xs">{errors.password.message}</p>
-        )}
-
-        <input
-          {...register('referralCode')}
-          id="referralCode"
-          type="text"
-          placeholder="Referral code (optional)"
-          className="w-full p-3 rounded bg-black text-white"
-        />
-
-        <div className="flex items-center mb-4">
-          <input type="checkbox" id="news" className="mr-2" />
-          <label htmlFor="news" className="text-xs">
-            Please send me news and offers from Qtrading
+        <div>
+          <label htmlFor="email" className="sr-only">
+            Email Address
           </label>
+          <input
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address'
+              }
+            })}
+            id="email"
+            type="email"
+            placeholder="Email Address"
+            className="w-full p-3 rounded bg-black text-white"
+          />
+          {errors.email && (
+            <p className="text-red-500 text-xs">{errors.email.message}</p>
+          )}
         </div>
-
+        <div>
+          <label htmlFor="password" className="sr-only">
+            Password
+          </label>
+          <input
+            {...register('password', {
+              required: 'Password is required',
+              minLength: {
+                value: 8,
+                message: 'Password must have at least 8 characters'
+              }
+            })}
+            id="password"
+            type="password"
+            placeholder="Password"
+            className="w-full p-3 rounded bg-black text-white"
+          />
+          {errors.password && (
+            <p className="text-red-500 text-xs">{errors.password.message}</p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="referralCode" className="sr-only">
+            Referral Code (optional)
+          </label>
+          <input
+            {...register('referralCode')}
+            id="referralCode"
+            type="text"
+            placeholder="Referral Code (optional)"
+            className="w-full p-3 rounded bg-black text-white"
+          />
+        </div>
         <button
           type="submit"
           className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
         >
           Sign Up
         </button>
-
-        <div className="text-center mt-4">
-          <p className="text-xs">
-            Already have an account?
-            <Link href="/auth/login" className="hover:text-[#FCD535]">
-              Sign In
-            </Link>
-          </p>
-        </div>
-        <div className="pt-4 text-center text-xs">
-          <div className="border-t border-gray-700 pt-4">or</div>
-        </div>
-        <div className="grid grid-cols-1 gap-4 pt-4">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
-            Continue with Google
+        <div className="social-login-buttons">
+          <button
+            onClick={() => handleSocialLogin('google')}
+            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full w-full mb-2"
+          >
+            Sign up with Google
           </button>
-          <button className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded">
-            Continue with Apple
-          </button>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
-            Continue with Facebook
+          <button
+            onClick={() => handleSocialLogin('facebook')}
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full w-full"
+          >
+            Sign up with Facebook
           </button>
         </div>
+        <p className="text-center text-xs mt-4">
+          Already have an account?{' '}
+          <Link href="/auth/login" className="hover:text-[#FCD535]">
+            Sign In
+          </Link>
+        </p>
       </form>
     </div>
   );
