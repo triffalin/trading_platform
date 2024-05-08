@@ -1,11 +1,13 @@
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSignIn = () => router.push('/auth/login');
   const handleSignOut = async () => {
@@ -17,7 +19,9 @@ const Navbar = () => {
   return (
     <nav className="bg-[#181a20] shadow-lg">
       <div className="container max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
-        {/* Logo */}
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
+          <Image src="/menu-icon.svg" alt="Menu" width={80} height={80} />
+        </button>
         <Link href="/" aria-label="Home">
           <Image
             src="/logo.svg"
@@ -27,10 +31,11 @@ const Navbar = () => {
             className="mr-4"
           />
         </Link>
-
-        {/* Navigation Links */}
-        {/* TODO: Update these links to actual paths once page sections are ready */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div
+          className={`${
+            isOpen ? 'block' : 'hidden'
+          } md:flex md:items-center md:space-x-4`}
+        >
           <Link
             href="/trading-bots"
             className="text-[#EAECEF] hover:text-[#FCD535]"
@@ -65,9 +70,11 @@ const Navbar = () => {
             Academy
           </Link>
         </div>
-
-        {/* Authentication Links */}
-        <div className="flex items-center space-x-2">
+        <div
+          className={`${
+            isOpen ? 'block' : 'hidden'
+          } md:flex md:items-center md:space-x-2`}
+        >
           {session ? (
             <button
               onClick={handleSignOut}
@@ -93,7 +100,6 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      {/* TODO: Implement a hamburger menu for mobile responsiveness */}
     </nav>
   );
 };
