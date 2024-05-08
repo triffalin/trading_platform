@@ -15,7 +15,7 @@ export default function HomePage() {
       <main className="max-w-screen-xl mx-auto px-4 py-10">
         <section
           className="hero mb-10 bg-cover bg-hero-pattern"
-          style={{ backgroundImage: 'url(/path-to-hero-bg.jpg)' }}
+          style={{ backgroundImage: 'url(/hero-bg.jpg)' }}
         >
           <div className="text-center p-10">
             <h1 className="text-4xl font-bold mb-4">

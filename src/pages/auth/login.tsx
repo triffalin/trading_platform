@@ -44,8 +44,8 @@ const LoginPage: React.FC = () => {
         <Image
           src="/logo.svg"
           alt="Logo"
-          width={260}
-          height={120}
+          width={80}
+          height={80}
           className="mb-8"
         />
       </Link>

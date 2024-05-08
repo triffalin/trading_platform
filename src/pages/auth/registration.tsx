@@ -41,7 +41,7 @@ const RegisterPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center px-4">
       <Link href="/">
-        <Image src="/logo.svg" alt="Logo" width={260} height={120} />
+        <Image src="/logo.svg" alt="Logo" width={80} height={80} />
       </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
