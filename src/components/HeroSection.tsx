@@ -1,5 +1,5 @@
 const HeroSection = () => (
-  <section
+  <header
     className="hero mb-10 bg-cover bg-hero-pattern"
     style={{ backgroundImage: 'url(/hero-bg.jpg)' }}
   >
@@ -11,11 +11,11 @@ const HeroSection = () => (
         Streamline your trading with advanced, automated tools designed for all
         market conditions.
       </p>
-      <button className="bg-[#FCD535] hover:bg-[#F0B90B] text-black font-bold py-2 px-4 rounded">
+      <button className="bg-[#FCD535] hover:bg-[#F0B90B] text-black font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-[#FCD535]">
         Start Trading
       </button>
     </div>
-  </section>
+  </header>
 );
 
 export default HeroSection;
