@@ -14,9 +14,16 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState('dark'); // Set default theme as 'dark'
 
   useEffect(() => {
+    // Get the theme from localStorage on client-side only
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(currentTheme);
+  }, []);
+
+  useEffect(() => {
+    // Persist theme changes to localStorage on client-side only
     localStorage.setItem('theme', theme);
   }, [theme]);
 
