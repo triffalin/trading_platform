@@ -9,6 +9,8 @@ const Navbar: React.FC = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   const handleSignIn = () => router.push('/auth/login');
   const handleSignOut = async () => {
     await signOut({ redirect: false });
@@ -19,8 +21,12 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-[#181a20] shadow-lg">
       <div className="container max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
-          <Image src="/menu-icon.svg" alt="Menu" width={80} height={80} />
+        <button
+          onClick={toggleMenu}
+          aria-expanded={isOpen}
+          className="md:hidden"
+        >
+          <Image src="/menu-icon.svg" alt="Menu" width={40} height={40} />
         </button>
         <Link href="/" aria-label="Home">
           <Image
@@ -69,12 +75,6 @@ const Navbar: React.FC = () => {
           <Link href="/academy" className="text-[#EAECEF] hover:text-[#FCD535]">
             Academy
           </Link>
-        </div>
-        <div
-          className={`${
-            isOpen ? 'block' : 'hidden'
-          } md:flex md:items-center md:space-x-2`}
-        >
           {session ? (
             <button
               onClick={handleSignOut}
