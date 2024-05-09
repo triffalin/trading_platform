@@ -1,6 +1,21 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
+import { Session } from 'next-auth';
+
+// Define a custom User interface
+interface User {
+  id?: string;
+  name?: string;
+  email?: string;
+  image?: string;
+}
+
+declare module 'next-auth' {
+  interface Session {
+    user?: User;
+  }
+}
 
 export default NextAuth({
   providers: [
@@ -13,25 +28,17 @@ export default NextAuth({
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!
     })
   ],
-  // Configure other NextAuth options here such as database, callbacks, etc.
   callbacks: {
-    async signIn({ account, profile }) {
-      if (
-        account &&
-        (account.provider === 'google' || account.provider === 'facebook')
-      ) {
-        // Logic here is safe to execute because account is not null
-        return true;
-      }
-      return false; // If account is null, you might want to handle it differently
+    async signIn({ account, user, profile }) {
+      if (!account) return false; // Handles the case where account might be null
+      return true; // Allows signIn for configured providers
     },
-    async session({ session, token, user }) {
-      // You can safely add properties to session here
+    async session({ session, token }) {
+      // Optionally add custom properties to the session here
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
     }
-  },
-  pages: {
-    signIn: '/auth/signin', // Define custom sign-in page route
-    error: '/auth/error' // Error handling route
   }
 });
