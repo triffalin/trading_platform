@@ -3,7 +3,6 @@ import { getToken, JWT } from 'next-auth/jwt';
 
 interface CustomToken extends JWT {
   roles: string[];
-  // Add other expected properties of the token here
 }
 
 function isCustomToken(token: any): token is CustomToken {
@@ -15,16 +14,16 @@ export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request });
 
     if (!token) {
+      console.error('No token found, redirecting to login.');
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
     if (isCustomToken(token)) {
-      // Now it's safe to assume token is of type CustomToken
       if (!token.roles.includes('admin')) {
+        console.error('Access denied for non-admin user.');
         return NextResponse.redirect(new URL('/unauthorized', request.url));
       }
     } else {
-      // Token is not of type CustomToken
       console.error('Invalid token structure:', token);
       return NextResponse.redirect(new URL('/error', request.url));
     }
