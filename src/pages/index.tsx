@@ -17,10 +17,18 @@ export default function HomePage() {
     <div className="bg-[#181a20] text-[#EAECEF] min-h-screen">
       <Navbar />
       <main className="max-w-screen-xl mx-auto px-4 py-10">
-        <HeroSection />
-        <Features />
-        <Testimonials />
-        <CallToAction onRegister={() => handleRegister()} />
+        <section aria-label="Introduction">
+          <HeroSection />
+        </section>
+        <section aria-label="Features">
+          <Features />
+        </section>
+        <section aria-label="Testimonials">
+          <Testimonials />
+        </section>
+        <section aria-label="Call to Action">
+          <CallToAction onRegister={handleRegister} />
+        </section>
       </main>
       <Footer />
     </div>
