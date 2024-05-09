@@ -7,7 +7,13 @@ const DashboardContent = lazy(() => import('@/components/DashboardContent'));
 const DashboardPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-binance-black">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="text-center text-white">
+            Please wait, we are loading your dashboard...
+          </div>
+        }
+      >
         <Navbar />
         <main className="flex flex-grow">
           <aside>
