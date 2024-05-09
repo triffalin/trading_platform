@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-// Define an interface for the widget props
 interface WidgetProps {
   title: string;
   content: string;
 }
 
-// Component for individual widgets
-const DashboardWidget: React.FC<WidgetProps> = ({ title, content }) => (
+const DashboardWidget = memo<WidgetProps>(({ title, content }) => (
   <div className="widget">
     <h2 className="font-semibold text-white">{title}</h2>
     <p className="text-gray-300">{content}</p>
   </div>
-);
+));
 
-// Main dashboard component
+DashboardWidget.displayName = 'DashboardWidget';
+
 const DashboardContent: React.FC = () => {
   const widgets = [
     { title: 'Trading Summary', content: 'Content detailing trading stats...' },
