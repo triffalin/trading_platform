@@ -1,3 +1,5 @@
+import React from 'react';
+
 const features = [
   {
     title: 'Automated Trading',
@@ -17,11 +19,14 @@ const features = [
 ];
 
 const Features = () => (
-  <section className="features grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-    {features.map(feature => (
+  <section
+    aria-label="Main Features"
+    className="features grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
+  >
+    {features.map((feature, index) => (
       <div
-        key={feature.title}
-        className="feature-item bg-[#1E2329] p-6 rounded-lg shadow-lg"
+        key={index}
+        className="feature-item bg-[#1E2329] p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer"
       >
         <h2 className="font-bold text-lg">{feature.title}</h2>
         <p>{feature.description}</p>
