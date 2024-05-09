@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface FooterLinkProps {
   title: string;
   links: { name: string; url: string }[];
 }
 
-const FooterColumn: React.FC<FooterLinkProps> = ({ title, links }) => (
-  <div>
+const FooterColumn: React.FC<FooterLinkProps> = memo(({ title, links }) => (
+  <div aria-label={`${title} links`} className="text-left">
     <h5 className="font-bold mb-3">{title}</h5>
     <ul>
       {links.map(link => (
@@ -18,7 +18,9 @@ const FooterColumn: React.FC<FooterLinkProps> = ({ title, links }) => (
       ))}
     </ul>
   </div>
-);
+));
+
+FooterColumn.displayName = 'FooterColumn';
 
 const Footer: React.FC = () => {
   const footerLinks = [
@@ -80,7 +82,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#181a20] text-[#EAECEF] text-sm p-10 mx-auto">
-      <div className="container max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
+      <div className="container max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 justify-items-center">
         {footerLinks.map(column => (
           <FooterColumn
             key={column.title}
@@ -89,7 +91,7 @@ const Footer: React.FC = () => {
           />
         ))}
       </div>
-      <div className="border-t border-gray-700 mt-8 pt-4 text-center ">
+      <div className="border-t border-gray-700 mt-8 pt-4 text-center">
         <p>© Qtrading, 2024. All rights reserved.</p>
         <p>
           Qtrading provides software only. Any references to trading, exchange,
