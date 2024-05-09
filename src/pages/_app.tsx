@@ -1,3 +1,4 @@
+import React from 'react';
 import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import '@/styles/globals.css';
@@ -9,7 +10,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <SessionProvider session={session}>
       <ThemeProvider>
         <ErrorBoundary>
-          <Component {...pageProps} />
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Component {...pageProps} />
+          </React.Suspense>
         </ErrorBoundary>
       </ThemeProvider>
     </SessionProvider>
