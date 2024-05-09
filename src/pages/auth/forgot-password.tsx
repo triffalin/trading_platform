@@ -53,6 +53,9 @@ const ForgotPasswordPage: React.FC = () => {
         <p className="text-center text-sm mb-4">
           Please enter the e-mail address associated with your User account.
         </p>
+        <label htmlFor="email" className="sr-only">
+          Email Address
+        </label>
         <input
           {...register('email', { required: 'Email is required' })}
           id="email"
@@ -61,7 +64,9 @@ const ForgotPasswordPage: React.FC = () => {
           className="w-full p-3 rounded bg-black text-white"
         />
         {errors.email && (
-          <p className="text-red-500 text-xs">{errors.email.message}</p>
+          <p className="text-red-500 text-xs" aria-live="assertive">
+            {errors.email.message}
+          </p>
         )}
         <button
           type="submit"
