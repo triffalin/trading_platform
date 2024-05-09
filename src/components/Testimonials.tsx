@@ -1,3 +1,5 @@
+import React from 'react';
+
 const testimonials = [
   {
     name: 'John Doe',
@@ -17,10 +19,12 @@ const Testimonials = () => (
       Why Traders Choose Us
     </h2>
     {testimonials.map(testimonial => (
-      <blockquote key={testimonial.name}>
-        <p>`{testimonial.comment}`</p>
-        <cite>— {testimonial.name}</cite>
-      </blockquote>
+      <figure key={testimonial.name} className="mb-4">
+        <blockquote className="italic">
+          <p>&quot;{testimonial.comment}&quot;</p>
+        </blockquote>
+        <figcaption className="text-right">— {testimonial.name}</figcaption>
+      </figure>
     ))}
   </section>
 );
