@@ -89,6 +89,11 @@ const LoginPage: React.FC = () => {
         >
           Sign In
         </button>
+        <div className="text-center text-xs mt-2">
+          <Link href="/auth/forgot-password" className="hover:text-[#FCD535]">
+            Forgot your password?
+          </Link>
+        </div>
         <div className="social-login-buttons mt-4 space-y-2">
           <button
             onClick={() => handleSocialLogin('google')}
