@@ -12,7 +12,9 @@ const ForgotPasswordPage: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    mode: 'onChange'
+  });
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -58,11 +60,18 @@ const ForgotPasswordPage: React.FC = () => {
               Email Address
             </label>
             <input
-              {...register('email', { required: 'Email is required' })}
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^\S+@\S+\.\S+$/,
+                  message: 'Please enter a valid email address'
+                }
+              })}
               id="email"
               type="email"
               placeholder="Email Address"
               className="w-full p-3 rounded bg-black text-white"
+              aria-invalid={errors.email ? 'true' : 'false'}
             />
             {errors.email && (
               <p className="text-red-500 text-xs">{errors.email.message}</p>
