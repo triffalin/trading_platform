@@ -15,7 +15,7 @@ const RegisterPage: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
@@ -38,7 +38,7 @@ const RegisterPage: React.FC = () => {
     }
   };
 
-  const handleSocialLogin = async (provider: string) => {
+  const handleSocialLogin = (provider: string) => {
     router.push(`/api/auth/${provider}`);
   };
 
@@ -62,14 +62,15 @@ const RegisterPage: React.FC = () => {
             {...register('email', {
               required: 'Email is required',
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address'
+                value: /^\S+@\S+\.\S+$/,
+                message: 'Entered value does not match email format'
               }
             })}
             id="email"
             type="email"
             placeholder="Email Address"
             className="w-full p-3 rounded bg-black text-white"
+            aria-invalid={errors.email ? 'true' : 'false'}
           />
           {errors.email && (
             <p className="text-red-500 text-xs">{errors.email.message}</p>
@@ -91,39 +92,31 @@ const RegisterPage: React.FC = () => {
             type="password"
             placeholder="Password"
             className="w-full p-3 rounded bg-black text-white"
+            aria-invalid={errors.password ? 'true' : 'false'}
           />
           {errors.password && (
             <p className="text-red-500 text-xs">{errors.password.message}</p>
           )}
         </div>
-        <div>
-          <label htmlFor="referralCode" className="sr-only">
-            Referral Code (optional)
-          </label>
-          <input
-            {...register('referralCode')}
-            id="referralCode"
-            type="text"
-            placeholder="Referral Code (optional)"
-            className="w-full p-3 rounded bg-black text-white"
-          />
-        </div>
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
         >
-          Sign Up
+          {isSubmitting ? 'Registering...' : 'Register'}
         </button>
-        <div className="social-login-buttons">
+        <div className="social-login-buttons mt-4 space-y-2">
           <button
             onClick={() => handleSocialLogin('google')}
             className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full w-full mb-2"
+            aria-label="Sign up with Google"
           >
             Sign up with Google
           </button>
           <button
             onClick={() => handleSocialLogin('facebook')}
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full w-full"
+            aria-label="Sign up with Facebook"
           >
             Sign up with Facebook
           </button>
@@ -131,7 +124,7 @@ const RegisterPage: React.FC = () => {
         <p className="text-center text-xs mt-4">
           Already have an account?{' '}
           <Link href="/auth/login" className="hover:text-[#FCD535]">
-            Sign In
+            <>Sign In</>
           </Link>
         </p>
       </form>
