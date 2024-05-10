@@ -14,10 +14,13 @@ const LoginPage: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    formState
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
+    if (formState.isSubmitting) return; // Prevents multiple submissions
+
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -27,7 +30,7 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      if (responseData.status === 'success') {
+      if (response.ok) {
         router.push('/dashboard');
       } else {
         console.error('Login failed:', responseData.errorMessage);
@@ -45,7 +48,13 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center px-4">
       <Link href="/">
         <>
-          <Image src="/logo.svg" alt="Platform Logo" width={80} height={80} />
+          <Image
+            src="/logo.svg"
+            alt="Platform Logo"
+            width={80}
+            height={80}
+            priority
+          />
         </>
       </Link>
       <form
@@ -63,6 +72,7 @@ const LoginPage: React.FC = () => {
             type="email"
             placeholder="Email Address"
             className="w-full p-3 rounded bg-black text-white"
+            aria-invalid={errors.email ? 'true' : 'false'}
           />
           {errors.email && (
             <p className="text-red-500 text-xs">{errors.email.message}</p>
@@ -78,6 +88,7 @@ const LoginPage: React.FC = () => {
             type="password"
             placeholder="Password"
             className="w-full p-3 rounded bg-black text-white"
+            aria-invalid={errors.password ? 'true' : 'false'}
           />
           {errors.password && (
             <p className="text-red-500 text-xs">{errors.password.message}</p>
@@ -85,6 +96,7 @@ const LoginPage: React.FC = () => {
         </div>
         <button
           type="submit"
+          disabled={formState.isSubmitting}
           className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
         >
           Sign In
@@ -96,20 +108,24 @@ const LoginPage: React.FC = () => {
         </div>
         <div className="social-login-buttons mt-4 space-y-2">
           <button
+            type="button"
             onClick={() => handleSocialLogin('google')}
             className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full w-full mb-2"
+            aria-label="Continue with Google"
           >
             Continue with Google
           </button>
           <button
+            type="button"
             onClick={() => handleSocialLogin('facebook')}
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full w-full"
+            aria-label="Continue with Facebook"
           >
             Continue with Facebook
           </button>
         </div>
         <p className="text-center text-xs mt-4">
-          Don&apos;t have an account?{' '}
+          Don@apos;t have an account?{' '}
           <Link href="/auth/registration" className="hover:text-[#FCD535]">
             Sign Up
           </Link>
