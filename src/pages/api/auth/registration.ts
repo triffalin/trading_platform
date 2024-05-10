@@ -11,7 +11,7 @@ export default async function handler(
 ) {
   await nextCors(req, res, {
     methods: ['POST'],
-    origin: '*',
+    origin: process.env.ALLOWED_ORIGIN || '*',
     optionsSuccessStatus: 200
   });
 
@@ -19,7 +19,9 @@ export default async function handler(
     const { email, password, referralCode } = req.body;
 
     try {
-      const hashedPassword = await argon2.hash(password);
+      const hashedPassword = await argon2.hash(password, {
+        type: argon2.argon2id
+      });
 
       const userData = {
         email,
