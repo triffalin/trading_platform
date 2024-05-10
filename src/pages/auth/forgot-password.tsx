@@ -49,40 +49,36 @@ const ForgotPasswordPage: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg space-y-6"
       >
-        <h1 className="text-2xl font-bold text-center mb-4">Forgot Password</h1>
-        <p className="text-center text-sm mb-4">
-          Please enter the e-mail address associated with your User account.
-        </p>
-        <label htmlFor="email" className="sr-only">
-          Email Address
-        </label>
-        <input
-          {...register('email', { required: 'Email is required' })}
-          id="email"
-          type="email"
-          placeholder="Email"
-          className="w-full p-3 rounded bg-black text-white"
-        />
-        {errors.email && (
-          <p className="text-red-500 text-xs" aria-live="assertive">
-            {errors.email.message}
-          </p>
-        )}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
-        >
-          {loading ? 'Sending...' : 'Reset'}
-        </button>
+        <fieldset>
+          <legend className="text-2xl font-bold text-center mb-4">
+            Forgot Password
+          </legend>
+          <div>
+            <label htmlFor="email" className="sr-only">
+              Email Address
+            </label>
+            <input
+              {...register('email', { required: 'Email is required' })}
+              id="email"
+              type="email"
+              placeholder="Email Address"
+              className="w-full p-3 rounded bg-black text-white"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs">{errors.email.message}</p>
+            )}
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
+          >
+            {loading ? 'Sending...' : 'Reset'}
+          </button>
+        </fieldset>
         {message && (
           <p className="mt-4 text-center text-sm text-[#FCD535]">{message}</p>
         )}
-        <div className="pt-4 text-center text-xs">
-          <Link href="/auth/login" className="hover:text-[#FCD535]">
-            Sign In
-          </Link>
-        </div>
       </form>
     </div>
   );
