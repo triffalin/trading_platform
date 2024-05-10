@@ -69,8 +69,9 @@ const RegisterPage: React.FC = () => {
             id="email"
             type="email"
             placeholder="Email Address"
-            className="w-full p-3 rounded bg-black text-white"
+            className="input w-full p-3 rounded bg-black text-white"
             aria-invalid={errors.email ? 'true' : 'false'}
+            aria-label="Enter your email address"
           />
           {errors.email && (
             <p className="text-red-500 text-xs">{errors.email.message}</p>
@@ -91,13 +92,23 @@ const RegisterPage: React.FC = () => {
             id="password"
             type="password"
             placeholder="Password"
-            className="w-full p-3 rounded bg-black text-white"
+            className="input w-full p-3 rounded bg-black text-white"
             aria-invalid={errors.password ? 'true' : 'false'}
+            aria-label="Enter your password"
           />
           {errors.password && (
             <p className="text-red-500 text-xs">{errors.password.message}</p>
           )}
         </div>
+        <input
+          {...register('referralCode')}
+          id="referralCode"
+          type="text"
+          placeholder="Referral Code (optional)"
+          className="input w-full p-3 rounded bg-black text-white"
+          aria-invalid={errors.referralCode ? 'true' : 'false'}
+          aria-label="Enter your referral code"
+        />
         <button
           type="submit"
           disabled={isSubmitting}
