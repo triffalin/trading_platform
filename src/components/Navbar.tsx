@@ -6,8 +6,11 @@ import { useRouter } from 'next/router';
 
 const Navbar: React.FC = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log('Session Data:', session); // Log session data
+  console.log('Session Status:', status); // Log session status
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -17,6 +20,11 @@ const Navbar: React.FC = () => {
     router.push('/');
   };
   const handleRegister = () => router.push('/auth/registration');
+
+  // Function to ensure that user is effectively logged in before showing "Sign Out"
+  const isUserLoggedIn = () => {
+    return status === 'authenticated'; // Check if the user is authenticated
+  };
 
   return (
     <nav className="bg-[#181a20] shadow-lg">
@@ -75,7 +83,7 @@ const Navbar: React.FC = () => {
           <Link href="/academy" className="text-[#EAECEF] hover:text-[#FCD535]">
             Academy
           </Link>
-          {session ? (
+          {isUserLoggedIn() ? (
             <button
               onClick={handleSignOut}
               className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"

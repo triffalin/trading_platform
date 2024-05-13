@@ -1,10 +1,22 @@
-import React, { Suspense, lazy } from 'react';
+import React, { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { Suspense, lazy } from 'react';
 const Navbar = lazy(() => import('@/components/Navbar'));
 const Sidebar = lazy(() => import('@/components/Sidebar'));
 const Footer = lazy(() => import('@/components/Footer'));
 const DashboardContent = lazy(() => import('@/components/DashboardContent'));
 
 const DashboardPage = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/login');
+    }
+  }, [status, router]);
+
   return (
     <div className="flex flex-col min-h-screen bg-binance-black">
       <Suspense
