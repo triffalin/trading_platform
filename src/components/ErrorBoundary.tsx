@@ -10,12 +10,13 @@ interface State {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundary extends Component<Props, State> {
   public state: State = {
     hasError: false
   };
 
   public static getDerivedStateFromError(_: Error): State {
+    // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
 
@@ -34,8 +35,8 @@ export class ErrorBoundary extends Component<Props, State> {
         <div>
           <h1>Oops! Something went wrong.</h1>
           <p>
-            We&apos;re having trouble displaying this part of our site.
-            We&apos;ve noted the issue and will look into it!
+            We are having trouble displaying this part of our site. We have
+            noted the issue and will look into it!
           </p>
           <Link href="/" passHref>
             <a>Go to Home</a>
@@ -47,3 +48,5 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+export default ErrorBoundary;
