@@ -11,17 +11,25 @@ const Custom404: React.FC = () => {
       </p>
       <Link
         href="/"
+        passHref
         className="text-[#FCD535] hover:text-[#F0B90B] text-xl font-semibold"
         aria-label="Return to the homepage"
       >
-        Go back home
+        <>Go back home</>
       </Link>
       <div className="mt-8">
         <Image src="/logo.svg" alt="Logo" width={300} height={150} priority />
       </div>
       <p className="mt-4 text-center text-sm">
-        Lost? Check out our <Link href="/site-map">Site Map</Link> or{' '}
-        <Link href="/contact">Contact Us</Link> for help.
+        Lost? Check out our{' '}
+        <Link href="/site-map" className="text-[#FCD535] hover:text-[#F0B90B]">
+          <>Site Map</>
+        </Link>{' '}
+        or{' '}
+        <Link href="/contact" className="text-[#FCD535] hover:text-[#F0B90B]">
+          <>Contact Us</>
+        </Link>{' '}
+        for help.
       </p>
     </section>
   );
