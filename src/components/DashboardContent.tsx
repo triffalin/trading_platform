@@ -10,7 +10,7 @@ interface WidgetData {
   content: string;
 }
 
-const DashboardWidget = memo<WidgetProps>(({ title, content }) => (
+const DashboardWidget: React.FC<WidgetProps> = memo(({ title, content }) => (
   <div className="widget">
     <h2 className="font-semibold text-white">{title}</h2>
     <p className="text-gray-300">{content}</p>
