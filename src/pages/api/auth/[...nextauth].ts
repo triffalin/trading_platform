@@ -1,9 +1,11 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import { Session } from 'next-auth';
 
-// Define a custom User interface
+/**
+ * Custom User interface extending the default User.
+ */
 interface User {
   id?: string;
   name?: string;
@@ -17,7 +19,7 @@ declare module 'next-auth' {
   }
 }
 
-export default NextAuth({
+const options: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -41,4 +43,6 @@ export default NextAuth({
       return url.startsWith(baseUrl) ? url : baseUrl;
     }
   }
-});
+};
+
+export default NextAuth(options);
