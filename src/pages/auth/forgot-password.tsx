@@ -3,9 +3,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Image from 'next/image';
 
-type Inputs = {
+interface Inputs {
   email: string;
-};
+}
 
 const ForgotPasswordPage: React.FC = () => {
   const {
@@ -15,8 +15,8 @@ const ForgotPasswordPage: React.FC = () => {
   } = useForm<Inputs>({
     mode: 'onChange'
   });
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     setLoading(true);
@@ -43,19 +43,21 @@ const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center px-4">
-      <Link href="/">
-        <Image src="/logo.svg" alt="Logo" width={80} height={80} />
+    <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center text-white px-4">
+      <Link href="/" passHref>
+        <a aria-label="Home">
+          <Image src="/logo.svg" alt="Logo" width={80} height={80} />
+        </a>
       </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg space-y-6"
+        className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg mt-4"
       >
         <fieldset>
           <legend className="text-2xl font-bold text-center mb-4">
             Forgot Password
           </legend>
-          <div>
+          <div className="mb-4">
             <label htmlFor="email" className="sr-only">
               Email Address
             </label>
@@ -63,7 +65,7 @@ const ForgotPasswordPage: React.FC = () => {
               {...register('email', {
                 required: 'Email is required',
                 pattern: {
-                  value: /^\S+@\S+\.\S+$/,
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   message: 'Please enter a valid email address'
                 }
               })}
@@ -74,13 +76,15 @@ const ForgotPasswordPage: React.FC = () => {
               aria-invalid={errors.email ? 'true' : 'false'}
             />
             {errors.email && (
-              <p className="text-red-500 text-xs">{errors.email.message}</p>
+              <p className="text-red-500 mt-2 text-sm">
+                {errors.email.message}
+              </p>
             )}
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
+            className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black font-semibold py-3 rounded transition-all duration-300"
           >
             {loading ? 'Sending...' : 'Reset'}
           </button>
