@@ -5,13 +5,23 @@ interface CustomToken extends JWT {
   roles: string[];
 }
 
+/**
+ * Checks if the token includes specific roles.
+ * @param token - The token to check.
+ * @returns {boolean} Whether the token includes roles.
+ */
 function isCustomToken(token: any): token is CustomToken {
   return token && Array.isArray(token.roles);
 }
 
-export async function middleware(request: NextRequest) {
+/**
+ * Middleware to handle token validation and role-based access control.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {Promise<NextResponse>} The response object.
+ */
+export async function middleware(request: NextRequest): Promise<NextResponse> {
   try {
-    const token = await getToken({ req: request });
+    const token = (await getToken({ req: request })) as CustomToken;
 
     if (!token) {
       console.error('No token found, redirecting to login.');
