@@ -2,12 +2,17 @@ import React, { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Suspense, lazy } from 'react';
+
 const Navbar = lazy(() => import('@/components/Navbar'));
 const Sidebar = lazy(() => import('@/components/Sidebar'));
 const Footer = lazy(() => import('@/components/Footer'));
 const DashboardContent = lazy(() => import('@/components/DashboardContent'));
 
-const DashboardPage = () => {
+/**
+ * The dashboard page component.
+ * @returns {JSX.Element} The rendered dashboard page component.
+ */
+const DashboardPage: React.FC = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
