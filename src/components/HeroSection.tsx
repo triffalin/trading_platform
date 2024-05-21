@@ -1,4 +1,6 @@
-const HeroSection = () => (
+import React from 'react';
+
+const HeroSection: React.FC = () => (
   <header
     className="hero mb-10 bg-cover bg-hero-pattern"
     style={{ backgroundImage: 'url(/hero-bg.jpg)' }}
