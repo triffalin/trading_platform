@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
@@ -7,7 +8,11 @@ import Features from '@/components/Features';
 import Testimonials from '@/components/Testimonials';
 import CallToAction from '@/components/CallToAction';
 
-export default function HomePage() {
+/**
+ * The homepage component.
+ * @returns {JSX.Element} The rendered homepage component.
+ */
+const HomePage: React.FC = () => {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -33,4 +38,6 @@ export default function HomePage() {
       <Footer />
     </div>
   );
-}
+};
+
+export default HomePage;
