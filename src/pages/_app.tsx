@@ -5,7 +5,15 @@ import '@/styles/globals.css';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+/**
+ * The root component for the application, wrapping all other components.
+ * @param {AppProps} props - The properties for the app component.
+ * @returns {JSX.Element} The rendered app component.
+ */
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps }
+}: AppProps): JSX.Element {
   return (
     <SessionProvider session={session}>
       <ThemeProvider>
