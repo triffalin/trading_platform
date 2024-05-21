@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import React, { FC, memo } from 'react';
 
 interface FooterLinkProps {
   title: string;
   links: { name: string; url: string }[];
 }
 
-const FooterColumn: React.FC<FooterLinkProps> = memo(({ title, links }) => (
+const FooterColumn: FC<FooterLinkProps> = memo(({ title, links }) => (
   <div aria-label={`${title} links`} className="text-left">
     <h5 className="font-bold mb-3">{title}</h5>
     <ul>
@@ -22,8 +22,8 @@ const FooterColumn: React.FC<FooterLinkProps> = memo(({ title, links }) => (
 
 FooterColumn.displayName = 'FooterColumn';
 
-const Footer: React.FC = () => {
-  const footerLinks = [
+const Footer: FC = () => {
+  const footerLinks: FooterLinkProps[] = [
     {
       title: 'Trading Software',
       links: [
@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
         { name: 'KuCoin', url: '#' },
         { name: 'HTX', url: '#' },
         { name: 'Bybit', url: '#' },
-        { name: 'Krakon', url: '#' },
+        { name: 'Kraken', url: '#' },
         { name: 'Ripple', url: '#' },
         { name: 'Ethereum', url: '#' },
         { name: 'Dogecoin', url: '#' }
@@ -77,11 +77,10 @@ const Footer: React.FC = () => {
         { name: 'Reviews', url: '#' }
       ]
     }
-    // More columns...
   ];
 
   return (
-    <footer className="bg-[#181a20] text-[#EAECEF] text-sm p-10 mx-auto">
+    <footer className="bg-[#181a20] text-[#eaecf0] text-sm p-10 mx-auto">
       <div className="container max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 justify-items-center">
         {footerLinks.map(column => (
           <FooterColumn
@@ -92,7 +91,7 @@ const Footer: React.FC = () => {
         ))}
       </div>
       <div className="border-t border-gray-700 mt-8 pt-4 text-center">
-        <p>© Qtrading, 2024. All rights reserved.</p>
+        <p>&copy; Qtrading, 2024. All rights reserved.</p>
         <p>
           Qtrading provides software only. Any references to trading, exchange,
           etc. are references to services provided by third-party service
