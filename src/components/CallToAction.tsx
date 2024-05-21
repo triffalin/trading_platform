@@ -10,7 +10,7 @@ const CallToAction: React.FC<CallToActionProps> = ({ onRegister }) => (
     <button
       onClick={onRegister}
       aria-label="Join now to start trading"
-      className="bg-[#1E2329] hover:bg-[#F0B90B] text-white font-bold py-2 px-4 rounded"
+      className="bg-[#1E2329] hover:bg-[#F0B90B] text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F0B90B]"
     >
       Join Now
     </button>
