@@ -1,6 +1,11 @@
 import React from 'react';
 
-const features = [
+interface Feature {
+  title: string;
+  description: string;
+}
+
+const features: Feature[] = [
   {
     title: 'Automated Trading',
     description:
@@ -18,7 +23,7 @@ const features = [
   }
 ];
 
-const Features = () => (
+const Features: React.FC = () => (
   <section
     aria-label="Main Features"
     className="features grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
