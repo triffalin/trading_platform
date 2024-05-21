@@ -48,10 +48,10 @@ const ExpandableMenu: React.FC<ExpandableMenuProps> = ({
       aria-expanded={isOpen}
     >
       {label}
-      <span>{isOpen ? '▲' : '▼'}</span>
+      <span>{isOpen ? '▼' : '►'}</span>
     </button>
     {isOpen && (
-      <ul className="pl-8">
+      <ul className="pl-6">
         {links.map((link, index) => (
           <MenuLinkComponent key={index} path={link.path} label={link.label} />
         ))}
@@ -76,7 +76,7 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="sidebar bg-gray-800 text-white w-64 space-y-4 py-7 pl-5 fixed inset-y-0 left-0 transform md:relative transition duration-200 ease-in-out">
+    <aside className="sidebar bg-gray-800 text-white w-64 space-y-4 py-7 pl-5 fixed inset-y-0 left-0 transform md:relative md:translate-x-0 transition-transform md:duration-200 ease-in-out">
       <ul className="text-sm">
         <li className="text-gray-400 uppercase tracking-wide mb-2">Trading</li>
         <MenuLinkComponent path="/dashboard" label="Dashboard" />
@@ -98,7 +98,9 @@ const Sidebar: React.FC = () => {
         />
         <MenuLinkComponent path="/trades_terminal" label="Terminal" />
         <MenuLinkComponent path="/marketplace" label="Marketplace" />
-        <li className="text-gray-400 uppercase tracking-wide mt-4">Other</li>
+        <li className="text-gray-400 uppercase tracking-wide mt-4 mb-2">
+          Other
+        </li>
         <MenuLinkComponent path="/dashboard/apps" label="Store" />
         <MenuLinkComponent path="/tracking_codes" label="Invite Friends" />
         <MenuLinkComponent
