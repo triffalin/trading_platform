@@ -5,6 +5,11 @@ interface WidgetProps {
   content: string;
 }
 
+interface WidgetData {
+  title: string;
+  content: string;
+}
+
 const DashboardWidget = memo<WidgetProps>(({ title, content }) => (
   <div className="widget">
     <h2 className="font-semibold text-white">{title}</h2>
@@ -15,7 +20,7 @@ const DashboardWidget = memo<WidgetProps>(({ title, content }) => (
 DashboardWidget.displayName = 'DashboardWidget';
 
 const DashboardContent: React.FC = () => {
-  const widgets = [
+  const widgets: WidgetData[] = [
     { title: 'Trading Summary', content: 'Content detailing trading stats...' },
     {
       title: 'Active Strategies',
