@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
         <div
           className={`${
             isOpen ? 'block' : 'hidden'
-          } md:flex md:items-center md:space-x-4`}
+          } md:flex md:items-center md:space-x-10`}
         >
           <Link
             href="/trading-bots"
@@ -100,7 +100,7 @@ const Navbar: React.FC = () => {
               </button>
               <button
                 onClick={handleRegister}
-                className="text-[#181a20] bg-[#FCD535] hover:bg-[#F0B90B] py-2 px-4 rounded border border-[#FCD535]"
+                className="text-[#181a20] bg-[#FCD535] hover:bg-[#F0B90B] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
               >
                 Try It Free
               </button>
