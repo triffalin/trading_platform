@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-type Inputs = {
+interface Inputs {
   email: string;
   password: string;
-};
+}
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    formState
-  } = useForm<Inputs>();
+    formState: { errors, isSubmitting }
+  } = useForm<Inputs>({
+    mode: 'onChange'
+  });
+  const [message, setMessage] = useState<string>('');
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    if (formState.isSubmitting) return; // Prevents multiple submissions
-
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -33,10 +33,13 @@ const LoginPage: React.FC = () => {
       if (response.ok) {
         router.push('/dashboard');
       } else {
-        console.error('Login failed:', responseData.errorMessage);
+        setMessage(
+          responseData.errorMessage || 'Login failed. Please try again.'
+        );
       }
     } catch (error) {
       console.error('Failed to login:', error);
+      setMessage('An error occurred. Please try again later.');
     }
   };
 
@@ -45,92 +48,107 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center px-4">
-      <Link href="/">
-        <>
-          <Image
-            src="/logo.svg"
-            alt="Platform Logo"
-            width={80}
-            height={80}
-            priority
-          />
-        </>
+    <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center text-white px-4">
+      <Link href="/" passHref aria-label="Home">
+        <Image
+          src="/logo.svg"
+          alt="Platform Logo"
+          width={80}
+          height={80}
+          priority
+        />
       </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg space-y-6"
+        className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg mt-4"
       >
-        <h1 className="text-2xl font-bold text-center mb-4">Sign In</h1>
-        <div>
-          <label htmlFor="email" className="sr-only">
-            Email Address
-          </label>
-          <input
-            {...register('email', { required: 'Email is required' })}
-            id="email"
-            type="email"
-            placeholder="Email Address"
-            className="w-full p-3 rounded bg-black text-white"
-            aria-invalid={errors.email ? 'true' : 'false'}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-xs">{errors.email.message}</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="password" className="sr-only">
-            Password
-          </label>
-          <input
-            {...register('password', { required: 'Password is required' })}
-            id="password"
-            type="password"
-            placeholder="Password"
-            className="w-full p-3 rounded bg-black text-white"
-            aria-invalid={errors.password ? 'true' : 'false'}
-          />
-          {errors.password && (
-            <p className="text-red-500 text-xs">{errors.password.message}</p>
-          )}
-        </div>
-        <button
-          type="submit"
-          disabled={formState.isSubmitting}
-          className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black py-3 px-4 rounded font-semibold"
-        >
-          Sign In
-        </button>
-        <div className="text-center text-xs mt-2">
-          <Link href="/auth/forgot-password" className="hover:text-[#FCD535]">
-            Forgot your password?
-          </Link>
-        </div>
-        <div className="social-login-buttons mt-4 space-y-2">
+        <fieldset>
+          <legend className="text-2xl font-bold text-center mb-4">
+            Sign In
+          </legend>
+          <div className="mb-4">
+            <label htmlFor="email" className="sr-only">
+              Email Address
+            </label>
+            <input
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Please enter a valid email address'
+                }
+              })}
+              id="email"
+              type="email"
+              placeholder="Email Address"
+              className="w-full p-3 rounded bg-black text-white"
+              aria-invalid={errors.email ? 'true' : 'false'}
+            />
+            {errors.email && (
+              <p className="text-red-500 mt-2 text-sm">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="sr-only">
+              Password
+            </label>
+            <input
+              {...register('password', {
+                required: 'Password is required'
+              })}
+              id="password"
+              type="password"
+              placeholder="Password"
+              className="w-full p-3 rounded bg-black text-white"
+              aria-invalid={errors.password ? 'true' : 'false'}
+            />
+            {errors.password && (
+              <p className="text-red-500 mt-2 text-sm">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
           <button
-            type="button"
-            onClick={() => handleSocialLogin('google')}
-            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full w-full mb-2"
-            aria-label="Continue with Google"
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-[#FCD535] hover:bg-[#F0B90B] text-black font-semibold py-3 rounded transition-all duration-300"
           >
-            Continue with Google
+            {isSubmitting ? 'Signing in...' : 'Sign In'}
           </button>
-          <button
-            type="button"
-            onClick={() => handleSocialLogin('facebook')}
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full w-full"
-            aria-label="Continue with Facebook"
-          >
-            Continue with Facebook
-          </button>
-        </div>
-        <p className="text-center text-xs mt-4">
-          Don@apos;t have an account?{' '}
-          <Link href="/auth/registration" className="hover:text-[#FCD535]">
-            Sign Up
-          </Link>
-        </p>
+        </fieldset>
+        {message && (
+          <p className="mt-4 text-center text-sm text-[#FCD535]">{message}</p>
+        )}
       </form>
+      <div className="text-center text-xs mt-4">
+        <Link href="/auth/forgot-password" className="hover:text-[#FCD535]">
+          <>Forgot your password?</>
+        </Link>
+      </div>
+      <div className="social-login-buttons mt-4 space-y-2">
+        <button
+          type="button"
+          onClick={() => handleSocialLogin('google')}
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full w-full mb-2"
+        >
+          Continue with Google
+        </button>
+        <button
+          type="button"
+          onClick={() => handleSocialLogin('facebook')}
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full w-full"
+        >
+          Continue with Facebook
+        </button>
+      </div>
+      <p className="text-center text-xs mt-4">
+        Don&apos;t have an account?{' '}
+        <Link href="/auth/registration" className="hover:text-[#FCD535]">
+          <>Sign Up</>
+        </Link>
+      </p>
     </div>
   );
 };
