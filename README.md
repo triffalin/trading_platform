@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Trading Platform
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-14.2.3-blue.svg)
+![React](https://img.shields.io/badge/React-17.0.2-blue.svg)
+
+## Table of Contents
+
+- [About the Project](#about-the-project)
+- [Features](#features)
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
+
+## About the Project
+
+The Trading Platform is a robust web application that allows users to trade financial instruments in real-time. The platform is designed to provide a seamless and intuitive user experience, leveraging modern web technologies to ensure performance and security.
+
+## Features
+
+- **User Authentication**: Secure login, registration, and password recovery.
+- **Real-time Trading**: Execute trades and track portfolios in real-time.
+- **User Dashboard**: Personalized dashboard to view and manage trading activities.
+- **Responsive Design**: Accessible on all devices from desktops to mobile phones.
+- **Secure API**: All endpoints are protected with proper authentication and authorization checks.
+
+## Built With
+
+This project is built using the following technologies:
+
+- [Next.js](https://nextjs.org/) - The React Framework
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript at Any Scale
+- [Node.js](https://nodejs.org/) - JavaScript runtime built on Chrome's V8 JavaScript engine
+- [Prisma](https://www.prisma.io/) - Next-generation ORM for Node.js & TypeScript
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running follow these simple steps.
 
-```bash
-npm run dev
+### Prerequisites
+
+You need to have the following installed on your machine:
+
+- Node.js (v14.x or later)
+- npm (v6.x or later) or yarn (v1.x or later)
+- Docker (for running the database in a container)
+
+### Installation
+
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/triffalin/trading_platform.git
+   ```
+
+2. Install NPM packages
+
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Set up environment variables
+
+   Create a `.env.local` file in the root of your project and add the following variables:
+
+   ```env
+   DATABASE_URL=your_database_url
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=your_secret
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   FACEBOOK_CLIENT_ID=your_facebook_client_id
+   FACEBOOK_CLIENT_SECRET=your_facebook_client_secret
+   EMAIL_USERNAME=your_email_username
+   EMAIL_PASSWORD=your_email_password
+   JWT_SECRET=your_jwt_secret
+   ```
+
+4. Start the development server
+
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Usage
+
+### Running Tests
+
+To run tests, run the following command:
+
+```sh
+npm test
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Building for Production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To build the project for production, run the following command:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```sh
+npm run build
+# or
+yarn build
+```
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are what make the open-source community such an amazing place to be, learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
+Distributed under the MIT License. See `LICENSE` for more information.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Your Name - [@TriffAlin](https://x.com/TriffAlin) - triffalin@gmail.com
+
+Project Link: [https://github.com/triffalin/trading_platform](https://github.com/triffalin/trading_platform)
+
+## Acknowledgements
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Prisma Documentation](https://www.prisma.io/docs/)
