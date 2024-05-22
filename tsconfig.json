@@ -1,26 +1,42 @@
 {
   "compilerOptions": {
+    // Target the latest ECMAScript version
+    "target": "ESNext",
+    // Use the latest ECMAScript features
     "lib": ["dom", "dom.iterable", "esnext"],
+    // Allow JavaScript files to be compiled
     "allowJs": true,
+    // Skip type checking of all declaration files
     "skipLibCheck": true,
+    // Enable strict type checking options
     "strict": true,
+    // Disable emitting files from a compilation
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
+    // Resolve modules using Node resolution
     "moduleResolution": "bundler",
+    // Resolve JSON module imports
     "resolveJsonModule": true,
+    // Allow synthetic default imports from modules
     "isolatedModules": true,
+    // Allow default imports from modules with no default export
     "jsx": "preserve",
+    // Import non-ES modules as default exports
     "incremental": true,
+    // Specify the root folder within your source files
+    "baseUrl": ".",
+    // Paths used to resolve module names
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    // Plugins configuration
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    ]
   },
+  // Specify the file extensions to include in the compilation
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  // Specify the file extensions to exclude from the compilation
   "exclude": ["node_modules"]
 }
