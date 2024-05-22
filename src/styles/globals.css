@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your custom styles */
+/* Custom CSS Variables */
 :root {
   --binance-yellow: #fcd535;
   --hover-yellow: #f0b90b;
@@ -10,14 +10,34 @@
   --text-color: #eaecef;
 }
 
-.bg-binance-black {
-  background-color: var(--binance-black);
+/* Root Element Styles */
+:root {
+  --binance-yellow: #fcd535;
+  --hover-yellow: #f0b90b;
+  --binance-black: #181a20;
+  --text-color: #eaecef;
 }
 
+/* Base Styles */
+html,
+body {
+  background-color: var(--binance-black);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Text Colors */
 .text-binance-yellow {
   color: var(--binance-yellow);
 }
 
+.text-hover-yellow {
+  color: var(--hover-yellow);
+}
+
+/* Button Styles */
 .btn-sign-in,
 .btn-sign-out,
 .btn-try-free {
@@ -31,9 +51,9 @@
   background-color: var(--hover-yellow);
 }
 
-/* Sidebar, Navbar, and Footer consistent styling */
+/* Sidebar, Navbar, and Footer Styles */
 .sidebar {
-  width: 232px; /* Set a fixed width for the sidebar */
+  width: 232px; /* Fixed width for the sidebar */
   background-color: var(--binance-black); /* Dark background */
   color: #ccc; /* Light text */
   height: calc(100vh - 4rem); /* Adjust based on navbar and footer height */
@@ -46,7 +66,7 @@
   height: 2rem; /* Example height, adjust as necessary */
 }
 
-/* Flex container adjustments for the main dashboard layout */
+/* Flex Container Adjustments for the Main Dashboard Layout */
 .dashboard-layout {
   display: flex;
   flex-grow: 1;
@@ -57,7 +77,7 @@
   padding: 1rem; /* Adjust padding for layout */
 }
 
-/* Additional responsive adjustments as necessary */
+/* Additional Responsive Adjustments as Necessary */
 @media (max-width: 768px) {
   .sidebar {
     width: 100%; /* Full width on smaller screens */
@@ -74,21 +94,22 @@
   background-color: var(--binance-black); /* Background color */
   color: var(--text-color); /* Text color */
   border-radius: 8px; /* Optional: Adds rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds subtle shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Optional: Adds subtle shadow for depth */
 }
 
+/* Widgets */
 .widgets {
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
     minmax(300px, 1fr)
   ); /* Responsive grid layout */
-  gap: 1rem;
+  gap: 1rem; /* Gap between widgets */
 }
 
 .widget {
-  background: #242731; /* Slightly lighter than the main background for contrast */
+  background: #242731; /* Slightly lighter background for contrast */
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
