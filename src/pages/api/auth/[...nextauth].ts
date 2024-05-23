@@ -6,9 +6,6 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import argon2 from 'argon2';
 
-/**
- * Custom User interface extending the default User.
- */
 interface User {
   id: string;
   name?: string;
@@ -29,7 +26,6 @@ declare module 'next-auth' {
   }
 }
 
-// Initialize Prisma Client
 const prisma = new PrismaClient();
 
 const authOptions: NextAuthOptions = {
@@ -54,14 +50,7 @@ const authOptions: NextAuthOptions = {
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-          select: {
-            id: true,
-            email: true,
-            name: true,
-            image: true,
-            password: true
-          }
+          where: { email: credentials.email }
         });
 
         if (

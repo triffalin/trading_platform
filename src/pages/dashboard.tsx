@@ -9,10 +9,6 @@ const Sidebar = lazy(() => import('@/components/Sidebar'));
 const Footer = lazy(() => import('@/components/Footer'));
 const DashboardContent = lazy(() => import('@/components/DashboardContent'));
 
-/**
- * The dashboard page component.
- * @returns {JSX.Element} The rendered dashboard page component.
- */
 const DashboardPage: React.FC = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -22,14 +18,6 @@ const DashboardPage: React.FC = () => {
       router.push('/auth/login');
     }
   }, [status, router]);
-
-  if (status === 'loading') {
-    return <div className="text-center text-white">Loading session...</div>;
-  }
-
-  if (status === 'authenticated' && session) {
-    console.log('Session:', session);
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-balance-black">
