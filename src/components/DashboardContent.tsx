@@ -28,6 +28,8 @@ const DashboardContent: React.FC = () => {
     }
   ];
 
+  console.log('Rendering DashboardContent');
+
   return (
     <section className="dashboard-content">
       <h1 className="text-lg font-bold text-white mb-4">Dashboard</h1>

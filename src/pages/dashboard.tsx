@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { Suspense, lazy } from 'react';
+import { useEffect } from 'react';
+import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar';
+import Footer from '@/components/Footer';
+import DashboardContent from '@/components/DashboardContent';
 
-// Lazy load components
-const Navbar = lazy(() => import('@/components/Navbar'));
-const Sidebar = lazy(() => import('@/components/Sidebar'));
-const Footer = lazy(() => import('@/components/Footer'));
-const DashboardContent = lazy(() => import('@/components/DashboardContent'));
-
-const DashboardPage: React.FC = () => {
+const DashboardPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -34,24 +31,16 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-balance-black">
-      <Suspense
-        fallback={
-          <div className="text-center text-white">
-            Please wait, we are loading your dashboard...
-          </div>
-        }
-      >
-        <Navbar />
-        <main className="flex-grow flex">
-          <aside>
-            <Sidebar />
-          </aside>
-          <section className="flex-grow">
-            <DashboardContent />
-          </section>
-        </main>
-        <Footer />
-      </Suspense>
+      <Navbar />
+      <main className="flex-grow flex">
+        <aside>
+          <Sidebar />
+        </aside>
+        <section className="flex-grow">
+          <DashboardContent />
+        </section>
+      </main>
+      <Footer />
     </div>
   );
 };

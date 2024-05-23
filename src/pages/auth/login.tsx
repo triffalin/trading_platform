@@ -40,6 +40,10 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const handleSocialLogin = (provider: string) => {
+    router.push(`/api/auth/${provider}`);
+  };
+
   return (
     <div className="min-h-screen bg-[#181a20] flex flex-col items-center justify-center text-white px-4">
       <Link href="/" passHref aria-label="Home">
@@ -123,14 +127,14 @@ const LoginPage: React.FC = () => {
       <div className="social-login-buttons mt-4 space-y-2">
         <button
           type="button"
-          onClick={() => router.push('/api/auth/google')}
+          onClick={() => handleSocialLogin('google')}
           className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full"
         >
           Continue with Google
         </button>
         <button
           type="button"
-          onClick={() => router.push('/api/auth/facebook')}
+          onClick={() => handleSocialLogin('facebook')}
           className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full"
         >
           Continue with Facebook

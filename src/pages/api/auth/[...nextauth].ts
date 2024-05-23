@@ -59,8 +59,8 @@ export const authOptions: NextAuthOptions = {
           return {
             id: user.id.toString(),
             email: user.email,
-            name: user.name || undefined,
-            image: user.image || undefined
+            name: user.name || '',
+            image: user.image || ''
           };
         }
         return null;
