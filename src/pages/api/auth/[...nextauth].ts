@@ -6,6 +6,8 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import argon2 from 'argon2';
 
+const prisma = new PrismaClient();
+
 interface User {
   id: string;
   name?: string;
@@ -15,14 +17,8 @@ interface User {
 
 declare module 'next-auth' {
   interface Session {
-    user: {
-      id: string;
-      name?: string;
-      email: string;
-      image?: string;
-    };
+    user: User;
   }
-
   interface User {
     id: string;
     name?: string;
@@ -31,9 +27,7 @@ declare module 'next-auth' {
   }
 }
 
-const prisma = new PrismaClient();
-
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -67,10 +61,9 @@ const authOptions: NextAuthOptions = {
             email: user.email,
             name: user.name || undefined,
             image: user.image || undefined
-          } as User;
-        } else {
-          return null;
+          };
         }
+        return null;
       }
     })
   ],

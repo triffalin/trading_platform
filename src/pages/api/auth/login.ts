@@ -4,7 +4,7 @@ import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,7 +21,7 @@ export default async function handler(
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (user && (await argon2.verify(user.password, password))) {
-      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET!, {
+      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
         expiresIn: '1h'
       });
       return res.status(200).json({ token });

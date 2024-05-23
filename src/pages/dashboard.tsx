@@ -24,6 +24,14 @@ const DashboardPage: React.FC = () => {
     console.log('Dashboard Status:', status);
   }, [session, status]);
 
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
+
+  if (status === 'unauthenticated') {
+    return <p>Redirecting...</p>;
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-balance-black">
       <Suspense
