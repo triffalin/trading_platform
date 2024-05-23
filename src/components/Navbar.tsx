@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
           aria-expanded={isOpen}
           className="md:hidden"
         >
-          <Image src="/menu-icon.svg" alt="Menu" width={80} height={80} />
+          <Image src="/menu-icon.svg" alt="Menu" width={24} height={24} />
         </button>
         <Link href="/" aria-label="Home">
           <Image
