@@ -69,6 +69,7 @@ const LoginPage: React.FC = () => {
           alt="Platform Logo"
           width={80}
           height={80}
+          fetchPriority="high"
           priority
         />
       </Link>
