@@ -19,20 +19,17 @@ export default async function handler(
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
-    console.log('User found:', user);
 
     if (user && (await argon2.verify(user.password, password))) {
       const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET!, {
         expiresIn: '1h'
       });
-      console.log('Token generated:', token);
       return res.status(200).json({ token });
     } else {
-      console.log('Invalid credentials');
       return res.status(401).json({ error: 'Invalid email or password' });
     }
   } catch (error) {
-    console.error('Error during login:', error);
+    console.error(error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }

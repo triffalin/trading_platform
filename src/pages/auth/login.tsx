@@ -20,7 +20,6 @@ const LoginPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
-      console.log('Login form submitted with data:', data);
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -29,7 +28,6 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      console.log('Login API response:', responseData);
       if (response.ok) {
         localStorage.setItem('token', responseData.token);
         router.push('/dashboard');
@@ -94,7 +92,9 @@ const LoginPage: React.FC = () => {
               Password
             </label>
             <input
-              {...register('password', { required: 'Password is required' })}
+              {...register('password', {
+                required: 'Password is required'
+              })}
               id="password"
               type="password"
               placeholder="Password"

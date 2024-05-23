@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -9,11 +9,6 @@ const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    console.log('Session Data:', session); // Log session data
-    console.log('Session Status:', status); // Log session status
-  }, [session, status]);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleSignIn = () => router.push('/auth/login');
@@ -22,8 +17,6 @@ const Navbar: React.FC = () => {
     router.push('/');
   };
   const handleRegister = () => router.push('/auth/registration');
-
-  const isUserLoggedIn = () => status === 'authenticated';
 
   return (
     <nav className="bg-[#181a20] shadow-lg">
@@ -82,7 +75,7 @@ const Navbar: React.FC = () => {
           <Link href="/academy" className="text-[#EAECEF] hover:text-[#FCD535]">
             Academy
           </Link>
-          {isUserLoggedIn() ? (
+          {status === 'authenticated' ? (
             <button
               onClick={handleSignOut}
               className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
