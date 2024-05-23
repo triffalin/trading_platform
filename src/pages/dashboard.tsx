@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Suspense, lazy } from 'react';
 
+// Lazy load components
 const Navbar = lazy(() => import('@/components/Navbar'));
 const Sidebar = lazy(() => import('@/components/Sidebar'));
 const Footer = lazy(() => import('@/components/Footer'));
@@ -22,8 +23,16 @@ const DashboardPage: React.FC = () => {
     }
   }, [status, router]);
 
+  if (status === 'loading') {
+    return <div className="text-center text-white">Loading session...</div>;
+  }
+
+  if (status === 'authenticated' && session) {
+    console.log('Session:', session);
+  }
+
   return (
-    <div className="flex flex-col min-h-screen bg-binance-black">
+    <div className="flex flex-col min-h-screen bg-balance-black">
       <Suspense
         fallback={
           <div className="text-center text-white">
@@ -32,7 +41,7 @@ const DashboardPage: React.FC = () => {
         }
       >
         <Navbar />
-        <main className="flex flex-grow">
+        <main className="flex-grow flex">
           <aside>
             <Sidebar />
           </aside>

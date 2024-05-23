@@ -30,6 +30,7 @@ const options: NextAuthOptions = {
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!
     })
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ account, user, profile }) {
       if (!account) return false; // Handles the case where account might be null

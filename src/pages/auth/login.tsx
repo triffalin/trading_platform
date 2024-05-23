@@ -15,13 +15,12 @@ const LoginPage: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm<Inputs>({
-    mode: 'onChange'
-  });
+  } = useForm<Inputs>();
   const [message, setMessage] = useState<string>('');
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
+      console.log('Submitting login form with data:', data);
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -30,8 +29,23 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
+      console.log('Login response:', responseData);
       if (response.ok) {
-        router.push('/dashboard');
+        // Save the token in local storage
+        localStorage.setItem('token', responseData.token);
+        console.log(
+          'Token saved to localStorage:',
+          localStorage.getItem('token')
+        );
+        // Redirect to the dashboard
+        router
+          .push('/dashboard')
+          .then(() => {
+            console.log('Redirected to /dashboard');
+          })
+          .catch(err => {
+            console.error('Error redirecting to /dashboard:', err);
+          });
       } else {
         setMessage(
           responseData.errorMessage || 'Login failed. Please try again.'
@@ -122,23 +136,23 @@ const LoginPage: React.FC = () => {
           <p className="mt-4 text-center text-sm text-[#FCD535]">{message}</p>
         )}
       </form>
-      <div className="text-center text-xs mt-4">
+      <div className="text-center mt-4">
         <Link href="/auth/forgot-password" className="hover:text-[#FCD535]">
-          <>Forgot your password?</>
+          Forgot your password?
         </Link>
       </div>
       <div className="social-login-buttons mt-4 space-y-2">
         <button
           type="button"
           onClick={() => handleSocialLogin('google')}
-          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full w-full mb-2"
+          className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full"
         >
           Continue with Google
         </button>
         <button
           type="button"
           onClick={() => handleSocialLogin('facebook')}
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full w-full"
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full"
         >
           Continue with Facebook
         </button>
@@ -146,7 +160,7 @@ const LoginPage: React.FC = () => {
       <p className="text-center text-xs mt-4">
         Don&apos;t have an account?{' '}
         <Link href="/auth/registration" className="hover:text-[#FCD535]">
-          <>Sign Up</>
+          Sign Up
         </Link>
       </p>
     </div>

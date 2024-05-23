@@ -3,7 +3,11 @@
     // Target the latest ECMAScript version
     "target": "ESNext",
     // Use the latest ECMAScript features
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     // Allow JavaScript files to be compiled
     "allowJs": true,
     // Skip type checking of all declaration files
@@ -26,17 +30,28 @@
     "baseUrl": ".",
     // Paths used to resolve module names
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     // Plugins configuration
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "module": "esnext",
+    "esModuleInterop": true
   },
   // Specify the file extensions to include in the compilation
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
   // Specify the file extensions to exclude from the compilation
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
