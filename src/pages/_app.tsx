@@ -18,9 +18,7 @@ function MyApp({
     <SessionProvider session={session}>
       <ThemeProvider>
         <ErrorBoundary>
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <Component {...pageProps} />
-          </React.Suspense>
+          <Component {...pageProps} />
         </ErrorBoundary>
       </ThemeProvider>
     </SessionProvider>
