@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -9,8 +9,10 @@ const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log('Session Data:', session); // Log session data
-  console.log('Session Status:', status); // Log session status
+  useEffect(() => {
+    console.log('Session Data:', session); // Log session data
+    console.log('Session Status:', status); // Log session status
+  }, [session, status]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -21,10 +23,7 @@ const Navbar: React.FC = () => {
   };
   const handleRegister = () => router.push('/auth/registration');
 
-  // Function to ensure that user is effectively logged in before showing "Sign Out"
-  const isUserLoggedIn = () => {
-    return status === 'authenticated'; // Check if the user is authenticated
-  };
+  const isUserLoggedIn = () => status === 'authenticated';
 
   return (
     <nav className="bg-[#181a20] shadow-lg">
@@ -34,7 +33,7 @@ const Navbar: React.FC = () => {
           aria-expanded={isOpen}
           className="md:hidden"
         >
-          <Image src="/menu-icon.svg" alt="Menu" width={24} height={24} />
+          <Image src="/menu-icon.svg" alt="Menu" width={80} height={80} />
         </button>
         <Link href="/" aria-label="Home">
           <Image

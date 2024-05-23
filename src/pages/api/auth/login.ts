@@ -4,7 +4,7 @@ import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,17 +19,20 @@ export default async function handler(
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
+    console.log('User found:', user);
 
     if (user && (await argon2.verify(user.password, password))) {
-      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET!, {
         expiresIn: '1h'
       });
+      console.log('Token generated:', token);
       return res.status(200).json({ token });
     } else {
+      console.log('Invalid credentials');
       return res.status(401).json({ error: 'Invalid email or password' });
     }
   } catch (error) {
-    console.error(error);
+    console.error('Error during login:', error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }

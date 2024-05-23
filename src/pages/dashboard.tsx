@@ -19,6 +19,11 @@ const DashboardPage: React.FC = () => {
     }
   }, [status, router]);
 
+  useEffect(() => {
+    console.log('Dashboard Session:', session);
+    console.log('Dashboard Status:', status);
+  }, [session, status]);
+
   return (
     <div className="flex flex-col min-h-screen bg-balance-black">
       <Suspense
