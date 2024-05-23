@@ -20,7 +20,6 @@ const LoginPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
-      console.log('Submitting login form with data:', data);
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -29,27 +28,11 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(data)
       });
       const responseData = await response.json();
-      console.log('Login response:', responseData);
       if (response.ok) {
-        // Save the token in local storage
         localStorage.setItem('token', responseData.token);
-        console.log(
-          'Token saved to localStorage:',
-          localStorage.getItem('token')
-        );
-        // Redirect to the dashboard
-        router
-          .push('/dashboard')
-          .then(() => {
-            console.log('Redirected to /dashboard');
-          })
-          .catch(err => {
-            console.error('Error redirecting to /dashboard:', err);
-          });
+        router.push('/dashboard');
       } else {
-        setMessage(
-          responseData.errorMessage || 'Login failed. Please try again.'
-        );
+        setMessage(responseData.error || 'Login failed. Please try again.');
       }
     } catch (error) {
       console.error('Failed to login:', error);
@@ -69,7 +52,6 @@ const LoginPage: React.FC = () => {
           alt="Platform Logo"
           width={80}
           height={80}
-          fetchPriority="high"
           priority
         />
       </Link>
@@ -78,7 +60,7 @@ const LoginPage: React.FC = () => {
         className="bg-[#1E2329] p-12 rounded-lg shadow-lg text-white w-full max-w-lg mt-4"
       >
         <fieldset>
-          <legend className="text-2xl font-bold text-center mb-4">
+          <legend className="text-2xl font-bold text-center mb=4">
             Sign In
           </legend>
           <div className="mb-4">

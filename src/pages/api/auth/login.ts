@@ -1,55 +1,35 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import type { NextApiRequest, NextApiResponse } from 'next';
 import argon2 from 'argon2';
-import { sign, Secret } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
-const JWT_SECRET: Secret = process.env.JWT_SECRET as Secret;
+const JWT_SECRET = process.env.JWT_SECRET;
 
-/**
- * Handler for the login endpoint.
- * @param {NextApiRequest} req - The incoming request object.
- * @param {NextApiResponse} res - The outgoing response object.
- * @returns {Promise<void>}
- */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<void> {
+) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-    return;
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 
   const { email, password } = req.body;
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { email }
-    });
+    const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user) {
-      res.status(401).json({ error: 'Invalid email or password' });
-      return;
+    if (user && (await argon2.verify(user.password, password))) {
+      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET!, {
+        expiresIn: '1h'
+      });
+      return res.status(200).json({ token });
+    } else {
+      return res.status(401).json({ error: 'Invalid email or password' });
     }
-
-    const valid = await argon2.verify(user.password, password);
-    if (!valid) {
-      res.status(401).json({ error: 'Invalid email or password' });
-      return;
-    }
-
-    const token = sign({ userId: user.id, email: user.email }, JWT_SECRET, {
-      expiresIn: '1h'
-    });
-
-    res
-      .status(200)
-      .json({ status: 'success', message: 'Logged in successfully', token });
   } catch (error) {
-    console.error('Login error:', error);
-    const errorMessage = (error as Error).message || 'Unknown error';
-    res.status(500).json({ error: 'Internal server error', errorMessage });
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
