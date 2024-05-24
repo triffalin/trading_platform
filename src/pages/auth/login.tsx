@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 
 interface Inputs {
   email: string;
@@ -19,29 +20,22 @@ const LoginPage: React.FC = () => {
   const [message, setMessage] = useState<string>('');
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-      const responseData = await response.json();
-      if (response.ok) {
-        localStorage.setItem('token', responseData.token);
-        router.push('/dashboard');
-      } else {
-        setMessage(responseData.error || 'Login failed. Please try again.');
-      }
-    } catch (error) {
-      console.error('Failed to login:', error);
-      setMessage('An error occurred. Please try again later.');
+    const response = await signIn('credentials', {
+      redirect: false,
+      email: data.email,
+      password: data.password
+    });
+
+    if (response?.error) {
+      setMessage(response.error);
+    } else {
+      setMessage('');
+      router.push('/dashboard');
     }
   };
 
   const handleSocialLogin = (provider: string) => {
-    router.push(`/api/auth/${provider}`);
+    signIn(provider, { callbackUrl: '/dashboard' });
   };
 
   return (

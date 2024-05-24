@@ -15,7 +15,7 @@ function MyApp({
   pageProps: { session, ...pageProps }
 }: AppProps): JSX.Element {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={pageProps.session}>
       <ThemeProvider>
         <ErrorBoundary>
           <Component {...pageProps} />
