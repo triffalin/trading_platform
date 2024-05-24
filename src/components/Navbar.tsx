@@ -8,8 +8,10 @@ const Navbar: React.FC = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleSignIn = () => router.push('/auth/login');
   const handleSignOut = async () => {
@@ -35,6 +37,7 @@ const Navbar: React.FC = () => {
             width={80}
             height={80}
             className="mr-4"
+            priority
           />
         </Link>
         <div
@@ -76,12 +79,66 @@ const Navbar: React.FC = () => {
             Academy
           </Link>
           {status === 'authenticated' ? (
-            <button
-              onClick={handleSignOut}
-              className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
-            >
-              Sign Out
-            </button>
+            <div className="relative">
+              <button
+                onClick={toggleDropdown}
+                className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
+              >
+                {session?.user?.email || 'User'}
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-20">
+                  <Link
+                    href="/users/subscriptions/pricing"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Subscriptions
+                  </Link>
+                  <Link
+                    href="/users/subscriptions/promo_code"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Promo code
+                  </Link>
+                  <Link
+                    href="/tracking_codes"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Invite Friends
+                  </Link>
+                  <Link
+                    href="/portfolios/my_portfolios"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    My Portfolios
+                  </Link>
+                  <Link
+                    href="/trader_diary"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Trader&apos;s Diary
+                  </Link>
+                  <Link
+                    href="/users/profile"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Settings
+                  </Link>
+                  <Link
+                    href="/api_access_tokens"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Qtrading API
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <>
               <button
