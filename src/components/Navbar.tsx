@@ -82,12 +82,22 @@ const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
+                className="flex items-center space-x-2 text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
               >
-                {session?.user?.email || 'User'}
+                <Image
+                  src="/profile-icon.svg"
+                  alt="Profile Icon"
+                  width={24}
+                  height={24}
+                />
+                <span>{!isDropdownOpen ? '▼' : '►'}</span>
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-20">
+                  <div className="px-4 py-2 text-sm text-gray-700">
+                    {session?.user?.email}
+                  </div>
+                  <div className="border-t border-gray-300"></div>
                   <Link
                     href="/users/subscriptions/pricing"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -130,11 +140,12 @@ const Navbar: React.FC = () => {
                   >
                     Qtrading API
                   </Link>
+                  <div className="border-t border-gray-300"></div>
                   <button
                     onClick={handleSignOut}
                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
-                    Sign Out
+                    Log Out
                   </button>
                 </div>
               )}
