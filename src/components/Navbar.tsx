@@ -87,13 +87,14 @@ const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded transition-all duration-300"
+                className="flex items-center text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded transition-all duration-300"
               >
                 <Image
                   src="/icons/profile-icon.svg"
                   alt="Menu"
-                  width={16}
-                  height={16}
+                  width={24}
+                  height={24}
+                  className="mr-4"
                 />
                 {isDropdownOpen ? (
                   <Image
