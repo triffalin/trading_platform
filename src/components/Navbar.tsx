@@ -28,7 +28,12 @@ const Navbar: React.FC = () => {
           aria-expanded={isOpen}
           className="md:hidden"
         >
-          <Image src="/menu-icon.svg" alt="Menu" width={80} height={80} />
+          <Image
+            src={isOpen ? '/icons/close.svg' : '/icons/menu.svg'}
+            alt="Menu"
+            width={24}
+            height={24}
+          />
         </button>
         <Link href="/" aria-label="Home">
           <Image
@@ -41,9 +46,9 @@ const Navbar: React.FC = () => {
           />
         </Link>
         <div
-          className={`${
+          className={`md:flex md:items-center md:space-x-10 ${
             isOpen ? 'block' : 'hidden'
-          } md:flex md:items-center md:space-x-10`}
+          }`}
         >
           <Link
             href="/trading-bots"
@@ -82,69 +87,139 @@ const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="flex items-center space-x-2 text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded border border-[#FCD535] transition-all duration-300"
+                className="text-[#EAECEF] bg-transparent hover:bg-[#FCD535] py-2 px-4 rounded transition-all duration-300"
               >
                 <Image
-                  src="/profile-icon.svg"
-                  alt="Profile Icon"
-                  width={24}
-                  height={24}
+                  src="/icons/profile-icon.svg"
+                  alt="Menu"
+                  width={16}
+                  height={16}
                 />
-                <span>{!isDropdownOpen ? '▼' : '►'}</span>
+                {isDropdownOpen ? (
+                  <Image
+                    src="/icons/arrow-up.svg"
+                    alt="Arrow Up"
+                    width={16}
+                    height={16}
+                  />
+                ) : (
+                  <Image
+                    src="/icons/arrow-down.svg"
+                    alt="Arrow Down"
+                    width={16}
+                    height={16}
+                  />
+                )}
               </button>
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-20">
-                  <div className="px-4 py-2 text-sm text-gray-700">
+                <div className="absolute right-0 mt-2 w-48 bg-[#242731] border border-gray-200 rounded-md shadow-lg py-1 z-50">
+                  <div className="px-4 py-2 text-sm text-[#EAECEF]">
                     {session?.user?.email}
                   </div>
                   <div className="border-t border-gray-300"></div>
                   <Link
                     href="/users/subscriptions/pricing"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/subscription.svg"
+                      alt="Subscription"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     Subscriptions
                   </Link>
                   <Link
                     href="/users/subscriptions/promo_code"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/promo-code.svg"
+                      alt="Promo code"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     Promo code
                   </Link>
                   <Link
                     href="/tracking_codes"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/invite-friends.svg"
+                      alt="Invite Friends"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     Invite Friends
                   </Link>
                   <Link
                     href="/portfolios/my_portfolios"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/portfolio.svg"
+                      alt="Portofolio"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     My Portfolios
                   </Link>
                   <Link
                     href="/trader_diary"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/trader-diary.svg"
+                      alt="Trader Diary"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     Trader&apos;s Diary
                   </Link>
                   <Link
                     href="/users/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/settings.svg"
+                      alt="Settings"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     Settings
                   </Link>
                   <Link
                     href="/api_access_tokens"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/api.svg"
+                      alt="Qtrading API"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     Qtrading API
                   </Link>
                   <div className="border-t border-gray-300"></div>
                   <button
                     onClick={handleSignOut}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="w-full text-left px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
+                    <Image
+                      src="/icons/logout.svg"
+                      alt="Log Out"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
                     Log Out
                   </button>
                 </div>
