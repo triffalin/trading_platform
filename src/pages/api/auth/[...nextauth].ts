@@ -95,11 +95,11 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: '/auth/login',
-    signOut: '/auth/logout',
-    error: '/auth/error',
-    verifyRequest: '/auth/verify-request',
-    newUser: '/auth/new-user'
+    signIn: '/src/pages/auth/login.tsx',
+    signOut: '/src/pages/auth/logout',
+    error: '/src/pages/auth/error',
+    verifyRequest: '/src/pages/auth/verify-request',
+    newUser: '/src/pages/auth/new-user'
   }
 };
 
