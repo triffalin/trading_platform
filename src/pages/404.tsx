@@ -20,6 +20,14 @@ const Custom404: React.FC = () => {
       <div className="mt-8">
         <Image src="/logo.svg" alt="Logo" width={300} height={150} priority />
       </div>
+      <Link
+        href="/dashboard"
+        passHref
+        className="text-[#FCD535] hover:text-[#F0B90B] text-xl font-semibold"
+        aria-label="Return to the dashboard"
+      >
+        <>Dashboard</>
+      </Link>
       <p className="mt-4 text-center text-sm">
         Lost? Check out our{' '}
         <Link href="/site-map" className="text-[#FCD535] hover:text-[#F0B90B]">
