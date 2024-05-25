@@ -90,7 +90,7 @@ body {
 .dashboard-content {
   max-width: 1440px; /* Standard max-width for large dashboards */
   margin: 0 auto; /* Centers the dashboard content */
-  padding: 0.5rem; /* Padding for aesthetic spacing */
+  padding: 1rem; /* Padding for aesthetic spacing */
   background-color: var(--binance-black); /* Background color */
   color: var(--text-color); /* Text color */
   border-radius: 8px; /* Optional: Adds rounded corners */
@@ -112,6 +112,14 @@ body {
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabs Container */
+.tabs-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  background-color: var(--binance-black); /* Ensure consistent styling */
 }
 
 /* Account dropdown-menu */
