@@ -1,0 +1,7 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="SVGRepo_iconCarrier"> <path fill="var(--ci-primary-color, #ffffff)" d="M96,146.025V16H64V146.025a64.009,64.009,0,0,0,0,123.95V496H96V269.975a64.009,64.009,0,0,0,0-123.95ZM80,240a32,32,0,1,1,32-32A32.036,32.036,0,0,1,80,240Z" class="ci-primary"/> <path fill="var(--ci-primary-color, #ffffff)" d="M272,290.025V16H240V290.025a64.009,64.009,0,0,0,0,123.95V496h32V413.975a64.009,64.009,0,0,0,0-123.95ZM256,384a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,384Z" class="ci-primary"/> <path fill="var(--ci-primary-color, #ffffff)" d="M448,82.025V16H416V82.025a64.009,64.009,0,0,0,0,123.95V496h32V205.975a64.009,64.009,0,0,0,0-123.95ZM432,176a32,32,0,1,1,32-32A32.036,32.036,0,0,1,432,176Z" class="ci-primary"/> </g>
+</svg>

@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import '@/styles/globals.css';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import Head from 'next/head';
 
 /**
  * The root component for the application, wrapping all other components.
@@ -18,6 +19,9 @@ function MyApp({
     <SessionProvider session={pageProps.session}>
       <ThemeProvider>
         <ErrorBoundary>
+          <Head>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
           <Component {...pageProps} />
         </ErrorBoundary>
       </ThemeProvider>
