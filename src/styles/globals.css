@@ -1,16 +1,10 @@
+/* globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Custom CSS Variables */
-:root {
-  --binance-yellow: #fcd535;
-  --hover-yellow: #f0b90b;
-  --binance-black: #181a20;
-  --text-color: #eaecef;
-}
-
-/* Root Element Styles */
 :root {
   --binance-yellow: #fcd535;
   --hover-yellow: #f0b90b;
@@ -53,17 +47,17 @@ body {
 
 /* Sidebar, Navbar, and Footer Styles */
 .sidebar {
-  width: 232px; /* Fixed width for the sidebar */
-  background-color: var(--binance-black); /* Dark background */
-  color: #ccc; /* Light text */
-  height: calc(100vh - 4rem); /* Adjust based on navbar and footer height */
+  width: 232px;
+  background-color: var(--binance-black);
+  color: #ccc;
+  height: calc(100vh - 4rem);
 }
 
 .navbar,
 .footer {
-  background-color: var(--binance-black); /* Ensure consistent styling */
+  background-color: var(--binance-black);
   color: #ccc;
-  height: 2rem; /* Example height, adjust as necessary */
+  height: 2rem;
 }
 
 /* Flex Container Adjustments for the Main Dashboard Layout */
@@ -74,13 +68,13 @@ body {
 
 .content-area {
   flex-grow: 1;
-  padding: 1rem; /* Adjust padding for layout */
+  padding: 1rem;
 }
 
 /* Additional Responsive Adjustments as Necessary */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%; /* Full width on smaller screens */
+    width: 100%;
   }
   .content-area {
     padding: 0.5rem;
@@ -88,53 +82,25 @@ body {
 }
 
 .dashboard-content {
-  max-width: 1440px; /* Standard max-width for large dashboards */
-  margin: 0 auto; /* Centers the dashboard content */
-  padding: 1rem; /* Padding for aesthetic spacing */
-  background-color: var(--binance-black); /* Background color */
-  color: var(--text-color); /* Text color */
-  border-radius: 8px; /* Optional: Adds rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Optional: Adds subtle shadow for depth */
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  background-color: var(--binance-black);
+  color: var(--text-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Widgets */
 .widgets {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ); /* Responsive grid layout */
-  gap: 1rem; /* Gap between widgets */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
 .widget {
-  background: #242731; /* Slightly lighter background for contrast */
+  background: #242731;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Tabs Container */
-.tabs-container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  background-color: var(--binance-black); /* Ensure consistent styling */
-}
-
-/* Account dropdown-menu */
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  margin-top: 0.5rem;
-  background-color: #242731;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.dropdown-menu.show {
-  display: block;
 }

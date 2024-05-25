@@ -42,12 +42,13 @@ const DashboardContent: React.FC = () => {
   ];
 
   return (
-    <div className="dashboard-content">
+    <div className="dashboard-content max-w-screen-xl mx-auto">
+      <h1 className="text-lg font-bold text-white mb-4">Dashboard</h1>
       <div className="tabs-container flex border-b border-gray-200 mb-4">
         <button
           className={`py-2 px-4 ${
             activeTab === 'main'
-              ? 'border-b-2 border-[#f0b90b] text-[#eaecef]}'
+              ? 'border-b-2 border-[#f0b90b] text-[#eaecef]'
               : 'text-gray-400'
           }`}
           onClick={() => handleTabClick('main')}
@@ -58,7 +59,7 @@ const DashboardContent: React.FC = () => {
           className={`py-2 px-4 ${
             activeTab === 'guide'
               ? 'border-b-2 border-[#f0b90b] text-[#eaecef]'
-              : 'text-gray-00'
+              : 'text-gray-400'
           }`}
           onClick={() => handleTabClick('guide')}
         >
@@ -67,7 +68,6 @@ const DashboardContent: React.FC = () => {
       </div>
       {activeTab === 'main' && (
         <section className="dashboard-main-content">
-          <h1 className="text-lg font-bold text-white mb-4">Dashboard</h1>
           <div className="widgets">
             {widgets.map((widget, index) => (
               <DashboardWidget
@@ -81,9 +81,6 @@ const DashboardContent: React.FC = () => {
       )}
       {activeTab === 'guide' && (
         <section className="dashboard-guide-content">
-          <h1 className="text-lg font-bold text-white mb-4">
-            Beginner’s Guide
-          </h1>
           <p className="text-gray-300">Beginner’s Guide content...</p>
         </section>
       )}
