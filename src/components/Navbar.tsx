@@ -119,6 +119,19 @@ const Navbar: React.FC = () => {
                   </div>
                   <div className="border-t border-gray-300"></div>
                   <Link
+                    href="/dashboard"
+                    className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
+                  >
+                    <Image
+                      src="/icons/dashboard.svg"
+                      alt="Dashboard"
+                      width={16}
+                      height={16}
+                      className="inline mr-2"
+                    />
+                    Dashboard
+                  </Link>
+                  <Link
                     href="/users/subscriptions/pricing"
                     className="block px-4 py-2 text-sm text-[#EAECEF] hover:bg-gray-700 hover:text-white"
                   >
