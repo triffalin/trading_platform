@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 interface WidgetProps {
   title: string;
@@ -81,7 +82,190 @@ const DashboardContent: React.FC = () => {
       )}
       {activeTab === 'guide' && (
         <section className="dashboard-guide-content">
-          <p className="text-gray-300">Beginner’s Guide content...</p>
+          <div className="mb-4 bg-[#242731] p-4 rounded-lg shadow-lg">
+            <div className="flex justify-between items-center h-full">
+              <div>
+                <h2 className="text-lg font-bold text-white mb-2">
+                  Product Tour
+                </h2>
+                <p className="text-gray-300 mb-2">
+                  Explore how to use our platform with popular use cases
+                </p>
+              </div>
+              <button className="btn-sign-in">Launch</button>
+            </div>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-lg font-bold text-white mb-2">
+              Learn the basics of trading
+            </h2>
+            <div className="flex space-x-4">
+              <a
+                href="#"
+                className="video-thumbnail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/thumbnails/thumbnail1.jpg"
+                  alt="Crypto Trading with DCA Bots"
+                  width={450}
+                  height={200}
+                  className="rounded-md shadow-md"
+                />
+              </a>
+              <a
+                href="#"
+                className="video-thumbnail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/thumbnails/thumbnail2.jpg"
+                  alt="Crypto Trading with GRID Bots"
+                  width={450}
+                  height={200}
+                  className="rounded-md shadow-md"
+                />
+              </a>
+              <a
+                href="#"
+                className="video-thumbnail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/thumbnails/thumbnail3.jpg"
+                  alt="Crypto Trading terminal SmartTrade"
+                  width={450}
+                  height={200}
+                  className="rounded-md shadow-md"
+                />
+              </a>
+            </div>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-lg font-bold text-white mb-2">
+              Step by step instruction how to launch bots
+            </h2>
+            <div className="grid grid-cols-4 gap-4">
+              <div className="widget">
+                <h3 className="font-semibold text-white">
+                  DCA Bot <span className="icon">🡺</span>
+                </h3>
+                <p className="text-gray-300">
+                  DCA Bot is infinitely flexible...
+                </p>
+                <a
+                  href="#"
+                  className="text-binance-yellow hover:text-hover-yellow"
+                >
+                  Learn more
+                </a>
+              </div>
+              <div className="widget">
+                <h3 className="font-semibold text-white">
+                  GRID Bot <span className="icon">🡺</span>
+                </h3>
+                <p className="text-gray-300">Qtrading GRID Bot is a tool...</p>
+                <a
+                  href="#"
+                  className="text-binance-yellow hover:text-hover-yellow"
+                >
+                  Learn more
+                </a>
+              </div>
+              <div className="widget">
+                <h3 className="font-semibold text-white">
+                  Signal Bot <span className="icon">🡺</span>
+                </h3>
+                <p className="text-gray-300">
+                  Manage your trading positions...
+                </p>
+                <a
+                  href="#"
+                  className="text-binance-yellow hover:text-hover-yellow"
+                >
+                  Learn more
+                </a>
+              </div>
+              <div className="widget">
+                <h3 className="font-semibold text-white">
+                  SmartTrade <span className="icon">🡺</span>
+                </h3>
+                <p className="text-gray-300">Manage all your exchanges...</p>
+                <a
+                  href="#"
+                  className="text-binance-yellow hover:text-hover-yellow"
+                >
+                  Learn more
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-lg font-bold text-white mb-2">
+              Video tutorial compilation
+            </h2>
+            <div className="flex space-x-4">
+              <a
+                href="#"
+                className="video-thumbnail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/thumbnails/thumbnail4.jpg"
+                  alt="The Benefits Of Trading With Qtrading"
+                  width={450}
+                  height={200}
+                  className="rounded-md shadow-md"
+                />
+              </a>
+              <a
+                href="#"
+                className="video-thumbnail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/thumbnails/thumbnail5.jpg"
+                  alt="How to Connect an Exchange to Qtrading"
+                  width={450}
+                  height={200}
+                  className="rounded-md shadow-md"
+                />
+              </a>
+              <a
+                href="#"
+                className="video-thumbnail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/thumbnails/thumbnail6.jpg"
+                  alt="DCA Bots Part 1"
+                  width={450}
+                  height={200}
+                  className="rounded-md shadow-md"
+                />
+              </a>
+              <a
+                href="#"
+                className="video-thumbnail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/thumbnails/thumbnail7.jpg"
+                  alt="How To Set Up A Grid Bot"
+                  width={450}
+                  height={200}
+                  className="rounded-md shadow-md"
+                />
+              </a>
+            </div>
+          </div>
         </section>
       )}
     </div>
