@@ -1,22 +1,45 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface WidgetProps {
   title: string;
   content: string;
+  icon: string;
+  link: string;
 }
 
 interface WidgetData {
   title: string;
   content: string;
+  icon: string;
+  link: string;
 }
 
 const DashboardWidget: React.FC<WidgetProps> = React.memo(
-  ({ title, content }) => (
-    <div className="widget">
-      <h2 className="font-semibold text-white">{title}</h2>
-      <p className="text-gray-300">{content}</p>
+  ({ title, content, icon, link }) => (
+    <div className="widget flex flex-col justify-between">
+      <div>
+        <div className="icon mb-4">
+          <Image src={icon} alt={title} width={24} height={24} />
+        </div>
+        <h3 className="font-semibold text-white mb-2">{title}</h3>
+        <p className="text-gray-300 mb-6">{content}</p>
+      </div>
+      <Link
+        href={link}
+        className="text-binance-yellow hover:text-hover-yellow flex items-center"
+      >
+        Learn more
+        <Image
+          src="/icons/link.svg"
+          alt="link icon"
+          width={16}
+          height={16}
+          className="ml-1"
+        />
+      </Link>
     </div>
   )
 );
@@ -35,10 +58,33 @@ const DashboardContent: React.FC = () => {
   };
 
   const widgets: WidgetData[] = [
-    { title: 'Trading Summary', content: 'Content detailing trading stats...' },
     {
-      title: 'Active Strategies',
-      content: 'Content about current strategies in play...'
+      title: 'DCA Bot',
+      content:
+        'DCA Bot is infinitely flexible, but the core function is to buy and sell at advantageous times, based on market conditions.',
+      icon: '/icons/dca-bot.svg',
+      link: '#'
+    },
+    {
+      title: 'GRID Bot',
+      content:
+        'Qtrading GRID Bot is a tool that can help you succeed from even the smallest price fluctuations in the market.',
+      icon: '/icons/grid-bot.svg',
+      link: '#'
+    },
+    {
+      title: 'Signal Bot',
+      content:
+        'Manage your trading positions using webhooks, alerts, TradingView strategies, and custom filters that include manual signal confirmation.',
+      icon: '/icons/signal-bot.svg',
+      link: '#'
+    },
+    {
+      title: 'SmartTrade',
+      content:
+        'Manage all your exchanges in one easy-to-use interface. Strategize your trades using advanced order conditions for entering and exiting deals.',
+      icon: '/icons/smart-trade.svg',
+      link: '#'
     }
   ];
 
@@ -75,6 +121,8 @@ const DashboardContent: React.FC = () => {
                 key={index}
                 title={widget.title}
                 content={widget.content}
+                icon={widget.icon}
+                link={widget.link}
               />
             ))}
           </div>
@@ -102,7 +150,7 @@ const DashboardContent: React.FC = () => {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="video-thumbnail"
+                className="flex-1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -116,7 +164,7 @@ const DashboardContent: React.FC = () => {
               </a>
               <a
                 href="#"
-                className="video-thumbnail"
+                className="flex-1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -130,7 +178,7 @@ const DashboardContent: React.FC = () => {
               </a>
               <a
                 href="#"
-                className="video-thumbnail"
+                className="flex-1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -149,58 +197,15 @@ const DashboardContent: React.FC = () => {
               Step by step instruction how to launch bots
             </h2>
             <div className="grid grid-cols-4 gap-4">
-              <div className="widget">
-                <h3 className="font-semibold text-white">
-                  DCA Bot <span className="icon">🡺</span>
-                </h3>
-                <p className="text-gray-300">
-                  DCA Bot is infinitely flexible...
-                </p>
-                <a
-                  href="#"
-                  className="text-binance-yellow hover:text-hover-yellow"
-                >
-                  Learn more
-                </a>
-              </div>
-              <div className="widget">
-                <h3 className="font-semibold text-white">
-                  GRID Bot <span className="icon">🡺</span>
-                </h3>
-                <p className="text-gray-300">Qtrading GRID Bot is a tool...</p>
-                <a
-                  href="#"
-                  className="text-binance-yellow hover:text-hover-yellow"
-                >
-                  Learn more
-                </a>
-              </div>
-              <div className="widget">
-                <h3 className="font-semibold text-white">
-                  Signal Bot <span className="icon">🡺</span>
-                </h3>
-                <p className="text-gray-300">
-                  Manage your trading positions...
-                </p>
-                <a
-                  href="#"
-                  className="text-binance-yellow hover:text-hover-yellow"
-                >
-                  Learn more
-                </a>
-              </div>
-              <div className="widget">
-                <h3 className="font-semibold text-white">
-                  SmartTrade <span className="icon">🡺</span>
-                </h3>
-                <p className="text-gray-300">Manage all your exchanges...</p>
-                <a
-                  href="#"
-                  className="text-binance-yellow hover:text-hover-yellow"
-                >
-                  Learn more
-                </a>
-              </div>
+              {widgets.map((widget, index) => (
+                <DashboardWidget
+                  key={index}
+                  title={widget.title}
+                  content={widget.content}
+                  icon={widget.icon}
+                  link={widget.link}
+                />
+              ))}
             </div>
           </div>
           <div className="mb-4">
