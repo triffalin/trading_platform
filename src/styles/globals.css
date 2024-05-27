@@ -163,3 +163,21 @@ a.flex.items-center {
   display: flex;
   align-items: center;
 }
+
+/* Additional Styles for Widget Layout */
+.widget .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.widget .text-gray-300 {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+/* Ensuring Learn More Link Stays at Bottom */
+.widget a {
+  margin-top: auto;
+}

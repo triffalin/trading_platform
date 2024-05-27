@@ -157,8 +157,8 @@ const DashboardContent: React.FC = () => {
                 <Image
                   src="/thumbnails/thumbnail1.jpg"
                   alt="Crypto Trading with DCA Bots"
-                  width={450}
-                  height={200}
+                  width={300}
+                  height={150}
                   className="rounded-md shadow-md"
                 />
               </a>
@@ -171,8 +171,8 @@ const DashboardContent: React.FC = () => {
                 <Image
                   src="/thumbnails/thumbnail2.jpg"
                   alt="Crypto Trading with GRID Bots"
-                  width={450}
-                  height={200}
+                  width={300}
+                  height={150}
                   className="rounded-md shadow-md"
                 />
               </a>
@@ -185,8 +185,8 @@ const DashboardContent: React.FC = () => {
                 <Image
                   src="/thumbnails/thumbnail3.jpg"
                   alt="Crypto Trading terminal SmartTrade"
-                  width={450}
-                  height={200}
+                  width={300}
+                  height={150}
                   className="rounded-md shadow-md"
                 />
               </a>
@@ -212,7 +212,7 @@ const DashboardContent: React.FC = () => {
             <h2 className="text-lg font-bold text-white mb-2">
               Video tutorial compilation
             </h2>
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap space-x-4">
               <a
                 href="#"
                 className="video-thumbnail"
@@ -222,8 +222,8 @@ const DashboardContent: React.FC = () => {
                 <Image
                   src="/thumbnails/thumbnail4.jpg"
                   alt="The Benefits Of Trading With Qtrading"
-                  width={450}
-                  height={200}
+                  width={300}
+                  height={150}
                   className="rounded-md shadow-md"
                 />
               </a>
@@ -236,8 +236,8 @@ const DashboardContent: React.FC = () => {
                 <Image
                   src="/thumbnails/thumbnail5.jpg"
                   alt="How to Connect an Exchange to Qtrading"
-                  width={450}
-                  height={200}
+                  width={300}
+                  height={150}
                   className="rounded-md shadow-md"
                 />
               </a>
@@ -250,8 +250,8 @@ const DashboardContent: React.FC = () => {
                 <Image
                   src="/thumbnails/thumbnail6.jpg"
                   alt="DCA Bots Part 1"
-                  width={450}
-                  height={200}
+                  width={300}
+                  height={150}
                   className="rounded-md shadow-md"
                 />
               </a>
@@ -264,8 +264,8 @@ const DashboardContent: React.FC = () => {
                 <Image
                   src="/thumbnails/thumbnail7.jpg"
                   alt="How To Set Up A Grid Bot"
-                  width={450}
-                  height={200}
+                  width={300}
+                  height={150}
                   className="rounded-md shadow-md"
                 />
               </a>
