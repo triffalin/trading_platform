@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Image from 'next/image'; //
+import Image from 'next/image';
 import classNames from 'classnames';
 
 interface MenuLink {
@@ -23,7 +23,7 @@ const MenuLinkComponent: React.FC<MenuLink> = ({ path, label, icon }) => {
   const linkClass = classNames(
     'block flex items-center px-3 py-2 rounded-md transition duration-300 ease-in-out',
     {
-      'bg-gray-800 text-white': router.pathname === path,
+      'bg-gray-700 text-white': router.pathname === path,
       'text-gray-300 hover:bg-gray-700 hover:text-white':
         router.pathname !== path
     }
@@ -76,6 +76,7 @@ const ExpandableMenu: React.FC<ExpandableMenuProps> = ({
 const Sidebar: React.FC = () => {
   const [isDcaOpen, setDcaOpen] = useState(false);
   const [isSmartTradeOpen, setSmartTradeOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const dcaLinks: MenuLink[] = [
     { path: '/deals', label: 'My Deals', icon: '/icons/deals.svg' },
@@ -104,8 +105,16 @@ const Sidebar: React.FC = () => {
     }
   ];
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <aside className="sidebar bg-gray-800 text-white w-64 space-y-4 py-7 pl-5 fixed inset-y-0 left-0 transform md:relative md:translate-x-0 transition-transform md:duration-200 ease-in-out">
+    <aside
+      className={`bg-[#181a20] text-white w-60 space-y-4 py-7 pl-5 fixed top-17 left-0 transform ${
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      } 2xl:translate-x-0 transition-transform duration-300 ease-in-out`}
+    >
       <ul className="text-sm">
         <li className="text-gray-400 uppercase tracking-wide mb-2">Trading</li>
         <MenuLinkComponent

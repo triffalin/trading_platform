@@ -20,6 +20,9 @@
   .sidebar-close {
     @apply text-white text-3xl font-bold cursor-pointer;
   }
+  .navbar {
+    @apply bg-[#181a20] shadow-lg fixed top-0 left-0 right-0 z-50;
+  }
 }
 
 @layer utilities {
@@ -110,7 +113,7 @@ a {
 .footer {
   background-color: var(--binance-black);
   color: #ccc;
-  height: 2rem;
+  height: 4rem;
 }
 
 /* Flex Container Adjustments for the Main Dashboard Layout */
