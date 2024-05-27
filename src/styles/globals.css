@@ -94,7 +94,7 @@ body {
 /* Widgets */
 .widgets {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
@@ -180,4 +180,9 @@ a.flex.items-center {
 /* Ensuring Learn More Link Stays at Bottom */
 .widget a {
   margin-top: auto;
+}
+
+/* Ensuring Images Center in Section */
+.flex.justify-center {
+  justify-content: center;
 }
