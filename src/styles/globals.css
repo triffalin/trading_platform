@@ -4,6 +4,51 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .sidebar {
+    @apply fixed inset-y-0 left-0 w-64 bg-gray-800 shadow-lg z-50 transform -translate-x-full transition-transform duration-300 ease-in-out;
+  }
+  .sidebar.open {
+    @apply translate-x-0;
+  }
+  .sidebar-close {
+    @apply text-white text-3xl font-bold cursor-pointer;
+  }
+}
+
+@layer utilities {
+  /* Responsive utilities for padding and margin */
+  .p-responsive {
+    padding: 1rem;
+  }
+  @screen sm {
+    .p-responsive {
+      padding: 1.5rem;
+    }
+  }
+  @screen md {
+    .p-responsive {
+      padding: 2rem;
+    }
+  }
+  @screen lg {
+    .p-responsive {
+      padding: 2.5rem;
+    }
+  }
+  @screen xl {
+    .p-responsive {
+      padding: 3rem;
+    }
+  }
+}
+
 /* Custom CSS Variables */
 :root {
   --binance-yellow: #fcd535;
@@ -15,11 +60,19 @@
 /* Base Styles */
 html,
 body {
+  @apply bg-gray-100 text-gray-900 antialiased leading-relaxed;
   background-color: var(--binance-black);
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+a {
+  @apply text-[#eaecef] hover:text-[#f0b90b];
+}
+.container {
+  @apply mx-auto p-responsive;
 }
 
 /* Text Colors */
