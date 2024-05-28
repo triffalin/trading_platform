@@ -13,6 +13,10 @@
 @layer components {
   .sidebar {
     @apply fixed inset-y-0 left-0 w-64 bg-gray-800 shadow-lg z-50 transform -translate-x-full transition-transform duration-300 ease-in-out;
+    width: 16rem; /* Ensuring consistent width */
+    background-color: var(--binance-black);
+    color: #ccc;
+    height: calc(100vh - 4rem); /* Consistent height */
   }
   .sidebar.open {
     @apply translate-x-0;
@@ -22,33 +26,39 @@
   }
   .navbar {
     @apply bg-[#181a20] shadow-lg fixed top-0 left-0 right-0 z-50;
+    height: 4rem; /* Consistent height definition */
   }
 }
 
 @layer utilities {
   /* Responsive utilities for padding and margin */
   .p-responsive {
-    padding: 1rem;
+    padding: 0.8rem;
   }
   @screen sm {
     .p-responsive {
-      padding: 1.5rem;
+      padding: 1rem;
     }
   }
   @screen md {
     .p-responsive {
-      padding: 2rem;
+      padding: 1.5rem;
     }
   }
   @screen lg {
     .p-responsive {
-      padding: 2.5rem;
+      padding: 1.8rem;
     }
   }
   @screen xl {
     .p-responsive {
-      padding: 3rem;
+      padding: 2rem;
     }
+  }
+
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 
@@ -101,15 +111,7 @@ a {
   background-color: var(--hover-yellow);
 }
 
-/* Sidebar, Navbar, and Footer Styles */
-.sidebar {
-  width: 232px;
-  background-color: var(--binance-black);
-  color: #ccc;
-  height: calc(100vh - 4rem);
-}
-
-.navbar,
+/* Footer Styles */
 .footer {
   background-color: var(--binance-black);
   color: #ccc;
@@ -174,11 +176,6 @@ a {
 
 .video-thumbnail:hover {
   background: none;
-}
-
-.flex {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .space-x-4 {

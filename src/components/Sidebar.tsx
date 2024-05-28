@@ -73,10 +73,9 @@ const ExpandableMenu: React.FC<ExpandableMenuProps> = ({
   </li>
 );
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<{ isSidebarOpen: boolean }> = ({ isSidebarOpen }) => {
   const [isDcaOpen, setDcaOpen] = useState(false);
   const [isSmartTradeOpen, setSmartTradeOpen] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const dcaLinks: MenuLink[] = [
     { path: '/deals', label: 'My Deals', icon: '/icons/deals.svg' },
@@ -105,13 +104,9 @@ const Sidebar: React.FC = () => {
     }
   ];
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
-
   return (
     <aside
-      className={`bg-[#181a20] text-white w-60 space-y-4 py-7 pl-5 fixed top-17 left-0 transform ${
+      className={`bg-[#181a20] text-white w-60 space-y-4 py-7 pl-5 fixed top-16 left-0 transform ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } 2xl:translate-x-0 transition-transform duration-300 ease-in-out`}
     >

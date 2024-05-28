@@ -4,16 +4,19 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  toggleSidebar: () => void;
+  isSidebarOpen: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ toggleSidebar, isSidebarOpen }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   const handleSignIn = () => router.push('/auth/login');
   const handleSignOut = async () => {
@@ -27,14 +30,14 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-[#181a20] shadow-lg">
-      <div className="container max-w-screen-xl mx-auto px-4 py-2 flex justify-between items-center">
+      <div className="container max-w-screen-xl mx-auto px-4 py-0 my-0 flex justify-between items-center">
         <div className="flex items-center">
           <Link href="/" aria-label="Home">
             <Image
               src="/logo.svg"
               alt="Logo"
-              width={80}
-              height={80}
+              width={40}
+              height={40}
               className="mr-4"
               priority
             />
@@ -52,8 +55,8 @@ const Navbar: React.FC = () => {
                     : '/icons/toggle-sidebar.svg'
                 }
                 alt="Sidebar Toggle"
-                width={24}
-                height={24}
+                width={16}
+                height={16}
               />
             </button>
           )}
@@ -67,8 +70,8 @@ const Navbar: React.FC = () => {
             <Image
               src={isOpen ? '/icons/close.svg' : '/icons/menu.svg'}
               alt="Menu"
-              width={24}
-              height={24}
+              width={16}
+              height={16}
             />
           </button>
           <div

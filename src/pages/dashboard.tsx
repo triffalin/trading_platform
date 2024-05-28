@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
@@ -9,17 +9,17 @@ import DashboardContent from '@/components/DashboardContent';
 const DashboardPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/auth/login');
     }
   }, [status, router]);
-
-  useEffect(() => {
-    console.log('Dashboard Session:', session);
-    console.log('Dashboard Status:', status);
-  }, [session, status]);
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -31,10 +31,10 @@ const DashboardPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-balance-black">
-      <Navbar />
+      <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <main className="flex-grow flex">
         <aside>
-          <Sidebar />
+          <Sidebar isSidebarOpen={isSidebarOpen} />
         </aside>
         <section className="flex-grow">
           <DashboardContent />
