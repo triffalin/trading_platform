@@ -52,6 +52,7 @@ const DashboardContent: React.FC = () => {
     router.query.tab === 'guide' ? 'guide' : 'main'
   );
   const [activeStrategyTab, setActiveStrategyTab] = useState('launch');
+  const [showAllExchanges, setShowAllExchanges] = useState(false);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -60,6 +61,10 @@ const DashboardContent: React.FC = () => {
 
   const handleStrategyTabClick = (tab: string) => {
     setActiveStrategyTab(tab);
+  };
+
+  const handleShowMoreToggle = () => {
+    setShowAllExchanges(prev => !prev);
   };
 
   const widgets: WidgetData[] = [
@@ -90,6 +95,93 @@ const DashboardContent: React.FC = () => {
         'Manage all your exchanges in one easy-to-use interface. Strategize your trades using advanced order conditions for entering and exiting deals.',
       icon: '/icons/smart-trade.svg',
       link: '#'
+    }
+  ];
+
+  const exchanges = [
+    {
+      name: 'Binance',
+      accountTypes: 'Spot | Futures | Margin',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/binance.svg'
+    },
+    {
+      name: 'Bybit',
+      accountTypes: 'Spot | Futures',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/bybit.svg'
+    },
+    {
+      name: 'OKX',
+      accountTypes: 'Spot | Futures',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/okx.svg'
+    },
+    {
+      name: 'KuCoin',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/kucoin.svg'
+    },
+    {
+      name: 'Binance TR',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | DCA | GRID',
+      icon: '/icons/binance.svg'
+    },
+    {
+      name: 'Binance US',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/binance.svg'
+    },
+    {
+      name: 'Bitfinex',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | Signal',
+      icon: '/icons/bitfinex.svg'
+    },
+    {
+      name: 'Bitget USDT-M Futures',
+      accountTypes: 'Futures',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/bitget.svg'
+    },
+    {
+      name: 'Bitstamp',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | Signal',
+      icon: '/icons/bitstamp.svg'
+    },
+    {
+      name: 'Coinbase Advanced',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/coinbase.svg'
+    },
+    {
+      name: 'Gate.io',
+      accountTypes: 'Spot | Futures',
+      instruments: 'SmartTrade | DCA | GRID',
+      icon: '/icons/gateio.svg'
+    },
+    {
+      name: 'Gemini',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/gemini.svg'
+    },
+    {
+      name: 'HTX',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | DCA | GRID',
+      icon: '/icons/htx.svg'
+    },
+    {
+      name: 'Kraken',
+      accountTypes: 'Spot',
+      instruments: 'SmartTrade | DCA | GRID | Signal',
+      icon: '/icons/kraken.svg'
     }
   ];
 
@@ -160,162 +252,39 @@ const DashboardContent: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* Example Row */}
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Binance</td>
-                  <td className="p-2">Spot | Futures | Margin</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Bybit</td>
-                  <td className="p-2">Spot | Futures</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">OKX</td>
-                  <td className="p-2">Spot | Futures</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">KuCoin</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
+                {exchanges
+                  .slice(0, showAllExchanges ? exchanges.length : 3)
+                  .map((exchange, index) => (
+                    <tr key={index} className="border-b border-gray-600">
+                      <td className="p-2 flex items-center space-x-2">
+                        <Image
+                          src={exchange.icon}
+                          alt={`${exchange.name} icon`}
+                          width={16}
+                          height={16}
+                        />
+                        <span>{exchange.name}</span>
+                      </td>
+                      <td className="p-2">{exchange.accountTypes}</td>
+                      <td className="p-2">{exchange.instruments}</td>
+                      <td className="p-2">
+                        <button className="btn-sign-in">Connect</button>
+                      </td>
+                      <td className="p-2">
+                        <button className="btn-sign-in">Create</button>
+                      </td>
+                    </tr>
+                  ))}
+                <tr>
+                  <td colSpan={5} className="text-center">
+                    <button
+                      onClick={handleShowMoreToggle}
+                      className="text-binance-yellow hover:text-hover-yellow"
+                    >
+                      {showAllExchanges ? 'Show less' : 'Show more'}
+                    </button>
                   </td>
                 </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Binance TR</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | DCA | GRID</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Binance US</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Bitfinex</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Bitget USDT-M Futures</td>
-                  <td className="p-2">Futures</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Bitstamp</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Coinbase Advanced</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Gate.io</td>
-                  <td className="p-2">Spot | Futures</td>
-                  <td className="p-2">SmartTrade | DCA | GRID</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Gemini</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">HTX</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | DCA | GRID</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-600">
-                  <td className="p-2">Kraken</td>
-                  <td className="p-2">Spot</td>
-                  <td className="p-2">SmartTrade | DCA | GRID | Signal</td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Connect</button>
-                  </td>
-                  <td className="p-2">
-                    <button className="btn-sign-in">Create</button>
-                  </td>
-                </tr>
-                {/* Add more rows as needed */}
               </tbody>
             </table>
           </div>
