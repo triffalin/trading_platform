@@ -241,7 +241,7 @@ const DashboardContent: React.FC = () => {
             <h2 className="text-lg font-bold text-white mb-4">
               Top exchanges for your country
             </h2>
-            <table className="w-full text-gray-300">
+            <table className="w-full text-gray-300 text-center">
               <thead>
                 <tr className="bg-gray-700">
                   <th className="p-2">Exchange</th>
@@ -256,7 +256,7 @@ const DashboardContent: React.FC = () => {
                   .slice(0, showAllExchanges ? exchanges.length : 3)
                   .map((exchange, index) => (
                     <tr key={index} className="border-b border-gray-600">
-                      <td className="p-2 flex items-center space-x-2">
+                      <td className="p-2 flex items-center justify-center space-x-2">
                         <Image
                           src={exchange.icon}
                           alt={`${exchange.name} icon`}
@@ -267,8 +267,16 @@ const DashboardContent: React.FC = () => {
                       </td>
                       <td className="p-2">{exchange.accountTypes}</td>
                       <td className="p-2">{exchange.instruments}</td>
-                      <td className="p-2">
-                        <button className="btn-sign-in">Connect</button>
+                      <td className="p-2 flex justify-center items-center space-x-2">
+                        <button className="btn-sign-in">
+                          <Image
+                            src="/icons/link.svg"
+                            alt="Link icon"
+                            width={16}
+                            height={16}
+                          />
+                          Connect
+                        </button>
                       </td>
                       <td className="p-2">
                         <button className="btn-sign-in">Create</button>
@@ -279,9 +287,29 @@ const DashboardContent: React.FC = () => {
                   <td colSpan={5} className="text-center">
                     <button
                       onClick={handleShowMoreToggle}
-                      className="text-binance-yellow hover:text-hover-yellow"
+                      className="text-binance-yellow hover:text-hover-yellow flex justify-center items-center space-x-2"
                     >
-                      {showAllExchanges ? 'Show less' : 'Show more'}
+                      {showAllExchanges ? (
+                        <>
+                          <Image
+                            src="/icons/arrow-up.svg"
+                            alt="Up Arrow"
+                            width={16}
+                            height={16}
+                          />
+                          <span>Show less</span>
+                        </>
+                      ) : (
+                        <>
+                          <Image
+                            src="/icons/arrow-down.svg"
+                            alt="Down Arrow"
+                            width={16}
+                            height={16}
+                          />
+                          <span>Show more</span>
+                        </>
+                      )}
                     </button>
                   </td>
                 </tr>
