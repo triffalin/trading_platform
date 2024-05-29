@@ -287,7 +287,7 @@ const DashboardContent: React.FC = () => {
                   <td colSpan={5} className="text-center">
                     <button
                       onClick={handleShowMoreToggle}
-                      className="text-binance-yellow hover:text-hover-yellow flex justify-center items-center space-x-2"
+                      className="text-binance-yellow hover:text-hover-yellow flex justify-center items-center space-x-2 mx-auto"
                     >
                       {showAllExchanges ? (
                         <>
