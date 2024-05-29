@@ -33,7 +33,7 @@ const DashboardWidget: React.FC<WidgetProps> = React.memo(
       >
         Learn more
         <Image
-          src="/icons/link.svg"
+          src="/icons/link2.svg"
           alt="link icon"
           width={16}
           height={16}
@@ -268,14 +268,14 @@ const DashboardContent: React.FC = () => {
                       <td className="p-2">{exchange.accountTypes}</td>
                       <td className="p-2">{exchange.instruments}</td>
                       <td className="p-2 flex justify-center items-center space-x-2">
-                        <button className="btn-sign-in">
+                        <button className="btn-connect flex items-center space-x-2">
                           <Image
-                            src="/icons/link.svg"
+                            src="/icons/link2.svg"
                             alt="Link icon"
                             width={16}
                             height={16}
                           />
-                          Connect
+                          <span>Connect</span>
                         </button>
                       </td>
                       <td className="p-2">
