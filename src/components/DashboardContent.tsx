@@ -54,6 +54,8 @@ const DashboardContent: React.FC = () => {
   const [activeStrategyTab, setActiveStrategyTab] = useState('launch');
   const [showAllExchanges, setShowAllExchanges] = useState(false);
 
+  const hasConnectedPlatforms = false; // Replace with actual condition based on user's connected platforms
+
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
     router.push(tab === 'guide' ? '/dashboard?tab=guide' : '/dashboard');
@@ -212,230 +214,321 @@ const DashboardContent: React.FC = () => {
       </div>
       {activeTab === 'main' && (
         <section className="dashboard-main-content space-y-8">
-          <div className="bg-[#242731] p-4 rounded-lg shadow-lg flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <Image
-                src="/icons/exclamation.svg"
-                alt="Exclamation Icon"
-                width={32}
-                height={32}
-              />
-              <div>
-                <h2 className="text-lg font-bold text-white">
-                  Choose your subscription plan
+          {hasConnectedPlatforms ? (
+            <>
+              <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
+                <h2 className="text-lg font-bold text-white mb-4">
+                  Aggregate Account Balance
                 </h2>
-                <p className="text-gray-300">
-                  Buy subscription to continue using Qtrading
-                </p>
+                <div className="balance-details flex justify-between">
+                  <div className="balance-circle">
+                    <p className="text-gray-300">
+                      Number of assets: <span>1</span>
+                    </p>
+                    <p className="text-gray-300">
+                      Total / Change 24 hr: <span>$0.01</span>{' '}
+                      <span>+83.11%</span>
+                    </p>
+                    <p className="text-gray-300">
+                      ≈0 BTC <span>+83.14%</span>
+                    </p>
+                  </div>
+                  <div className="balance-graph">
+                    {/* Placeholder for the graph */}
+                  </div>
+                </div>
               </div>
-            </div>
-            <button
-              onClick={() => router.push('/users/subscriptions/pricing')}
-              className="btn-sign-in"
-            >
-              Buy Subscription
-            </button>
-          </div>
 
-          <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
-            <h2 className="text-lg font-bold text-white mb-4">
-              Top exchanges for your country
-            </h2>
-            <table className="w-full text-gray-300 text-center">
-              <thead>
-                <tr className="bg-gray-700">
-                  <th className="p-2">Exchange</th>
-                  <th className="p-2">Account types</th>
-                  <th className="p-2">Instruments</th>
-                  <th className="p-2">Connect existing account</th>
-                  <th className="p-2">Create new account</th>
-                </tr>
-              </thead>
-              <tbody>
-                {exchanges
-                  .slice(0, showAllExchanges ? exchanges.length : 3)
-                  .map((exchange, index) => (
-                    <tr key={index} className="border-b border-gray-600">
-                      <td className="p-2 flex items-center justify-center space-x-2">
-                        <Image
-                          src={exchange.icon}
-                          alt={`${exchange.name} icon`}
-                          width={16}
-                          height={16}
-                        />
-                        <span>{exchange.name}</span>
-                      </td>
-                      <td className="p-2">{exchange.accountTypes}</td>
-                      <td className="p-2">{exchange.instruments}</td>
-                      <td className="p-2 flex justify-center items-center space-x-2">
-                        <button className="btn-connect flex items-center space-x-2">
-                          <Image
-                            src="/icons/link2.svg"
-                            alt="Link icon"
-                            width={16}
-                            height={16}
-                          />
-                          <span>Connect</span>
+              <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-bold text-white">
+                    Exchange Area
+                  </h2>
+                  <button className="btn-connect">Add an exchange</button>
+                </div>
+                <div className="connected-exchanges grid grid-cols-3 gap-4">
+                  <div className="exchange bg-[#2d2f36] p-4 rounded-lg shadow-md">
+                    <h4 className="text-lg font-bold text-white">My Binance</h4>
+                    <p className="text-gray-300">Binance Spot</p>
+                    <p className="text-gray-300">Total: &lt;$0.01 / 0 BTC</p>
+                    <p className="text-gray-300">
+                      24hr changes: <span>+83.23% +83.14%</span>
+                    </p>
+                    <button className="btn-sign-in mt-2">Deposit</button>
+                  </div>
+                  <div className="exchange bg-[#2d2f36] p-4 rounded-lg shadow-md">
+                    <h4 className="text-lg font-bold text-white">My Binance</h4>
+                    <p className="text-gray-300">Binance Futures COIN-M</p>
+                    <p className="text-gray-300">Insufficient funds</p>
+                    <button className="btn-sign-in mt-2">Transfer</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
+                <h2 className="text-lg font-bold text-white mb-4">Tokens</h2>
+                <div className="token-list grid grid-cols-3 gap-4">
+                  <div className="token bg-[#2d2f36] p-4 rounded-lg shadow-md">
+                    <p className="text-gray-300">APENFT</p>
+                    <p className="text-gray-300">Quantity: 1,419.064018</p>
+                    <p className="text-gray-300">Price: $0</p>
+                    <p className="text-gray-300">Change (24h): +0.38%</p>
+                    <p className="text-gray-300">Total: $0</p>
+                  </div>
+                  <div className="token bg-[#2d2f36] p-4 rounded-lg shadow-md">
+                    <p className="text-gray-300">LDUSDT</p>
+                    <p className="text-gray-300">Quantity: 46.06634597</p>
+                    <p className="text-gray-300">Price: $0</p>
+                    <p className="text-gray-300">Change (24h): 0%</p>
+                    <p className="text-gray-300">Total: $0</p>
+                  </div>
+                  <div className="token bg-[#2d2f36] p-4 rounded-lg shadow-md">
+                    <p className="text-gray-300">VeThor Token</p>
+                    <p className="text-gray-300">Quantity: 0.00000661</p>
+                    <p className="text-gray-300">Price: &lt;$0.01</p>
+                    <p className="text-gray-300">Change (24h): +0.08%</p>
+                    <p className="text-gray-300">Total: &lt;$0.01</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
+                <h2 className="text-lg font-bold text-white mb-4">
+                  Futures Contracts
+                </h2>
+                <p className="text-gray-300">No futures contracts</p>
+                <button className="btn-sign-in mt-2">Create trade</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="bg-[#242731] p-4 rounded-lg shadow-lg flex justify-between items-center">
+                <div className="flex items-center space-x-4">
+                  <Image
+                    src="/icons/exclamation.svg"
+                    alt="Exclamation Icon"
+                    width={32}
+                    height={32}
+                  />
+                  <div>
+                    <h2 className="text-lg font-bold text-white">
+                      Choose your subscription plan
+                    </h2>
+                    <p className="text-gray-300">
+                      Buy subscription to continue using Qtrading
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => router.push('/users/subscriptions/pricing')}
+                  className="btn-sign-in"
+                >
+                  Buy Subscription
+                </button>
+              </div>
+
+              <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
+                <h2 className="text-lg font-bold text-white mb-4">
+                  Top exchanges for your country
+                </h2>
+                <table className="w-full text-gray-300 text-center">
+                  <thead>
+                    <tr className="bg-gray-700">
+                      <th className="p-2">Exchange</th>
+                      <th className="p-2">Account types</th>
+                      <th className="p-2">Instruments</th>
+                      <th className="p-2">Connect existing account</th>
+                      <th className="p-2">Create new account</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {exchanges
+                      .slice(0, showAllExchanges ? exchanges.length : 3)
+                      .map((exchange, index) => (
+                        <tr key={index} className="border-b border-gray-600">
+                          <td className="p-2 flex items-center justify-center space-x-2">
+                            <Image
+                              src={exchange.icon}
+                              alt={`${exchange.name} icon`}
+                              width={16}
+                              height={16}
+                            />
+                            <span>{exchange.name}</span>
+                          </td>
+                          <td className="p-2">{exchange.accountTypes}</td>
+                          <td className="p-2">{exchange.instruments}</td>
+                          <td className="p-2 flex justify-center items-center space-x-2">
+                            <button className="btn-connect flex items-center space-x-2">
+                              <Image
+                                src="/icons/link2.svg"
+                                alt="Link icon"
+                                width={16}
+                                height={16}
+                              />
+                              <span>Connect</span>
+                            </button>
+                          </td>
+                          <td className="p-2">
+                            <button className="btn-sign-in">Create</button>
+                          </td>
+                        </tr>
+                      ))}
+                    <tr>
+                      <td colSpan={5} className="text-center">
+                        <button
+                          onClick={handleShowMoreToggle}
+                          className="text-binance-yellow hover:text-hover-yellow flex justify-center items-center space-x-2 mx-auto"
+                        >
+                          {showAllExchanges ? (
+                            <>
+                              <Image
+                                src="/icons/arrow-up.svg"
+                                alt="Up Arrow"
+                                width={16}
+                                height={16}
+                              />
+                              <span>Show less</span>
+                            </>
+                          ) : (
+                            <>
+                              <Image
+                                src="/icons/arrow-down.svg"
+                                alt="Down Arrow"
+                                width={16}
+                                height={16}
+                              />
+                              <span>Show more</span>
+                            </>
+                          )}
                         </button>
                       </td>
-                      <td className="p-2">
-                        <button className="btn-sign-in">Create</button>
-                      </td>
                     </tr>
-                  ))}
-                <tr>
-                  <td colSpan={5} className="text-center">
-                    <button
-                      onClick={handleShowMoreToggle}
-                      className="text-binance-yellow hover:text-hover-yellow flex justify-center items-center space-x-2 mx-auto"
-                    >
-                      {showAllExchanges ? (
-                        <>
-                          <Image
-                            src="/icons/arrow-up.svg"
-                            alt="Up Arrow"
-                            width={16}
-                            height={16}
-                          />
-                          <span>Show less</span>
-                        </>
-                      ) : (
-                        <>
-                          <Image
-                            src="/icons/arrow-down.svg"
-                            alt="Down Arrow"
-                            width={16}
-                            height={16}
-                          />
-                          <span>Show more</span>
-                        </>
-                      )}
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                  </tbody>
+                </table>
+              </div>
 
-          <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold text-white">
-                Trading Opportunities
-              </h2>
-              <div className="flex space-x-4">
-                <button
-                  className={`py-2 px-4 ${
-                    activeStrategyTab === 'launch'
-                      ? 'text-[#eaecef] border-b-2 border-[#f0b90b]'
-                      : 'text-gray-400'
-                  }`}
-                  onClick={() => handleStrategyTabClick('launch')}
-                >
-                  Launch Strategies
-                </button>
-                <button
-                  className={`py-2 px-4 ${
-                    activeStrategyTab === 'copy'
-                      ? 'text-[#eaecef] border-b-2 border-[#f0b90b]'
-                      : 'text-gray-400'
-                  }`}
-                  onClick={() => handleStrategyTabClick('copy')}
-                >
-                  Copy Bot
-                </button>
-                <button
-                  className={`py-2 px-4 ${
-                    activeStrategyTab === 'signal'
-                      ? 'text-[#eaecef] border-b-2 border-[#f0b90b]'
-                      : 'text-gray-400'
-                  }`}
-                  onClick={() => handleStrategyTabClick('signal')}
-                >
-                  Start Signal Bot
-                </button>
-              </div>
-            </div>
-            <div className="flex space-x-8">
-              <div className="flex-1">
-                {activeStrategyTab === 'launch' && (
-                  <>
-                    <h3 className="text-xl font-bold text-white">
-                      Launch popular ready-made strategies
-                    </h3>
-                    <p className="text-gray-300 mb-4">
-                      Utilize various trading strategies designed for different
-                      market conditions. A simple and quick way to start
-                      automated trading.
-                    </p>
-                    <div className="flex space-x-4">
-                      <button
-                        onClick={() => router.push('/bots/new')}
-                        className="btn-sign-in"
-                      >
-                        DCA strategies
-                      </button>
-                      <button
-                        onClick={() => router.push('/grid_bots')}
-                        className="btn-sign-in"
-                      >
-                        GRID strategies
-                      </button>
-                    </div>
-                  </>
-                )}
-                {activeStrategyTab === 'copy' && (
-                  <>
-                    <h3 className="text-xl font-bold text-white">
-                      Copy DCA Bots using Presets
-                    </h3>
-                    <p className="text-gray-300 mb-4">
-                      Presets are successful bots created by experienced users.
-                    </p>
+              <div className="bg-[#242731] p-4 rounded-lg shadow-lg">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-bold text-white">
+                    Trading Opportunities
+                  </h2>
+                  <div className="flex space-x-4">
                     <button
-                      onClick={() => router.push('/marketplace')}
-                      className="btn-sign-in"
+                      className={`py-2 px-4 ${
+                        activeStrategyTab === 'launch'
+                          ? 'text-[#eaecef] border-b-2 border-[#f0b90b]'
+                          : 'text-gray-400'
+                      }`}
+                      onClick={() => handleStrategyTabClick('launch')}
                     >
-                      All
+                      Launch Strategies
                     </button>
-                  </>
-                )}
-                {activeStrategyTab === 'signal' && (
-                  <>
-                    <h3 className="text-xl font-bold text-white">
+                    <button
+                      className={`py-2 px-4 ${
+                        activeStrategyTab === 'copy'
+                          ? 'text-[#eaecef] border-b-2 border-[#f0b90b]'
+                          : 'text-gray-400'
+                      }`}
+                      onClick={() => handleStrategyTabClick('copy')}
+                    >
+                      Copy Bot
+                    </button>
+                    <button
+                      className={`py-2 px-4 ${
+                        activeStrategyTab === 'signal'
+                          ? 'text-[#eaecef] border-b-2 border-[#f0b90b]'
+                          : 'text-gray-400'
+                      }`}
+                      onClick={() => handleStrategyTabClick('signal')}
+                    >
                       Start Signal Bot
-                    </h3>
-                    <p className="text-gray-300 mb-4">
-                      Signal bot allows flexible use of TradingView
-                      functionality. If you have a TradingView subscription, you
-                      can limit alerts or parts of strategies and eventually use
-                      them in the bot.
-                    </p>
-                    <button
-                      onClick={() => router.push('/signal_bots')}
-                      className="btn-sign-in"
-                    >
-                      Start
                     </button>
-                  </>
-                )}
+                  </div>
+                </div>
+                <div className="flex space-x-8">
+                  <div className="flex-1">
+                    {activeStrategyTab === 'launch' && (
+                      <>
+                        <h3 className="text-xl font-bold text-white">
+                          Launch popular ready-made strategies
+                        </h3>
+                        <p className="text-gray-300 mb-4">
+                          Utilize various trading strategies designed for
+                          different market conditions. A simple and quick way to
+                          start automated trading.
+                        </p>
+                        <div className="flex space-x-4">
+                          <button
+                            onClick={() => router.push('/bots/new')}
+                            className="btn-sign-in"
+                          >
+                            DCA strategies
+                          </button>
+                          <button
+                            onClick={() => router.push('/grid_bots')}
+                            className="btn-sign-in"
+                          >
+                            GRID strategies
+                          </button>
+                        </div>
+                      </>
+                    )}
+                    {activeStrategyTab === 'copy' && (
+                      <>
+                        <h3 className="text-xl font-bold text-white">
+                          Copy DCA Bots using Presets
+                        </h3>
+                        <p className="text-gray-300 mb-4">
+                          Presets are successful bots created by experienced
+                          users.
+                        </p>
+                        <button
+                          onClick={() => router.push('/marketplace')}
+                          className="btn-sign-in"
+                        >
+                          All
+                        </button>
+                      </>
+                    )}
+                    {activeStrategyTab === 'signal' && (
+                      <>
+                        <h3 className="text-xl font-bold text-white">
+                          Start Signal Bot
+                        </h3>
+                        <p className="text-gray-300 mb-4">
+                          Signal bot allows flexible use of TradingView
+                          functionality. If you have a TradingView subscription,
+                          you can limit alerts or parts of strategies and
+                          eventually use them in the bot.
+                        </p>
+                        <button
+                          onClick={() => router.push('/signal_bots')}
+                          className="btn-sign-in"
+                        >
+                          Start
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <Image
+                      src={
+                        activeStrategyTab === 'launch'
+                          ? '/images/launch-strategies.png'
+                          : activeStrategyTab === 'copy'
+                          ? '/images/copy-bot.png'
+                          : '/images/signal-bot.png'
+                      }
+                      alt="Trading Opportunities"
+                      width={450}
+                      height={200}
+                      className="rounded-md shadow-md"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="flex-1">
-                <Image
-                  src={
-                    activeStrategyTab === 'launch'
-                      ? '/images/launch-strategies.png'
-                      : activeStrategyTab === 'copy'
-                      ? '/images/copy-bot.png'
-                      : '/images/signal-bot.png'
-                  }
-                  alt="Trading Opportunities"
-                  width={450}
-                  height={200}
-                  className="rounded-md shadow-md"
-                />
-              </div>
-            </div>
-          </div>
+            </>
+          )}
         </section>
       )}
       {activeTab === 'guide' && (
