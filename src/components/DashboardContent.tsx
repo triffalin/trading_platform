@@ -53,6 +53,8 @@ const DashboardContent: React.FC = () => {
   );
   const [activeStrategyTab, setActiveStrategyTab] = useState('launch');
   const [showAllExchanges, setShowAllExchanges] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [selectedExchange, setSelectedExchange] = useState('');
 
   const hasConnectedPlatforms = false; // Replace with actual condition based on user's connected platforms
 
@@ -67,6 +69,15 @@ const DashboardContent: React.FC = () => {
 
   const handleShowMoreToggle = () => {
     setShowAllExchanges(prev => !prev);
+  };
+
+  const handleConnectClick = (exchangeName: string) => {
+    setSelectedExchange(exchangeName);
+    setIsPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
   };
 
   const widgets: WidgetData[] = [
@@ -358,7 +369,10 @@ const DashboardContent: React.FC = () => {
                           <td className="p-2">{exchange.accountTypes}</td>
                           <td className="p-2">{exchange.instruments}</td>
                           <td className="p-2 flex justify-center items-center space-x-2">
-                            <button className="btn-connect flex items-center space-x-2">
+                            <button
+                              className="btn-connect flex items-center space-x-2"
+                              onClick={() => handleConnectClick(exchange.name)}
+                            >
                               <Image
                                 src="/icons/link2.svg"
                                 alt="Link icon"
@@ -690,6 +704,25 @@ const DashboardContent: React.FC = () => {
             </div>
           </div>
         </section>
+      )}
+
+      {isPopupVisible && (
+        <div className="popup">
+          <div className="popupContent">
+            <button className="closeButton" onClick={handleClosePopup}>
+              &times;
+            </button>
+            <h3>Connect exchange {selectedExchange}</h3>
+            <ol>
+              <li>Click on the &quot;Connect&quot; button</li>
+              <li>Log in to your account on the website {selectedExchange}</li>
+              <li>Confirm your connection to Qtrading</li>
+            </ol>
+            <button className="connectButton">
+              Connect {selectedExchange}
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
