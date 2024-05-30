@@ -17,6 +17,13 @@ interface WidgetData {
   link: string;
 }
 
+interface Exchange {
+  name: string;
+  accountTypes: string;
+  instruments: string;
+  icon: string;
+}
+
 const DashboardWidget: React.FC<WidgetProps> = React.memo(
   ({ title, content, icon, link }) => (
     <div className="widget flex flex-col justify-between">
@@ -54,7 +61,9 @@ const DashboardContent: React.FC = () => {
   const [activeStrategyTab, setActiveStrategyTab] = useState('launch');
   const [showAllExchanges, setShowAllExchanges] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [selectedExchange, setSelectedExchange] = useState('');
+  const [selectedExchange, setSelectedExchange] = useState<Exchange | null>(
+    null
+  );
 
   const hasConnectedPlatforms = false; // Replace with actual condition based on user's connected platforms
 
@@ -71,8 +80,8 @@ const DashboardContent: React.FC = () => {
     setShowAllExchanges(prev => !prev);
   };
 
-  const handleConnectClick = (exchangeName: string) => {
-    setSelectedExchange(exchangeName);
+  const handleConnectClick = (exchange: Exchange) => {
+    setSelectedExchange(exchange);
     setIsPopupVisible(true);
   };
 
@@ -111,7 +120,7 @@ const DashboardContent: React.FC = () => {
     }
   ];
 
-  const exchanges = [
+  const exchanges: Exchange[] = [
     {
       name: 'Binance',
       accountTypes: 'Spot | Futures | Margin',
@@ -371,7 +380,7 @@ const DashboardContent: React.FC = () => {
                           <td className="p-2 flex justify-center items-center space-x-2">
                             <button
                               className="btn-connect flex items-center space-x-2"
-                              onClick={() => handleConnectClick(exchange.name)}
+                              onClick={() => handleConnectClick(exchange)}
                             >
                               <Image
                                 src="/icons/link2.svg"
@@ -706,21 +715,67 @@ const DashboardContent: React.FC = () => {
         </section>
       )}
 
-      {isPopupVisible && (
+      {isPopupVisible && selectedExchange && (
         <div className="popup">
           <div className="popupContent">
             <button className="closeButton" onClick={handleClosePopup}>
               &times;
             </button>
-            <h3>Connect exchange {selectedExchange}</h3>
+            <h3>
+              Connect exchange{' '}
+              <Image
+                src={selectedExchange.icon}
+                alt={selectedExchange.name}
+                width={24}
+                height={24}
+              />{' '}
+              {selectedExchange.name}
+            </h3>
             <ol>
-              <li>Click on the &quot;Connect&quot; button</li>
-              <li>Log in to your account on the website {selectedExchange}</li>
-              <li>Confirm your connection to Qtrading</li>
+              <li>
+                <Image
+                  src="/icons/step1.svg"
+                  alt="Step 1"
+                  width={16}
+                  height={16}
+                />{' '}
+                Click on the &quot;Connect&quot; button
+              </li>
+              <li>
+                <Image
+                  src="/icons/step2.svg"
+                  alt="Step 2"
+                  width={16}
+                  height={16}
+                />{' '}
+                Log in to your account on the website {selectedExchange.name}
+              </li>
+              <li>
+                <Image
+                  src="/icons/step3.svg"
+                  alt="Step 3"
+                  width={16}
+                  height={16}
+                />{' '}
+                Confirm your connection to Qtrading
+              </li>
             </ol>
             <button className="connectButton">
-              Connect {selectedExchange}
+              Connect {selectedExchange.name}
             </button>
+            <Link
+              href="#"
+              className="text-binance-yellow hover:text-hover-yellow"
+            >
+              Don&apos;t have an account? Create a new {selectedExchange.name}{' '}
+              account{' '}
+              <Image
+                src="/icons/external-link.svg"
+                alt="external link"
+                width={16}
+                height={16}
+              />
+            </Link>
           </div>
         </div>
       )}
