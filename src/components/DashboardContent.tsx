@@ -392,7 +392,9 @@ const DashboardContent: React.FC = () => {
                             </button>
                           </td>
                           <td className="p-2">
-                            <button className="btn-sign-in">Create</button>
+                            <Link href="#" className="btn-sign-in">
+                              Create
+                            </Link>
                           </td>
                         </tr>
                       ))}
@@ -721,61 +723,70 @@ const DashboardContent: React.FC = () => {
             <button className="closeButton" onClick={handleClosePopup}>
               &times;
             </button>
-            <h3>
-              Connect exchange{' '}
-              <Image
-                src={selectedExchange.icon}
-                alt={selectedExchange.name}
-                width={24}
-                height={24}
-              />{' '}
-              {selectedExchange.name}
-            </h3>
-            <ol>
-              <li>
+            <div className="flex items-center mb-4">
+              <h3 className="text-lg font-bold flex items-center">
+                <Image
+                  src={selectedExchange.icon}
+                  alt={selectedExchange.name}
+                  width={24}
+                  height={24}
+                  className="mr-2"
+                />
+                Connect exchange {selectedExchange.name}
+              </h3>
+            </div>
+            <ol className="space-y-2 text-gray-300">
+              <li className="flex items-center">
                 <Image
                   src="/icons/step1.svg"
                   alt="Step 1"
                   width={16}
                   height={16}
-                />{' '}
+                  className="mr-2"
+                />
                 Click on the &quot;Connect&quot; button
               </li>
-              <li>
+              <li className="flex items-center">
                 <Image
                   src="/icons/step2.svg"
                   alt="Step 2"
                   width={16}
                   height={16}
-                />{' '}
+                  className="mr-2"
+                />
                 Log in to your account on the website {selectedExchange.name}
               </li>
-              <li>
+              <li className="flex items-center">
                 <Image
                   src="/icons/step3.svg"
                   alt="Step 3"
                   width={16}
                   height={16}
-                />{' '}
+                  className="mr-2"
+                />
                 Confirm your connection to Qtrading
               </li>
             </ol>
-            <button className="connectButton">
-              Connect {selectedExchange.name}
-            </button>
-            <Link
-              href="#"
-              className="text-binance-yellow hover:text-hover-yellow"
-            >
-              Don&apos;t have an account? Create a new {selectedExchange.name}{' '}
-              account{' '}
-              <Image
-                src="/icons/external-link.svg"
-                alt="external link"
-                width={16}
-                height={16}
-              />
-            </Link>
+            <div className="my-4">
+              <button className="connectButton w-full py-2 text-center">
+                Connect {selectedExchange.name}
+              </button>
+            </div>
+            <p className="text-gray-300 flex items-center">
+              Don&apos;t have an account?{' '}
+              <Link
+                href="#"
+                className="text-binance-yellow hover:text-hover-yellow flex items-center ml-1"
+              >
+                Create a new {selectedExchange.name} account{' '}
+                <Image
+                  src="/icons/external-link.svg"
+                  alt="external link"
+                  width={16}
+                  height={16}
+                />
+              </Link>
+            </p>
           </div>
         </div>
       )}
